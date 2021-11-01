@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.greenpayremastered.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+    <activity
+        android:id="@+id/registerActivity"
+        android:name="com.example.greenpayremastered.RegisterActivity"
+        android:label="activity_register"
+        tools:layout="@layout/activity_register" />
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.greenpayremastered.MainFragment"
+        android:label="fragment_main_layout"
+        tools:layout="@layout/fragment_main_layout" >
+        <action
+            android:id="@+id/action_mainFragment_to_registerActivity"
+            app:destination="@id/registerActivity" />
+        <action
+            android:id="@+id/action_mainFragment_to_baerekraftFragment"
+            app:destination="@id/baerekraftFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/baerekraftFragment"
+        android:name="com.example.greenpayremastered.BaerekraftFragment"
+        android:label="fragment_baerekraft"
+        tools:layout="@layout/fragment_baerekraft" />
+</navigation>

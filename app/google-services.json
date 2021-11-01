@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "898503327983",
+    "firebase_url": "https://texss-bf331-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "texss-bf331",
+    "storage_bucket": "texss-bf331.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:898503327983:android:66ba586b04fe85d61f9b1a",
+        "android_client_info": {
+          "package_name": "com.example.greenpayremastered"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "898503327983-ajpnhloiji8l7c5vs9d7o86iqrd6egag.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7l--a-Bu_Eqab0LE_9wDM0pIFgegbtUM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "898503327983-ajpnhloiji8l7c5vs9d7o86iqrd6egag.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
