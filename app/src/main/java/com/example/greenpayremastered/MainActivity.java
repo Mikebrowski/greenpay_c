@@ -33,13 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
-
-
+        //ConstraintLayout constraintLayout = findViewById(R.id.MainActivity);
 /*
-        ConstraintLayout constraintLayout = findViewById(R.id.MainActivity);
-
         AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
         animationDrawable.setEnterFadeDuration(1500);
         animationDrawable.setExitFadeDuration(3000);
@@ -52,13 +47,22 @@ public class MainActivity extends AppCompatActivity {
     // This method will be void and go another object in this case RegisterActivity
     public void goToRegisterActivity()
     {
-        Intent newIntentWindow = new Intent(MainActivity.this,RegisterActivityX.class);
+        Intent newIntentRegWindow = new Intent(MainActivity.this,RegisterActivityX.class);
         //INSERT THE intent ObjectName
-        startActivity(newIntentWindow);
+        startActivity(newIntentRegWindow);
     }
     public void registerWindow (View view)
     {
         goToRegisterActivity();
+    }
+    public void goToLoginActivity()
+    {
+        Intent newIntentLoginWindow = new Intent(MainActivity.this,LoginActivity.class);
+        startActivity(newIntentLoginWindow);
+    }
+    public void loginActivity(View view)
+    {
+        goToLoginActivity();
     }
 
 }
