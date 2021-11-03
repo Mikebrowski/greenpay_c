@@ -1,53 +1,50 @@
 package com.example.greenpayremastered;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
-//import fragments;
+
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+import android.widget.Button;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-
-/*
-private FirebaseDatabase firebaseDatabase;
-private DatabaseReference databaseReference;
-private static ArrayList<DBHelper> arrayList  = new ArrayList<>();
-private RecyclerView list;
-private Button btnCreate;
-public static Activity Fa;
-*/
 
 public class MainActivity extends AppCompatActivity {
+
+
+    /*GUI*/
+    private Button regButton;
+    private Button loginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        regButton=(Button)findViewById(R.id.regButton);
+        loginButton=(Button)findViewById(R.id.insideLoginBtn);
 
+        regButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newIntentRegWindow = new Intent(MainActivity.this, RegisterActivityScreen.class);
+                startActivity(newIntentRegWindow);
+            }
+        });
 
-        //ConstraintLayout constraintLayout = findViewById(R.id.MainActivity);
-/*
-        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(1500);
-        animationDrawable.setExitFadeDuration(3000);
-        animationDrawable.start();
-*/
-        //MainFragment
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newIntentLoginWindow = new Intent(MainActivity.this,LoginActivity.class);
+                startActivity(newIntentLoginWindow);
+            }
+        });
 
     }
     // In order to move from one window to another you have to use Intents. These are objects that are used for tranferring
     // This method will be void and go another object in this case RegisterActivity
     public void goToRegisterActivity()
     {
-        Intent newIntentRegWindow = new Intent(MainActivity.this,RegisterActivityX.class);
+        Intent newIntentRegWindow = new Intent(MainActivity.this, RegisterActivityScreen.class);
         //INSERT THE intent ObjectName
         startActivity(newIntentRegWindow);
     }
@@ -64,5 +61,4 @@ public class MainActivity extends AppCompatActivity {
     {
         goToLoginActivity();
     }
-
 }

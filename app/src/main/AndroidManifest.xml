@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GreenPayRemastered">
         <activity
-            android:name=".RegisterActivityX"
+            android:name=".RegisterActivityScreen"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"

@@ -9,7 +9,7 @@
         android:id="@+id/textView2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#90C158"
+        android:background="#34A853"
         android:fontFamily="@font/aldrich"
         android:onClick="btnRegisterClick"
         android:soundEffectsEnabled="false"
@@ -56,7 +56,7 @@
         android:layout_width="match_parent"
 
         android:layout_height="wrap_content"
-        android:background="#90C158"
+        android:background="#34A853"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -73,7 +73,7 @@
         app:layout_constraintTop_toBottomOf="@+id/gifAnimation">
 
         <Button
-            android:id="@+id/loginButton"
+            android:id="@+id/insideLoginBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
@@ -85,7 +85,7 @@
             android:textSize="20dp"
             app:icon="@drawable/ic_baseline_login_24"
             app:layout_column="0"
-            app:layout_row="0"
+            app:layout_row="1"
             tools:layout_editor_absoluteX="90dp"
             tools:layout_editor_absoluteY="696dp" />
 

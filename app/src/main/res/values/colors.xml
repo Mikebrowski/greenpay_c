@@ -23,4 +23,6 @@
     <color name="dark_blue_shade_2">#17388E</color>
     <color name="light_blue_shade">#12B2E6</color>
     <color name="mtrl_textinput_default_box_stroke_color">#296D98</color>
+    <color name="blue">#311B92</color>
+    <color name="gifbackground">#1a2561</color>
 </resources>
