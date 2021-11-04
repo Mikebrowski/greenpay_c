@@ -33,6 +33,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/gridLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:columnCount="3"
@@ -54,75 +55,50 @@
 
     </androidx.gridlayout.widget.GridLayout>
 
-    <Button
-        android:id="@+id/insideLoginBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:layout_marginBottom="80dp"
-        android:backgroundTint="#B08249"
-        android:drawableTop="@drawable/ic_baseline_login_24"
-        android:text="Login"
-        android:textColor="#00FFFF"
-        android:textSize="20sp"
-        app:icon="@drawable/ic_baseline_login_24"
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/toolbar2"
-        tools:layout_editor_absoluteX="-16dp" />
-
-    <EditText
-        android:id="@+id/editTextTextPassword2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="56dp"
-        android:layout_marginBottom="16dp"
-        android:ems="10"
-        android:hint="Skriv epost her..."
-        android:inputType="textPassword"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextEmailAddress2"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <EditText
-        android:id="@+id/editTextTextEmailAddress2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="56dp"
-        android:layout_marginBottom="32dp"
-        android:ems="10"
-        android:hint="Skriv passored ditt..."
-        android:inputType="textEmailAddress"
-        android:minHeight="48dp"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/insideLoginBtn"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="10dp"
-        android:drawableStart="@drawable/ic_baseline_how_to_reg_24"
-        android:text="Passord"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/editTextTextEmailAddress2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/gridLayout"
+        app:layout_constraintVertical_bias="0.0">
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="104dp"
-        android:drawableStart="@drawable/ic_baseline_email_24"
-        android:text="Epost"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/insideLoginBtn"
-        app:layout_constraintEnd_toStartOf="@+id/editTextTextPassword2"
-        app:layout_constraintStart_toStartOf="parent" />
+        <EditText
+            android:id="@+id/inputEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:hint="Skriv eposten din...."
+            android:inputType="textEmailAddress"
+            android:textSize="25sp" />
+
+        <EditText
+            android:id="@+id/inputPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ems="10"
+            android:hint="Skriv passored ditt.."
+            android:inputType="textPassword"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/insideLoginBtn"
+            android:layout_width="290dp"
+            android:layout_height="97dp"
+
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#B08249"
+            android:drawableTop="@drawable/ic_baseline_login_24"
+            android:text="Login"
+            android:textColor="#00FFFF"
+            android:textSize="20sp"
+            app:icon="@drawable/ic_baseline_login_24" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

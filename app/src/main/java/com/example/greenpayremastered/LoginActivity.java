@@ -1,32 +1,94 @@
 package com.example.greenpayremastered;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.auth.User;
+
+import database.UserData;
+
 
 public class LoginActivity extends AppCompatActivity {
 
     private Button insideLoginBtn;
+    private EditText inputEmail;
+    private EditText inputPassword;
+
+
+    /*DB and ADAPTER*/
+    //UserData userData= new UserData();
+    private FirebaseAuth mAuth;
+    //private DatabaseReference myRef;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseDatabase mFirebaseDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
-        insideLoginBtn=findViewById(R.id.insideLoginBtn);
+
+
+        inputEmail= (EditText) findViewById(R.id.inputEmail);
+        inputPassword= (EditText) findViewById(R.id.inputPassword);
+
+        mAuth = FirebaseAuth.getInstance();
+        //myRef = mFirebaseDatabase.getReference().child("UserData");
+
+        insideLoginBtn=(Button) findViewById(R.id.insideLoginBtn);
+
+        /*SELECT username FROM epost WHERE '@inputfield'='@dbvalue'*/
 
         insideLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent newIntentInsideLogin = new Intent(LoginActivity.this,LoginActivityScreen.class);
-                startActivity(newIntentInsideLogin);
+                loginUser();
             }
         });
 
+    }
+
+
+    private void loginUser(){
+        String emailString = inputEmail.getText().toString();//ALTERNATIVE CHECK IF matches(emailPattern)
+        String passwordCheck = inputPassword.getText().toString(); //String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z.]+";
+
+        if(TextUtils.isEmpty(emailString)  && Patterns.EMAIL_ADDRESS.matcher(emailString).matches())
+        {
+            inputEmail.setError("Epost kan ikke være blank og riktig skrevet");
+            inputPassword.requestFocus();
+        } else if(TextUtils.isEmpty(passwordCheck) ){
+            inputPassword.setError("Passord feltet må skrevet");
+            inputPassword.requestFocus();
+        }else {
+            mAuth.signInWithEmailAndPassword(emailString,passwordCheck).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(task.isSuccessful()){
+                        Toast.makeText(LoginActivity.this,"Logget velykkende med følgende: "+inputEmail,Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(LoginActivity.this, LoginActivityScreen.class));
+                    }
+
+                }
+            });
+        }
 
     }
+
 
 }

@@ -1,16 +1,21 @@
 package com.example.greenpayremastered;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -55,9 +60,9 @@ public class RegisterActivityScreen extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validateEmailAdresse(txtEmailAddress,txtPassword);
+                //validateEmailAdresse(txtEmailAddress,txtPassword);
+                createUser();
             }
-
         });
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +75,39 @@ public class RegisterActivityScreen extends AppCompatActivity {
 
 
         }//end of onCreate
+
+        private void createUser()
+        {
+            /*THIS METHOD IS REQUIRED WITH LOG IN HOW DO I add the USERDATA?*/
+            String emailString = txtEmailAddress.getText().toString();//ALTERNATIVE CHECK IF matches(emailPattern)
+            String passwordCheck = txtPassword.getText().toString(); //String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z.]+";
+
+            if(TextUtils.isEmpty(emailString)  && Patterns.EMAIL_ADDRESS.matcher(emailString).matches())
+            {
+                txtEmailAddress.setError("Epost kan ikke være blank og riktig skrevet");
+                txtEmailAddress.requestFocus();
+            } else if(TextUtils.isEmpty(passwordCheck) ){
+                txtPassword.setError("Passord feltet må være fult");
+                txtPassword.requestFocus();
+            }else{
+                mAuth.createUserWithEmailAndPassword(emailString,passwordCheck).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(RegisterActivityScreen.this,"Brukeren laget "+txtEmailAddress.getText().toString(),Toast.LENGTH_LONG).show();
+                            Intent loggedInside = new Intent(RegisterActivityScreen.this,LoginActivityScreen.class);
+                            startActivity(loggedInside);
+                        }
+                        else{
+                            Toast.makeText(RegisterActivityScreen.this,"Ugyldig epost eller passord", Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                });
+
+            }
+
+        }
 
 
         private boolean validateEmailAdresse(EditText txtEmailAddress, EditText txtPassword)
@@ -87,7 +125,7 @@ public class RegisterActivityScreen extends AppCompatActivity {
                  Toast.makeText(this,"Brukeren laget "+txtEmailAddress.getText().toString(),Toast.LENGTH_LONG).show();
                  return true;
              }else {
-                 Toast.makeText(this,"Ugyldig epost", Toast.LENGTH_LONG).show();
+                 Toast.makeText(this,"Ugyldig epost eller passord", Toast.LENGTH_LONG).show();
                  return false;
              }//end else
 

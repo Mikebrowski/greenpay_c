@@ -1,43 +1,76 @@
 package com.example.greenpayremastered;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.auth.FirebaseUser;
 
-import database.UserData;
 
 public class LoginActivityScreen extends AppCompatActivity {
+    FirebaseAuth mAuth;
+    private Button logoutBtn;
+    private TextView loginText;
+    private Button firstButton;
+    private Button secondButton;
 
 
-    //private EditText editTextTextPassword2;
-/*
-    private FirebaseDatabase mFirebaseDatabase;
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
-    private FirebaseAuth firebaseAuth;
-    private DatabaseReference myRef;
-
-*/
-    //GUI
-
-    //private ProgressBar loadingPB;
-    /*
-    UserData userData = new UserData();
-    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loggetscreen);
 
-        //myRef =mFirebaseDatabase.getReference().child("UserData");
+        logoutBtn = (Button) findViewById(R.id.logoutBtn);
+        loginText = (TextView) findViewById(R.id.loggedInTextview);
+        firstButton = (Button) findViewById(R.id.firstButton);
+        secondButton = (Button) findViewById(R.id.secondButton);
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
 
-        }//end of onCreate
+        firstButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = user.getEmail();
+                String userName= user.getDisplayName();
+                loginText.setText("hi " + userName);
+            }
+        });
 
 
+        secondButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginText.setText("I HAVE CHANGED INTO " + mAuth.getCurrentUser().getEmail());
+                firstButton.setText(mAuth.getCurrentUser().getEmail());
+            }
+        });
 
+
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                startActivity(new Intent(LoginActivityScreen.this, MainActivity.class));
+            }
+        });
+
+    }//end of onCreate
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user == null) {
+            //Intent loggedInside = new Intent(LoginActivity.this,LoginActivityScreen.class);
+            startActivity(new Intent(LoginActivityScreen.this, LoginActivity.class));
+            //startActivity(loggedInside);
+
+        }
+    }
 }
