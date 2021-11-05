@@ -1,15 +1,0 @@
-
-L
-java:S1656"/Remove or correct this useless self-assignment.(÷ã´½8˜á¸Ì/
-Q
-java:S1656
-"/Remove or correct this useless self-assignment.(ÍùÅ‡øÿÿÿÿ8™á¸Ì/
-l
-java:S1104"QMake email a static final constant or non-public and provide accessors if needed.(¾Æ†Ëıÿÿÿÿ
-o
-java:S1104"TMake password a static final constant or non-public and provide accessors if needed.(¼şòüÿÿÿÿ
-…
-java:S4165
-"cRemove this useless assignment; "email" already holds the assigned value along all execution paths.(ÍùÅ‡øÿÿÿÿ8¯á¸Ì/
-ƒ
-java:S4165"fRemove this useless assignment; "password" already holds the assigned value along all execution paths.(÷ã´½8¯á¸Ì/
