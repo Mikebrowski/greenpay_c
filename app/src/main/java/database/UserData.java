@@ -2,21 +2,25 @@ package database;
 
 public class UserData {
 
-    public String email;
-    public String password;
-    public String username;
-
-
-    public String phone;
-    //CALCULATE SHOULD ALWAYS BE INT AND STRING SHOULD ALWAYS BE INPUT
-
+    private String email;
+    private String username;
+    private String profilePicture;
 
     public UserData() {
     }
 
-    public UserData(String emailString, String usernamecheck) {
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
+    public UserData(String emailString, String usernamecheck, String profilePicture) {
         this.email = emailString;
         this.username = usernamecheck;
+        this.profilePicture= profilePicture;
     }
 
     public void setEmail(String email) {
@@ -34,10 +38,6 @@ public class UserData {
 
     public String getUsername() {
         return username;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
 }//end of UserProData

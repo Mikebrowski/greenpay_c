@@ -46,8 +46,8 @@ public class LoginActivity extends AppCompatActivity {
 
         inputEmail= (EditText) findViewById(R.id.inputEmail);
         inputPassword= (EditText) findViewById(R.id.inputPassword);
-        progressBar = (ProgressBar)findViewById(R.id.loginProgressBar);
-        progressBar.setVisibility(View.VISIBLE);
+        progressBar = (ProgressBar)findViewById(R.id.progressBarBot);
+        progressBar.setVisibility(View.GONE);
 
 
 
@@ -85,9 +85,9 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
-                        Toast.makeText(LoginActivity.this,"Logget velykkende med følgende: "+inputEmail,Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this,"Logget velykkende med følgende: "+inputEmail.toString(),Toast.LENGTH_LONG).show();
                         startActivity(new Intent(LoginActivity.this, LoginActivityScreen.class));
-                        progressBar.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.VISIBLE);
                     }
 
                 }

@@ -99,10 +99,11 @@
             app:icon="@drawable/ic_baseline_login_24" />
 
         <ProgressBar
-            android:id="@+id/loginProgressBar"
-            style="?android:attr/progressBarStyleHorizontal"
+            android:id="@+id/progressBarBot"
+            style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
-            android:layout_height="50dp" />
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
 
 
