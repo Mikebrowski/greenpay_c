@@ -2,21 +2,19 @@ package com.example.greenpayremastered;
 
 
 
-import static java.util.List.*;
-
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,11 +29,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.IntStream;
 
-import Adapter.Initiatives;
+import adapter.Initiatives;
 import database.UserData;
+import fragment.FirstFragment;
+import fragment.SecondFragment;
 
 
 public class LoginActivityScreen extends AppCompatActivity implements RecycleAdapter.IniClickInterface {
@@ -58,6 +56,11 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loggetscreen);
+
+        FirstFragment frag1 = new FirstFragment();
+        SecondFragment frag2 = new SecondFragment();
+
+        //getSupportFragmentManager().beginTransaction().replace()
 
         recyclerView = (RecyclerView) findViewById(R.id.recycle_view);
 
@@ -108,17 +111,24 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
                 return true;
             }
         });
-
             recycleViewPopulate();
-
-
-
-
 
         secondButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loginText.setText("I HAVE CHANGED INTO " + mAuth.getCurrentUser().getEmail());
+
+                /*
+
+                FrameLayout layoutFromFrag = new FrameLayout(this);
+                layoutFromFrag.setId(R.id.layout);
+                layoutFromFrag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT));
+                setContentView(layoutFromFrag);
+
+                getSupportFragmentManager().beginTransaction().add(R.id.layout,new profile_fragment()).commit();
+
+                 */
+
                 firstButton.setText(mAuth.getCurrentUser().getEmail());
             }
         });

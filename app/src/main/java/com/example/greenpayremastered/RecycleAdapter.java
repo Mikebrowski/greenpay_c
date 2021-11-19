@@ -14,11 +14,9 @@ import androidx.annotation.NonNull;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
-import Adapter.Initiatives;
+import adapter.Initiatives;
 
 
 public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.InitiativesHolder> implements Filterable {
