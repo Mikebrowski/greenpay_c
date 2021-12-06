@@ -1,14 +1,26 @@
 package com.example.greenpayremastered;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.icu.text.NumberFormat;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import adapter.PointsData;
+import database.UserData;
 
 public class InitiativesInfo extends AppCompatActivity {
 
@@ -19,25 +31,37 @@ public class InitiativesInfo extends AppCompatActivity {
     TextView textView12x;
     TextView textView13x;
 
+    TextView userNameField;
+
     Button addPlusBtn;
     Button deductMinusBtn;
     Button addToValue;
 
+    FirebaseDatabase mFirebaseDatabase;
+    FirebaseAuth mAuth;
+    FirebaseAuth.AuthStateListener mAuthListener;
+    DatabaseReference mDatabase;
+
+
+    String userID;
+
     int counter = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initiatives_info);
 
-        imgFromIni= findViewById(R.id.imgCircled);
+        imgFromIni = findViewById(R.id.imgCircled);
         txtFromIni = findViewById(R.id.txtIniInfo);
-        txtPointsFromIni= findViewById(R.id.txtPointsIni);
+        txtPointsFromIni = findViewById(R.id.txtPointsIni);
         showTotalValue = findViewById(R.id.totalValue);
         //textView12x = findViewById(R.id.textView12);
+        userNameField = findViewById(R.id.loginText);
+
+
         textView13x = findViewById(R.id.textView13);
-
-
 
         addPlusBtn = findViewById(R.id.plusBtn);
         deductMinusBtn = findViewById(R.id.minusBtn);
@@ -45,10 +69,21 @@ public class InitiativesInfo extends AppCompatActivity {
 
         Intent intent = getIntent();
 
+        mAuth = FirebaseAuth.getInstance();
 
-        imgFromIni.setImageResource(intent.getIntExtra("image",R.drawable.ic_launcher_foreground));
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        //mFirebaseDatabase = FirebaseDatabase.getInstance();
+        //myRef = mFirebaseDatabase.getReference();
+
+        FirebaseUser user = mAuth.getCurrentUser();
+        userID = user.getUid();
+
+        imgFromIni.setImageResource(intent.getIntExtra("image", R.drawable.ic_launcher_foreground));
         txtFromIni.setText(intent.getStringExtra("name"));
         txtPointsFromIni.setText(intent.getStringExtra("points"));
+        userNameField.setText(intent.getStringExtra("username"));
+        //HENT BRUKERNAVNET
+
 
         // REMEMBER TO DO TOTAL SUM TIMES points AKA that is the nummber so if the user presses it 5 times it will be 5 x 20 = 100
 
@@ -69,22 +104,27 @@ public class InitiativesInfo extends AppCompatActivity {
         addToValue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 seeTotalPoints();
             }
         });
     }
 
     private void seeTotalPoints() {
-        int pointsFromR2 = Integer.valueOf(showTotalValue.getText().toString());
         String correctPointFormat = txtPointsFromIni.getText().toString();
         String correct = correctPointFormat.split(" ")[0];
         int num = Integer.parseInt(correct);
 
-        int calculatedValue = Integer.valueOf(pointsFromR2*num);
+        String s = showTotalValue.getText().toString();
+        if (s.toLowerCase().startsWith("t")){
+            s = "1";
+        }
+        int pointsFromR2 = Integer.valueOf(s);
+        int calculatedValue = Integer.valueOf(pointsFromR2 * num);
 
-        textView13x.setText(String.valueOf(calculatedValue)+ " Totalt poeng");
+        textView13x.setText(String.valueOf(calculatedValue));
+        addToDatabase(calculatedValue);
     }
-
 
     private void addNumber() {
         counter++;
@@ -96,6 +136,58 @@ public class InitiativesInfo extends AppCompatActivity {
         showTotalValue.setText(Integer.toString(counter));
     }
 
+    private void addToDatabase(int calculatedValue) {
+
+        mAuth = FirebaseAuth.getInstance();
+
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        //userNameField.setText(user.getUid());
+        //userNameField.setText(user.getEmail());
+        //userNameField.setText(user.getUid()); GIR EN ANNEN ID EN FORVENTET
 
 
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference uidRef = rootRef.child("user").child(uid);
+
+        ValueEventListener valueEventListener = new ValueEventListener() {
+
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String usernameOnProfile = snapshot.getValue(UserData.class).getUsername();
+                userNameField.setText(usernameOnProfile);
+                addIntoDB(calculatedValue, snapshot.getValue(UserData.class).getUsername());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                userNameField.setText("NOPE");
+            }
+        };
+        uidRef.addValueEventListener(valueEventListener);
+
+
+    }
+
+    public Task<Void> addIntoDB(Integer totalpoints, String username) {
+
+        //DatabaseReference uidRef = rootRef.child("user");
+        mAuth = FirebaseAuth.getInstance();
+
+        PointsData pointsData = new PointsData(totalpoints, username);
+        //mFirebaseDatabase.getInstance().getReference("pointsData");
+
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = db.getReference(PointsData.class.getSimpleName());
+
+
+        //FirebaseDatabase.getInstance().getReference("user/" + FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(new UserData(email,username, "")).addOnCompleteListener(new OnCompleteListener<Void>() {
+        //
+
+        //DatabaseReference databaseReference = db.getReference(PointsData.class.getSimpleName());
+
+        return databaseReference.push().setValue(new PointsData(totalpoints,username));
+    }
 }

@@ -1,7 +1,6 @@
 package com.example.greenpayremastered;
 
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -29,7 +28,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import adapter.InitiativeData;
 import adapter.Initiatives;
 import database.UserData;
 import fragment.FirstFragment;
@@ -38,19 +39,25 @@ import fragment.SecondFragment;
 
 public class LoginActivityScreen extends AppCompatActivity implements RecycleAdapter.IniClickInterface {
 
-    FirebaseAuth mAuth;
-    RecyclerView recyclerView;
-    ArrayList<Initiatives> initiatives;
+    private FirebaseAuth mAuth;
+    private RecyclerView recyclerView;
+
+
+    private ArrayList<Initiatives> initiatives = new ArrayList<>();
+    //List<Initiatives> initiativesList = new ArrayList<>();
+    private List<InitiativeData> initiativesDatList = new ArrayList<>();
+
+    private RecycleAdapter recycleAdapter = new RecycleAdapter(initiatives, this, this, initiativesDatList);
 
     private SearchView searchArea;
     private Button logoutBtn;
     private TextView loginText;
     private Button firstButton;
     private Button secondButton;
-    private RecyclerView recycleViewClass;
+
     private DatabaseReference mDatabase;
 
-    UserData userData = new UserData();
+    //UserData userData = new UserData();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +79,11 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
+
+        recycleViewPopulate();
+        setListData();
+
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         firstButton.setOnClickListener(new View.OnClickListener() {
@@ -101,17 +113,20 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
         searchArea.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                //RecycleAdapter.getFilter
+
+                String search = newText;
+                recycleAdapter.getFilter().filter(newText);
                 //filter(newText);
-                return true;
+                return false;
             }
         });
-            recycleViewPopulate();
+
 
         secondButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,14 +134,11 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
                 loginText.setText("I HAVE CHANGED INTO " + mAuth.getCurrentUser().getEmail());
 
                 /*
-
                 FrameLayout layoutFromFrag = new FrameLayout(this);
                 layoutFromFrag.setId(R.id.layout);
                 layoutFromFrag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT));
                 setContentView(layoutFromFrag);
-
                 getSupportFragmentManager().beginTransaction().add(R.id.layout,new profile_fragment()).commit();
-
                  */
 
                 firstButton.setText(mAuth.getCurrentUser().getEmail());
@@ -144,7 +156,6 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
 
 
     }//end of onCreate
-
 
 
     private void showUserName(DataSnapshot dataSnapshot) {
@@ -170,39 +181,53 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
             startActivity(new Intent(LoginActivityScreen.this, LoginActivity.class));
         }
     }
-    public void recycleViewPopulate(){
-        //GRAB DATA HERE
-        initiatives = new ArrayList<>();
 
-        initiatives.add((new Initiatives("Gikk til jobben A", R.drawable.mal2, "25 poeng ")));
-        initiatives.add(new Initiatives("BBB til jobben B", R.drawable.mal33, "20 poeng "));
+
+    /*METHODS TO DO STUFF*/
+
+    public void setListData() {
+//        initiativesDatList = new ArrayList<InitiativeData>();
+
+
+        //RecycleAdapter recycleAdapter = new RecycleAdapter(initiatives, this, this, initiativesDatList);
+        initiativesDatList.add(new InitiativeData("Gikk til jobben A", "20"));
+        initiativesDatList.add(new InitiativeData("Gjenbrukte gamle klær", "25"));
+        initiativesDatList.add(new InitiativeData("Brukte sykkel til jobben", "10"));
+        initiativesDatList.add(new InitiativeData("Tok med mat til jobben", "15"));
+        initiativesDatList.add(new InitiativeData("Brukte sykkel til jobben", "20"));
+        initiativesDatList.add(new InitiativeData("Kjøpte mat fra lokal bedrift", "5"));
+
+    }
+
+
+    public void recycleViewPopulate() {
+        //GRAB DATA HERE
+//        initiatives = new ArrayList<>();
+
+        initiatives.add((new Initiatives("Gikk til jobben", R.drawable.mal2, "25 poeng ")));
+        initiatives.add(new Initiatives("Gjenbrukte gamle klær", R.drawable.mal33, "20 poeng "));
         initiatives.add(new Initiatives("Brukte sykkel til jobben", R.drawable.mal3, "20 poeng "));
         initiatives.add(new Initiatives("Kjøpte mat fra lokal bedrift", R.drawable.mal1, "10 poeng "));
         initiatives.add(new Initiatives("Tok med mat til jobben", R.drawable.planet, "15 poeng "));
         initiatives.add(new Initiatives("Brukte sykkel til jobben", R.drawable.mal3, "20 poeng "));
         initiatives.add(new Initiatives("Kjøpte mat fra lokal bedrift", R.drawable.mal2, "5 poeng "));
-
-
-        RecycleAdapter recycleAdapter = new RecycleAdapter(initiatives, this, this);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(recycleAdapter);
 
-
         /*TEST FOR STORRE MENGDE PÅ RESYCLEVIEW KANSKJE SETTE OPP EN FOR EACHITEM .ADD ? //initiatives.forEach();
         ELLER //While(initiatives.add(new Initiatives("",getImage()))); ALTERNATIVE er også for(Map.Entry.setText) */
-
         //link stream into 2 lists
 
     }//End of recycleViewPopulate
 
     @Override
     public void onItemClick(int positionOfTheIni) {
-        Toast.makeText(this, "Clicked: "+initiatives.get(positionOfTheIni).getName(), Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this,InitiativesInfo.class);
-        intent.putExtra("image",initiatives.get(positionOfTheIni).getImage());
-        intent.putExtra("name",initiatives.get(positionOfTheIni).getName());
-        intent.putExtra("points",initiatives.get(positionOfTheIni).getPoints());
+        Toast.makeText(this, "Clicked: " + initiatives.get(positionOfTheIni).getName(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, InitiativesInfo.class);
+        intent.putExtra("image", initiatives.get(positionOfTheIni).getImage());
+        intent.putExtra("name", initiatives.get(positionOfTheIni).getName());
+        intent.putExtra("points", initiatives.get(positionOfTheIni).getPoints());
         startActivity(intent);
     }
 
@@ -219,10 +244,6 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
         RecycleAdapter.filterList(filteredList);
     }
 */
-
-
-
-
 
 
 }//end of app

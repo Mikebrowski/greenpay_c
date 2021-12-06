@@ -43,6 +43,7 @@
         android:layout_marginTop="3dp"
         android:text="Created by knowit"
         android:textAlignment="center"
+        android:textColor="#000000"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

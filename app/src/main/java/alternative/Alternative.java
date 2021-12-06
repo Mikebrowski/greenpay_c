@@ -1,4 +1,4 @@
-package com.example.greenpayremastered;
+package alternative;
 
 import android.util.Patterns;
 import android.widget.EditText;
