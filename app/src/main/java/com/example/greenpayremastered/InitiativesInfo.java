@@ -19,6 +19,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.util.Calendar;
+
 import adapter.PointsData;
 import database.UserData;
 
@@ -44,6 +47,9 @@ public class InitiativesInfo extends AppCompatActivity {
 
 
     String userID;
+    String initiativeName;
+    String currentDateS;
+
 
     int counter = 0;
 
@@ -57,10 +63,7 @@ public class InitiativesInfo extends AppCompatActivity {
         txtFromIni = findViewById(R.id.txtIniInfo);
         txtPointsFromIni = findViewById(R.id.txtPointsIni);
         showTotalValue = findViewById(R.id.totalValue);
-        //textView12x = findViewById(R.id.textView12);
         userNameField = findViewById(R.id.loginText);
-
-
         textView13x = findViewById(R.id.textView13);
 
         addPlusBtn = findViewById(R.id.plusBtn);
@@ -72,8 +75,6 @@ public class InitiativesInfo extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        //mFirebaseDatabase = FirebaseDatabase.getInstance();
-        //myRef = mFirebaseDatabase.getReference();
 
         FirebaseUser user = mAuth.getCurrentUser();
         userID = user.getUid();
@@ -82,15 +83,17 @@ public class InitiativesInfo extends AppCompatActivity {
         txtFromIni.setText(intent.getStringExtra("name"));
         txtPointsFromIni.setText(intent.getStringExtra("points"));
         userNameField.setText(intent.getStringExtra("username"));
+
+        showTotalValue.setVisibility(View.GONE);
+        textView13x.setVisibility(View.GONE);
         //HENT BRUKERNAVNET
-
-
         // REMEMBER TO DO TOTAL SUM TIMES points AKA that is the nummber so if the user presses it 5 times it will be 5 x 20 = 100
-
 
         addPlusBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showTotalValue.setVisibility(View.VISIBLE);
+                textView13x.setVisibility(View.VISIBLE);
                 addNumber();
             }
         });
@@ -98,6 +101,8 @@ public class InitiativesInfo extends AppCompatActivity {
         deductMinusBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showTotalValue.setVisibility(View.VISIBLE);
+                textView13x.setVisibility(View.VISIBLE);
                 deductNumber();
             }
         });
@@ -105,8 +110,7 @@ public class InitiativesInfo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                seeTotalPoints();
-            }
+                seeTotalPoints(); }
         });
     }
 
@@ -137,28 +141,24 @@ public class InitiativesInfo extends AppCompatActivity {
     }
 
     private void addToDatabase(int calculatedValue) {
-
         mAuth = FirebaseAuth.getInstance();
-
         FirebaseUser user = mAuth.getCurrentUser();
 
-        //userNameField.setText(user.getUid());
-        //userNameField.setText(user.getEmail());
+        initiativeName = txtFromIni.getText().toString();
+        Calendar calendar = Calendar.getInstance();
+        String currentDateS = DateFormat.getDateInstance(DateFormat.DEFAULT).format(calendar.getTime());
         //userNameField.setText(user.getUid()); GIR EN ANNEN ID EN FORVENTET
-
 
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference uidRef = rootRef.child("user").child(uid);
-
-        ValueEventListener valueEventListener = new ValueEventListener() {
-
-
+        ValueEventListener valueEventListener = new ValueEventListener()
+        {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String usernameOnProfile = snapshot.getValue(UserData.class).getUsername();
-                userNameField.setText(usernameOnProfile);
-                addIntoDB(calculatedValue, snapshot.getValue(UserData.class).getUsername());
+                //userNameField.setText(usernameOnProfile);
+                addIntoDB(calculatedValue, snapshot.getValue(UserData.class).getUsername(),initiativeName,currentDateS);
             }
 
             @Override
@@ -167,27 +167,25 @@ public class InitiativesInfo extends AppCompatActivity {
             }
         };
         uidRef.addValueEventListener(valueEventListener);
-
-
     }
 
-    public Task<Void> addIntoDB(Integer totalpoints, String username) {
+    public Task<Void> addIntoDB(Integer totalpoints, String username, String initiativeName,String currentDateS) {
 
         //DatabaseReference uidRef = rootRef.child("user");
-        mAuth = FirebaseAuth.getInstance();
-
-        PointsData pointsData = new PointsData(totalpoints, username);
         //mFirebaseDatabase.getInstance().getReference("pointsData");
+
+        mAuth = FirebaseAuth.getInstance();
+        PointsData pointsData = new PointsData(totalpoints,username,initiativeName,currentDateS);
+        currentDateM();
 
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = db.getReference(PointsData.class.getSimpleName());
 
-
-        //FirebaseDatabase.getInstance().getReference("user/" + FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(new UserData(email,username, "")).addOnCompleteListener(new OnCompleteListener<Void>() {
-        //
-
-        //DatabaseReference databaseReference = db.getReference(PointsData.class.getSimpleName());
-
-        return databaseReference.push().setValue(new PointsData(totalpoints,username));
+        return databaseReference.push().setValue(new PointsData(totalpoints,username,initiativeName,currentDateS));
+    }
+    public void currentDateM(){
+        Calendar calendar = Calendar.getInstance();
+        String currentDate = DateFormat.getDateInstance(DateFormat.SHORT).format(calendar.getTime());
+        userNameField.setText(currentDate);
     }
 }

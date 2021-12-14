@@ -1,9 +1,9 @@
 package com.example.greenpayremastered;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -14,11 +14,20 @@ import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.greenpayremastered.ui.home.HomeFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -34,7 +43,9 @@ import adapter.InitiativeData;
 import adapter.Initiatives;
 import database.UserData;
 import fragment.FirstFragment;
+import fragment.HighScoreFragment;
 import fragment.SecondFragment;
+import futureUpdate.profile_fragment;
 
 
 public class LoginActivityScreen extends AppCompatActivity implements RecycleAdapter.IniClickInterface {
@@ -44,7 +55,6 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
 
 
     private ArrayList<Initiatives> initiatives = new ArrayList<>();
-    //List<Initiatives> initiativesList = new ArrayList<>();
     private List<InitiativeData> initiativesDatList = new ArrayList<>();
 
     private RecycleAdapter recycleAdapter = new RecycleAdapter(initiatives, this, this, initiativesDatList);
@@ -54,10 +64,11 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
     private TextView loginText;
     private Button firstButton;
     private Button secondButton;
-
+    //private View bottomNavigation;
+    private BottomNavigationView bottomNavigationView;
     private DatabaseReference mDatabase;
-
-    //UserData userData = new UserData();
+    ActionBar actionBar;
+    BottomNavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,23 +76,65 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
         setContentView(R.layout.loggetscreen);
 
         FirstFragment frag1 = new FirstFragment();
-        SecondFragment frag2 = new SecondFragment();
-
-        //getSupportFragmentManager().beginTransaction().replace()
 
         recyclerView = (RecyclerView) findViewById(R.id.recycle_view);
-
         searchArea = (SearchView) findViewById(R.id.searchI);
         logoutBtn = (Button) findViewById(R.id.logoutBtn);
         loginText = (TextView) findViewById(R.id.loggedInTextview);
         firstButton = (Button) findViewById(R.id.firstButton);
         secondButton = (Button) findViewById(R.id.secondButton);
 
+        actionBar = getSupportActionBar();
+        actionBar.setTitle("Iniativer");
+
+        BottomNavigationView.OnNavigationItemSelectedListener selectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+
+                    case R.id.firstFragment:
+                        actionBar.setTitle("Dashboaret");
+                        FirstFragment frag1 = new FirstFragment();
+                        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.fragmentContainerView2, frag1);
+                        fragmentTransaction.commit();
+                        return true;
+
+                    case R.id.secondFragment:
+                        actionBar.setTitle("Profil");
+                        SecondFragment frag2 = new SecondFragment();
+                        FragmentTransaction fragmentTransaction1 = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction1.replace(R.id.fragmentContainerView2, frag2);
+                        fragmentTransaction1.commit();
+                        return true;
+
+                    case R.id.highScoreFragment:
+                        actionBar.setTitle("High Score");
+                        HighScoreFragment frag3 = new HighScoreFragment();
+                        FragmentTransaction fragmentTransaction3 = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction3.replace(R.id.fragmentContainerView2, frag3);
+                        fragmentTransaction3.commit();
+                        return true;
+                }
+                return false;
+            }
+        };
+
+
+        navigationView = findViewById(R.id.bottomNavigationView);
+        navigationView.setOnNavigationItemSelectedListener(selectedListener);
+
+        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentContainerView2,frag1,"home");
+        fragmentTransaction.commit();
+
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
 
         recycleViewPopulate();
         setListData();
+
+        Highscorekotlin highscorekotlin = new Highscorekotlin();
 
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -122,7 +175,6 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
 
                 String search = newText;
                 recycleAdapter.getFilter().filter(newText);
-                //filter(newText);
                 return false;
             }
         });
@@ -132,15 +184,6 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
             @Override
             public void onClick(View v) {
                 loginText.setText("I HAVE CHANGED INTO " + mAuth.getCurrentUser().getEmail());
-
-                /*
-                FrameLayout layoutFromFrag = new FrameLayout(this);
-                layoutFromFrag.setId(R.id.layout);
-                layoutFromFrag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT));
-                setContentView(layoutFromFrag);
-                getSupportFragmentManager().beginTransaction().add(R.id.layout,new profile_fragment()).commit();
-                 */
-
                 firstButton.setText(mAuth.getCurrentUser().getEmail());
             }
         });
@@ -154,7 +197,7 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
             }
         });
 
-
+        highscorekotlin.showDbData();
     }//end of onCreate
 
 
@@ -182,14 +225,8 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
         }
     }
 
-
     /*METHODS TO DO STUFF*/
-
     public void setListData() {
-//        initiativesDatList = new ArrayList<InitiativeData>();
-
-
-        //RecycleAdapter recycleAdapter = new RecycleAdapter(initiatives, this, this, initiativesDatList);
         initiativesDatList.add(new InitiativeData("Gikk til jobben A", "20"));
         initiativesDatList.add(new InitiativeData("Gjenbrukte gamle klær", "25"));
         initiativesDatList.add(new InitiativeData("Brukte sykkel til jobben", "10"));
@@ -201,8 +238,6 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
 
 
     public void recycleViewPopulate() {
-        //GRAB DATA HERE
-//        initiatives = new ArrayList<>();
 
         initiatives.add((new Initiatives("Gikk til jobben", R.drawable.mal2, "25 poeng ")));
         initiatives.add(new Initiatives("Gjenbrukte gamle klær", R.drawable.mal33, "20 poeng "));
@@ -214,10 +249,6 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(recycleAdapter);
-
-        /*TEST FOR STORRE MENGDE PÅ RESYCLEVIEW KANSKJE SETTE OPP EN FOR EACHITEM .ADD ? //initiatives.forEach();
-        ELLER //While(initiatives.add(new Initiatives("",getImage()))); ALTERNATIVE er også for(Map.Entry.setText) */
-        //link stream into 2 lists
 
     }//End of recycleViewPopulate
 
@@ -232,18 +263,5 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
     }
 
 
-    /*
-    private void filter(String newText) {
-        List<Initiatives> filteredList = new ArrayList<>() {
-        for(Initiatives item: initiatives){
-            //DO SHIT
-            if(item.getName().toLowerCase().startsWith(newText.toLowerCase())){
-                filteredList.add(item);
-            }
-        }
-        RecycleAdapter.filterList(filteredList);
-    }
-*/
 
-
-}//end of app
+}
