@@ -1,13 +1,15 @@
 package adapter;
 
+import java.util.Date;
+
 public class PointsData {
 
     private Integer totalpoints;
     private String username;
     private String initiativeName;
-    private String currentDateS;
+    private Date currentDateS;
 
-    public PointsData(Integer totalpoints, String username, String initiativeName, String currentDateS) {
+    public PointsData(Integer totalpoints, String username, String initiativeName, Date currentDateS) {
         this.totalpoints = totalpoints;
         this.username = username;
         this.initiativeName = initiativeName;
@@ -24,7 +26,7 @@ public class PointsData {
     }
     public String getInitiativeName() { return initiativeName; }
     public void setInitiativeName(String initiativeName) { this.initiativeName = initiativeName; }
-    public String getCurrentDateS() { return currentDateS; }
-    public void setCurrentDateS(String currentDateS) { this.currentDateS = currentDateS; }
+    public Date getCurrentDateS() { return currentDateS; }
+    public void setCurrentDateS(Date currentDateS) { this.currentDateS = currentDateS; }
 
 }

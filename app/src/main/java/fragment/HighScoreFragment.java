@@ -54,7 +54,9 @@ public class HighScoreFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         b1 = (Button) getView().findViewById(R.id.b1);
         b2 = (Button) getView().findViewById(R.id.b2);
+        //1.setText(mDatabase.setValue());
     }
+
 
 
 

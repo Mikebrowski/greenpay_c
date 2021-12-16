@@ -20,7 +20,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.Calendar;
+import java.util.Date;
 
 import adapter.PointsData;
 import database.UserData;
@@ -48,7 +52,7 @@ public class InitiativesInfo extends AppCompatActivity {
 
     String userID;
     String initiativeName;
-    String currentDateS;
+    Date currentDateS;
 
 
     int counter = 0;
@@ -146,8 +150,12 @@ public class InitiativesInfo extends AppCompatActivity {
 
         initiativeName = txtFromIni.getText().toString();
         Calendar calendar = Calendar.getInstance();
-        String currentDateS = DateFormat.getDateInstance(DateFormat.DEFAULT).format(calendar.getTime());
+
+        currentDateS = calendar.getTime();
+        //String currentDateS = DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(calendar.getTime());
         //userNameField.setText(user.getUid()); GIR EN ANNEN ID EN FORVENTET
+
+        //TODO: Might need to use string agian to use easier display method.
 
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
@@ -169,7 +177,7 @@ public class InitiativesInfo extends AppCompatActivity {
         uidRef.addValueEventListener(valueEventListener);
     }
 
-    public Task<Void> addIntoDB(Integer totalpoints, String username, String initiativeName,String currentDateS) {
+    public Task<Void> addIntoDB(Integer totalpoints, String username, String initiativeName,Date currentDateS) {
 
         //DatabaseReference uidRef = rootRef.child("user");
         //mFirebaseDatabase.getInstance().getReference("pointsData");
@@ -185,7 +193,7 @@ public class InitiativesInfo extends AppCompatActivity {
     }
     public void currentDateM(){
         Calendar calendar = Calendar.getInstance();
-        String currentDate = DateFormat.getDateInstance(DateFormat.SHORT).format(calendar.getTime());
+        String currentDate = DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(calendar.getTime());
         userNameField.setText(currentDate);
     }
 }
