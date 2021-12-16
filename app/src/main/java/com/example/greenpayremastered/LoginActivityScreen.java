@@ -5,9 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,17 +15,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.greenpayremastered.ui.home.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -44,8 +36,8 @@ import adapter.Initiatives;
 import database.UserData;
 import fragment.FirstFragment;
 import fragment.HighScoreFragment;
+import fragment.Highscorekotlin;
 import fragment.SecondFragment;
-import futureUpdate.profile_fragment;
 
 
 public class LoginActivityScreen extends AppCompatActivity implements RecycleAdapter.IniClickInterface {
@@ -85,12 +77,14 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
         secondButton = (Button) findViewById(R.id.secondButton);
 
         actionBar = getSupportActionBar();
-        actionBar.setTitle("Iniativer");
+        actionBar.setTitle("Welcome to Greenpay");
 
         BottomNavigationView.OnNavigationItemSelectedListener selectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
+
+
 
                     case R.id.firstFragment:
                         actionBar.setTitle("Dashboaret");
@@ -111,8 +105,11 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
                     case R.id.highScoreFragment:
                         actionBar.setTitle("High Score");
                         HighScoreFragment frag3 = new HighScoreFragment();
+                        Highscorekotlin frag3kotlin = new Highscorekotlin();
                         FragmentTransaction fragmentTransaction3 = getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction3.replace(R.id.fragmentContainerView2, frag3);
+                        //fragmentTransaction3.replace(R.id.fragmentContainerView2, frag3);
+
+                        fragmentTransaction3.replace(R.id.fragmentContainerView2, frag3kotlin);
                         fragmentTransaction3.commit();
                         return true;
                 }
@@ -197,7 +194,7 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
             }
         });
 
-        highscorekotlin.showDbData();
+
     }//end of onCreate
 
 
