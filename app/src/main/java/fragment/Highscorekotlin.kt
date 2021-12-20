@@ -1,6 +1,8 @@
 package fragment
 
+import adapter.KotlinPointsData
 import adapter.PointsData
+import adapter.PointsKotlinAdapter
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,9 +11,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
 import com.example.greenpayremastered.R
-import database.UserData
+import java.lang.RuntimeException
 
 // fragments are modular part of a activity
 // YOU CAN SHOW MULTIPLE SCREENS THATS THE KEY HERE
@@ -24,50 +28,60 @@ class Highscorekotlin : Fragment() {
 
     val rootRef = FirebaseDatabase.getInstance().reference
 
-    var txtFrag1: TextView? = null
-    var b1: Button? = null
-    var b2:android.widget.Button? = null
+    //var pointsData : List<PointsData>? = null
 
+
+    private lateinit var dbReference : DatabaseReference
+    private lateinit var recyclerviewFrag : RecyclerView
+    private lateinit var kotlinPointsData: ArrayList<KotlinPointsData>
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-
-        //print("does this work?")
-
-        //showDbData()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
         return inflater.inflate(R.layout.frag_highscorekotlin, container, false)
-        showDB()
-        //sortList()
     }
-    fun showDB(){
-        val rootRef = FirebaseDatabase.getInstance().reference
-        val userRef = rootRef.child("PointsData").child("uknown")
-        val valueEventListener = object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val name = dataSnapshot.child("username").getValue(String::class.java)
-                if (name != null) {
-                    Log.d("TAG", name)
-                }
-            }
-            override fun onCancelled(error: DatabaseError) {
-                Log.d("TAG", error.getMessage()) //Don't ignore potential errors!
-            }
-        }
-        userRef.addListenerForSingleValueEvent(valueEventListener)
-    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        b1 = getView()!!.findViewById(R.id.button)
+        recyclerviewFrag = getView()!!.findViewById(R.id.recyclerViewfragX)
+        recyclerviewFrag.layoutManager = LinearLayoutManager(activity)
+        recyclerviewFrag.layoutManager = LinearLayoutManager(getView()?.context)// whats the diffrence?
+
+        recyclerviewFrag.setHasFixedSize(true)
+        kotlinPointsData = arrayListOf<KotlinPointsData>()
+        getDbData()
+
     }
+
+    private fun getDbData() {
+        dbReference = FirebaseDatabase.getInstance().getReference("PointsData")
+        dbReference.addValueEventListener(object : ValueEventListener
+        {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    for (userPointsData in snapshot.children)//Can also do WHILE
+                    {
+                        val pointsDataSnap = userPointsData.getValue(KotlinPointsData::class.java)
+                        kotlinPointsData.add(pointsDataSnap!!)
+                        //LIST HAD NO ADD FUNCTION
+                    }
+                    recyclerviewFrag.adapter = PointsKotlinAdapter(kotlinPointsData)
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+
+
 /*
 
     fun sortList(){\
@@ -154,3 +168,5 @@ class Highscorekotlin : Fragment() {
 
 
 }
+
+

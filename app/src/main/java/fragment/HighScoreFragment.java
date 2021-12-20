@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,6 +32,7 @@ public class HighScoreFragment extends Fragment {
     MutableLiveData<String> stringMutableLiveData= new MutableLiveData<>();
     TextView txtFrag1;
     Button b1,b2;
+    RecyclerView recyclerviewFrag;
 
     private DatabaseReference mDatabase;
 
@@ -54,6 +57,7 @@ public class HighScoreFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         b1 = (Button) getView().findViewById(R.id.b1);
         b2 = (Button) getView().findViewById(R.id.b2);
+        recyclerviewFrag.setLayoutManager(new LinearLayoutManager(getActivity()));
         //1.setText(mDatabase.setValue());
     }
 

@@ -4,10 +4,10 @@ import java.util.Date;
 
 public class PointsData {
 
-    private Integer totalpoints;
-    private String username;
-    private String initiativeName;
-    private Date currentDateS;
+    public Integer totalpoints;
+    public String username;
+    public String initiativeName;
+    public Date currentDateS;
 
     public PointsData(Integer totalpoints, String username, String initiativeName, Date currentDateS) {
         this.totalpoints = totalpoints;

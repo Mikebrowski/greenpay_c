@@ -8,38 +8,37 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.greenpayremastered.R
 
-class PointsKotlinAdapter (private val items: List<PointsData>) :
-    RecyclerView.Adapter<PointsKotlinAdapter.MyRecyclerViewDataHolder>()
+class PointsKotlinAdapter (private val KotlinPointsData: ArrayList<KotlinPointsData>) : RecyclerView.Adapter<PointsKotlinAdapter.MyViewHolder>()
 {
-    inner class MyRecyclerViewDataHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyRecyclerViewDataHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.highscorelist, parent, false)
-        return MyRecyclerViewDataHolder(view)
+        return MyViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: MyRecyclerViewDataHolder, position: Int) {
-        val currentItem: PointsData = items[position]
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        val currentItem = KotlinPointsData[position]
 
-        val tvNumber: TextView = holder.itemView.findViewById(R.id.tvNumber)
-        tvNumber.text = currentItem.totalpoints.toString()
-
-        //IDEA HERE WILL BE TO ADD ALL TOTAL POINTS SO I MIGHT NEED A METHOD
-
-        val tvNumbersInText: TextView = holder.itemView.findViewById(R.id.tvNumbersInText)
-        tvNumbersInText.text = currentItem.username
+        holder.usernameFromDb.text = currentItem.username
+        holder.totalpointsFromDb.text = currentItem.totalpoints.toString()
+        //holder.datafromDb.text = currentItem.currentDateS.toString()
     }
 
     override fun getItemCount(): Int {
-        return items.size
+        return KotlinPointsData.size
     }
+    class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
+
+        val usernameFromDb : TextView = itemView.findViewById(R.id.usernametxt)
+        val totalpointsFromDb : TextView = itemView.findViewById(R.id.totalpointsTxt)
+        //val datafromDb : TextView = itemView.findViewById(R.id.currentdateDb)
+
+    }
+
     fun caculateTotalPointsByUser(): Int {
         var totalpointsTogether: Int = 10;
         //ADD CODE THAT GRABS FROM DB
-
-
         //val map = dataSnapshot.getValue(Map::class.java) as Map<String, String>
-
         return totalpointsTogether
     }
 
