@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.greenpayremastered.R;
-import com.example.greenpayremastered.RecycleAdapter;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
@@ -23,6 +22,7 @@ import adapter.Initiatives;
 
 
 public class FirstFragment extends Fragment {
+
     private RecyclerView recyclerviewfrag;
     private DatabaseReference databaseReference;
     private ArrayList<Initiatives> initiatives = new ArrayList<>();
@@ -45,7 +45,7 @@ public class FirstFragment extends Fragment {
 
 
         View view = inflater.inflate(R.layout.fragment_first,container, false);
-        RecyclerView recyclerviewfrag = view.findViewById(R.id.recyclerviewfrag);
+        RecyclerView recyclerviewfrag = view.findViewById(R.id.recycle_view2);
         //RecycleAdapter recycleAdapter = new RecycleAdapter(initiatives,  initiativesDatList);
         recyclerviewfrag.setHasFixedSize(true);
         //recyclerviewfrag.setAdapter(recycleAdapter);
@@ -64,4 +64,6 @@ public class FirstFragment extends Fragment {
 
 
     }
+
+
 }

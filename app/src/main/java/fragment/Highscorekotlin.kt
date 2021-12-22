@@ -35,8 +35,6 @@ class Highscorekotlin : Fragment() {
     private lateinit var recyclerviewFrag : RecyclerView
     private lateinit var kotlinPointsData: ArrayList<KotlinPointsData>
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

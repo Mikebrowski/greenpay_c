@@ -69,7 +69,7 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
 
         FirstFragment frag1 = new FirstFragment();
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycle_view);
+        recyclerView = (RecyclerView) findViewById(R.id.recycle_view2);
         searchArea = (SearchView) findViewById(R.id.searchI);
         logoutBtn = (Button) findViewById(R.id.logoutBtn);
         loginText = (TextView) findViewById(R.id.loggedInTextview);
@@ -83,8 +83,6 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
-
-
 
                     case R.id.firstFragment:
                         actionBar.setTitle("Dashboaret");
@@ -117,12 +115,11 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
             }
         };
 
-
         navigationView = findViewById(R.id.bottomNavigationView);
         navigationView.setOnNavigationItemSelectedListener(selectedListener);
 
         FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentContainerView2,frag1,"home");
+        fragmentTransaction.replace(R.id.fragmentContainerView2,frag1,"Dashboaret");
         fragmentTransaction.commit();
 
         mAuth = FirebaseAuth.getInstance();
@@ -159,7 +156,7 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
 
             }
         });
-
+/*
         searchArea.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -175,7 +172,7 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
                 return false;
             }
         });
-
+*/
 
         secondButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -258,7 +255,41 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
         intent.putExtra("points", initiatives.get(positionOfTheIni).getPoints());
         startActivity(intent);
     }
+/*
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()) {
 
+                case R.id.firstFragment:
+                    actionBar.setTitle("Dashboaret");
+                    FirstFragment frag1 = new FirstFragment();
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.fragmentContainerView2, frag1);
+                    fragmentTransaction.commit();
+                    return true;
+
+                case R.id.secondFragment:
+                    actionBar.setTitle("Profil");
+                    SecondFragment frag2 = new SecondFragment();
+                    FragmentTransaction fragmentTransaction1 = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction1.replace(R.id.fragmentContainerView2, frag2);
+                    fragmentTransaction1.commit();
+                    return true;
+
+                case R.id.highScoreFragment:
+                    actionBar.setTitle("High Score");
+                    HighScoreFragment frag3 = new HighScoreFragment();
+                    Highscorekotlin frag3kotlin = new Highscorekotlin();
+                    FragmentTransaction fragmentTransaction3 = getSupportFragmentManager().beginTransaction();
+                    //fragmentTransaction3.replace(R.id.fragmentContainerView2, frag3);
+
+                    fragmentTransaction3.replace(R.id.fragmentContainerView2, frag3kotlin);
+                    fragmentTransaction3.commit();
+                    return true;
+            }
+            return false;
+        });
+
+*/
 
 
 }

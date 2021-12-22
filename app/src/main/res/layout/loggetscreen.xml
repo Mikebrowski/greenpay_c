@@ -40,37 +40,29 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycle_view"
-        android:layout_width="408dp"
-        android:layout_height="106dp"
+        android:id="@+id/recycle_view2"
+        android:layout_width="405dp"
+        android:layout_height="142dp"
+        android:layout_marginBottom="9dp"
         app:layout_constraintBottom_toTopOf="@+id/fragmentContainerView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.417"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchI" />
+        app:layout_constraintTop_toBottomOf="@+id/textView5">
 
-    <SearchView
-        android:id="@+id/searchI"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="112dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </SearchView>
+    </androidx.recyclerview.widget.RecyclerView>
 
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="61dp"
         android:layout_height="72dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/recycle_view"
+        app:layout_constraintBottom_toTopOf="@+id/recycle_view2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchI">
+        >
 
         <Button
             android:id="@+id/firstButton"
@@ -119,12 +111,14 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView2"
         android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="0dp"
-        android:layout_height="390dp"
+        android:layout_width="398dp"
+        android:layout_height="382dp"
+        android:layout_marginTop="168dp"
         app:defaultNavHost="true"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recycle_view"
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
         app:navGraph="@navigation/ini_nav" />
 
 

@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import java.util.List;
 
 import adapter.InitiativeData;
 import adapter.Initiatives;
+import fragment.FirstFragment;
 
 
 public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.InitiativesHolder> implements Filterable {
@@ -65,7 +67,6 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.Initiati
         @Override
         public void onBindViewHolder(@NonNull InitiativesHolder holder, int position)
         {
-
             holder.pointsInitiatives.setText(initiativesData.get(position).getPoints());
             holder.txtInitiatives.setText(initiativesData.get(position).getName());
             holder.imgInitiatives.setImageResource(initiativesData.get(position).getImage());
