@@ -41,3 +41,9 @@ Z
 *app/src/main/java/adapter/Initiatives.java,2\0\20b8479254956a19530d70e3f55ebf00615250fe
 ^
 .app/src/main/java/fragment/SecondFragment.java,4\7\4720a51d9773760be6692f82c3e64184441d50a6
+]
+-app/src/main/java/adapter/InitiativeData.java,7\3\7365c2c37bc62e28bde9c21b0adc2bcb095b5dea
+]
+-app/src/main/java/adapter/KotlinPointsData.kt,f\7\f75390b51c56304a6c79f9ecbcdb4f587d103681
+`
+0app/src/main/java/adapter/PointsKotlinAdapter.kt,1\e\1e97c755a718667f514334684b41216301d6e4b5
