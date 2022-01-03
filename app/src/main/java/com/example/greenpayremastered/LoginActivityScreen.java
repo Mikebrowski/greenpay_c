@@ -69,7 +69,7 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
 
         FirstFragment frag1 = new FirstFragment();
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycle_view2);
+        recyclerView = (RecyclerView) findViewById(R.id.fragment_recycleview_s);
         searchArea = (SearchView) findViewById(R.id.searchI);
         logoutBtn = (Button) findViewById(R.id.logoutBtn);
         loginText = (TextView) findViewById(R.id.loggedInTextview);

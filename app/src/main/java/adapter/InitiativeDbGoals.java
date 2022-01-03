@@ -2,7 +2,7 @@ package adapter;
 
 public class InitiativeDbGoals {
     String name;
-    Double points;
+    Integer points;
     String type;
     String imgPath;
 
@@ -14,11 +14,11 @@ public class InitiativeDbGoals {
         this.name = name;
     }
 
-    public Double getPoints() {
+    public Integer getPoints() {
         return points;
     }
 
-    public void setPoints(Double points) {
+    public void setPoints(Integer points) {
         this.points = points;
     }
 
@@ -38,7 +38,7 @@ public class InitiativeDbGoals {
         this.imgPath = imgPath;
     }
 
-    public InitiativeDbGoals(String name, Double points, String type, String imgPath) {
+    public InitiativeDbGoals(String name, Integer points, String type, String imgPath) {
         this.name = name;
         this.points = points;
         this.type = type;
