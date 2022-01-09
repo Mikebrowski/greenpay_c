@@ -103,7 +103,7 @@
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView2"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_bias="0.933"
         app:menu="@menu/bottom_menu">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
@@ -111,8 +111,8 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView2"
         android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="398dp"
-        android:layout_height="382dp"
+        android:layout_width="371dp"
+        android:layout_height="295dp"
         android:layout_marginTop="168dp"
         app:defaultNavHost="true"
         app:layout_constraintEnd_toEndOf="parent"

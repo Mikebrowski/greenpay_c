@@ -1,4 +1,4 @@
-package adapter;
+package models;
 
 import java.util.Date;
 

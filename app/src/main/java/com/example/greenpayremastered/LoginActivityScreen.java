@@ -31,8 +31,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import adapter.InitiativeData;
-import adapter.Initiatives;
+import adapter.RecycleAdapter;
+import models.InitiativeData;
+import models.Initiatives;
 import database.UserData;
 import fragment.FirstFragment;
 import fragment.HighScoreFragment;

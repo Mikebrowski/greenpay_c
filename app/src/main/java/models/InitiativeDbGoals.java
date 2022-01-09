@@ -1,10 +1,18 @@
-package adapter;
+package models;
 
 public class InitiativeDbGoals {
     String name;
-    Integer points;
+    String points;
     String type;
-    String imgPath;
+    String imgpath;
+
+    public InitiativeDbGoals(String name, String points, String type, String imgpath) {
+        this.name = name;
+        this.points = points;
+        this.type = type;
+        this.imgpath = imgpath;
+    }
+
 
     public String getName() {
         return name;
@@ -14,11 +22,11 @@ public class InitiativeDbGoals {
         this.name = name;
     }
 
-    public Integer getPoints() {
+    public String getPoints() {
         return points;
     }
 
-    public void setPoints(Integer points) {
+    public void setPoints(String points) {
         this.points = points;
     }
 
@@ -31,18 +39,11 @@ public class InitiativeDbGoals {
     }
 
     public String getImgPath() {
-        return imgPath;
+        return imgpath;
     }
 
-    public void setImgPath(String imgPath) {
-        this.imgPath = imgPath;
-    }
-
-    public InitiativeDbGoals(String name, Integer points, String type, String imgPath) {
-        this.name = name;
-        this.points = points;
-        this.type = type;
-        this.imgPath = imgPath;
+    public void setImgPath(String imgpath) {
+        this.imgpath = imgpath;
     }
 
 

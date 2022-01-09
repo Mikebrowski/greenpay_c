@@ -1,4 +1,4 @@
-package models;
+package adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +12,7 @@ import com.example.greenpayremastered.R;
 
 import java.util.ArrayList;
 
-import adapter.InitiativeDbGoals;
+import models.InitiativeDbGoals;
 
 //THIS CLASS WILL USE A LIST INTO FRAGMENTS MAKES IT EASIER TO SEARCH
 
@@ -22,9 +22,6 @@ public class FragmentRecycleView extends RecyclerView.Adapter<FragmentRecycleVie
 {
     ArrayList<InitiativeDbGoals> databaseList;
 
-    public FragmentRecycleView(ArrayList<InitiativeDbGoals> databaseList) {
-        this.databaseList = databaseList;
-    }
 
     @NonNull
     @Override
@@ -45,7 +42,6 @@ public class FragmentRecycleView extends RecyclerView.Adapter<FragmentRecycleVie
     @Override
     public int getItemCount() {
         return databaseList.size();
-        //return arrayListDb.size;
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -60,10 +56,15 @@ public class FragmentRecycleView extends RecyclerView.Adapter<FragmentRecycleVie
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+
             txtNameDb = itemView.findViewById(R.id.db_ini_name);
             txtPointsDb = itemView.findViewById(R.id.db_ini_points);
             txtImgDb = itemView.findViewById(R.id.db_ini_img);
             txtType = itemView.findViewById(R.id.typetxt);
         }
     }
+    public FragmentRecycleView(ArrayList<InitiativeDbGoals> databaseList) {
+        this.databaseList = databaseList;
+    }
+
 }

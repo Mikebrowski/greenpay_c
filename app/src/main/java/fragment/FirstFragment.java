@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -26,22 +27,21 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-import adapter.InitiativeData;
-import adapter.InitiativeDbGoals;
-import adapter.Initiatives;
-import models.FragmentRecycleView;
+import models.InitiativeDbGoals;
+import adapter.FragmentRecycleView;
 
 
 public class FirstFragment extends Fragment {
 
-    private RecyclerView recyclerviewfrag;
+    private RecyclerView recyclerviewFrag;
     private DatabaseReference databaseReference;
     //private ArrayList<Initiatives> initiatives = new ArrayList<>();
     //private List<InitiativeData> initiativesDatList = new ArrayList<>();
     private FirebaseFirestore DbCon;
-    FragmentRecycleView adapter;
-    ArrayList<InitiativeDbGoals> datalist;
+    private FragmentRecycleView adapter;
+    private ArrayList<InitiativeDbGoals> datalist = new ArrayList<>();
 
     public FirstFragment() {
         // Required empty public constructor
@@ -58,12 +58,37 @@ public class FirstFragment extends Fragment {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_first, container, false);
         View view = inflater.inflate(R.layout.fragment_first,container, false);
-        RecyclerView recyclerviewfrag = view.findViewById(R.id.fragment_recycleview_s);
-        datalist= new ArrayList<>();
-        adapter = new FragmentRecycleView(datalist);
-        recyclerviewfrag.setAdapter(adapter);
-        recyclerviewfrag.setHasFixedSize(true);
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        RecyclerView recyclerviewFrag = getView().findViewById(R.id.recycleViewDb);
+
+        recyclerviewFrag.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerviewFrag.setHasFixedSize(true);
+        recyclerviewFrag.setAdapter(new FragmentRecycleView(datalist));
+        
+        fetchDatabase();
+
+        //recyclerviewfrag.setAdapter(adapter);
+        //recyclerviewfrag.setHasFixedSize(true);
         //recyclerviewfrag.setAdapter(recycleAdapter);
+
+
+
+
+        //fetchDatabase();
+        //getFirestore();
+        //viewFirestore();
+        //getListItems();
+    }
+
+    public void fetchDatabase() {
+        adapter = new FragmentRecycleView(datalist);
 
         DbCon = FirebaseFirestore.getInstance();
         DbCon.collection("Initiatives-goals").get()
@@ -72,26 +97,15 @@ public class FirstFragment extends Fragment {
                     public void onSuccess(@NonNull QuerySnapshot queryDocumentSnapshots) {
                         List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
                         for(DocumentSnapshot d:list) {
-                            InitiativeDbGoals obj = d.toObject(InitiativeDbGoals.class);
-                            datalist.add(obj);
+                            Map<String, Object> data = d.getData();
+                            datalist.add(new InitiativeDbGoals(data.get("name").toString(),data.get("points").toString(),data.get("type").toString(), (String)data.get("imgpath")));
                         }
                     }
                 });
-        return view;
-    }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        //RecyclerView recyclerviewfrag = view.findViewById(R.id.recyclerviewfrag);
-        //RecycleAdapter recycleAdapter = new RecycleAdapter(initiatives, this, this, initiativesDatList);
-        //recyclerviewfrag.setHasFixedSize(true);
-        //recyclerviewfrag.setAdapter(recycleAdapter);
-        getFirestore();
-        viewFirestore();
 
     }
+
     public void getFirestore() {
 
         /*
@@ -138,5 +152,41 @@ public class FirstFragment extends Fragment {
                 });
     }
 
+    private void getListItems() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Initiatives-goals").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot documentSnapshots) {
+                        if (documentSnapshots.isEmpty()) {
+                            Log.d(TAG, "onSuccess: LIST EMPTY");
+                            return;
+                        } else {
 
-}
+
+                                List<DocumentSnapshot> test = documentSnapshots.getDocuments();
+                                ArrayList<InitiativeDbGoals> idg = new ArrayList<>();
+                                for(DocumentSnapshot ds:test)
+                                {
+                                Map<String, Object> data = ds.getData();
+                                idg.add(new InitiativeDbGoals(data.get("name").toString(),data.get("points").toString(),data.get("type").toString(), (String)data.get("imgpath")));
+
+                                }
+
+                                datalist.addAll(idg);
+                                Log.d(TAG, "onSuccess: " + datalist);
+
+
+
+                            // Convert the whole Query Snapshot to a list of objects directly! No need to fetch each document.
+                            //List<InitiativeDbGoals> types = documentSnapshots.toObjects(InitiativeDbGoals.class);
+                            // Add all to your list
+                            //datalist.addAll(types);
+                            //Log.d(TAG, "onSuccess: " + datalist);
+                        }
+                      }
+            }
+        );}
+}//end of frag
+
+
+

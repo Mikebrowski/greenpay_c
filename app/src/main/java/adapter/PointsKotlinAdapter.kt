@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.greenpayremastered.R
+import models.KotlinPointsData
 
 class PointsKotlinAdapter (private val KotlinPointsData: ArrayList<KotlinPointsData>) : RecyclerView.Adapter<PointsKotlinAdapter.MyViewHolder>()
 {

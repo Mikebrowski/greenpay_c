@@ -20,13 +20,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.util.Calendar;
 import java.util.Date;
 
-import adapter.PointsData;
+import models.PointsData;
 import database.UserData;
 
 public class InitiativesInfo extends AppCompatActivity {

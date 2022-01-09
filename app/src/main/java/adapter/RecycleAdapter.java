@@ -1,4 +1,4 @@
-package com.example.greenpayremastered;
+package adapter;
 
 import android.content.Context;
 
@@ -8,21 +8,19 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.greenpayremastered.R;
+
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import adapter.InitiativeData;
-import adapter.Initiatives;
-import fragment.FirstFragment;
+import models.InitiativeData;
+import models.Initiatives;
 
 
 public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.InitiativesHolder> implements Filterable {
@@ -132,7 +130,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.Initiati
     public int getItemCount() {
             return initiativesData.size();
     }
-    interface IniClickInterface{
+    public interface IniClickInterface{
         void onItemClick(int positionOfTheIni);
     }
 

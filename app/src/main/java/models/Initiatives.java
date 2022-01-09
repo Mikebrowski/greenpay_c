@@ -1,4 +1,4 @@
-package adapter;
+package models;
 
 public class Initiatives {
     private String points;
