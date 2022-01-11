@@ -47,7 +47,7 @@ public class FragmentRecycleView extends RecyclerView.Adapter<FragmentRecycleVie
     static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView txtNameDb;
         TextView txtPointsDb;
-        TextView txtImgDb;
+        //TextView txtImgDb;
         TextView txtType;
         //Color
 
@@ -59,7 +59,7 @@ public class FragmentRecycleView extends RecyclerView.Adapter<FragmentRecycleVie
 
             txtNameDb = itemView.findViewById(R.id.db_ini_name);
             txtPointsDb = itemView.findViewById(R.id.db_ini_points);
-            txtImgDb = itemView.findViewById(R.id.db_ini_img);
+            //txtImgDb = itemView.findViewById(R.id.db_ini_img);
             txtType = itemView.findViewById(R.id.typetxt);
         }
     }

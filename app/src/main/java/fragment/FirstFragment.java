@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,8 +21,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -66,28 +72,33 @@ public class FirstFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //fetchDatabase();
+        //eventChangeListener();
+
         RecyclerView recyclerviewFrag = getView().findViewById(R.id.recycleViewDb);
 
-        recyclerviewFrag.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerviewFrag.setHasFixedSize(true);
-        recyclerviewFrag.setAdapter(new FragmentRecycleView(datalist));
-        
-        fetchDatabase();
 
-        //recyclerviewfrag.setAdapter(adapter);
-        //recyclerviewfrag.setHasFixedSize(true);
+        // EITHER LINEAR OR GIRD
+        //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
+
+
+        recyclerviewFrag.setLayoutManager(gridLayoutManager);
+        recyclerviewFrag.setHasFixedSize(true);
+
+        recyclerviewFrag.setAdapter(fetchDatabase());
         //recyclerviewfrag.setAdapter(recycleAdapter);
 
-
-
-
-        //fetchDatabase();
-        //getFirestore();
-        //viewFirestore();
-        //getListItems();
     }
 
-    public void fetchDatabase() {
+    private void setupResCyclerview(){
+
+        // POSSIBLE SORTING SOLUTION
+        CollectionReference reference = DbCon.collection("Initiatives-goals");
+        Query query = reference.orderBy("name", Query.Direction.ASCENDING);
+    }
+
+    public FragmentRecycleView fetchDatabase() {
         adapter = new FragmentRecycleView(datalist);
 
         DbCon = FirebaseFirestore.getInstance();
@@ -98,42 +109,35 @@ public class FirstFragment extends Fragment {
                         List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
                         for(DocumentSnapshot d:list) {
                             Map<String, Object> data = d.getData();
-                            datalist.add(new InitiativeDbGoals(data.get("name").toString(),data.get("points").toString(),data.get("type").toString(), (String)data.get("imgpath")));
+                            datalist.add(new InitiativeDbGoals(data.get("name").toString(),data.get("points").toString(),data.get("type").toString(), data.get("imgpath").toString()));
                         }
+                        adapter.notifyDataSetChanged();
+                        //recyclerviewFrag.setAdapter(adapter);
                     }
-                });
 
+                });
+        return adapter;
 
     }
 
-    public void getFirestore() {
+    private void eventChangeListener(){
+        DbCon = FirebaseFirestore.getInstance();
+        DbCon.collection("Initiatives-goals").orderBy("name", Query.Direction.ASCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
-        /*
-        Map<String, Object> user = new HashMap<>();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-
-        user.put("first", "Ada");
-        user.put("last", "Lovelace");
-        user.put("born", 1815);
-
-        // Add a new document with a generated ID
-        db.collection("users")
-                .add(user)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                for(DocumentChange dc : value.getDocumentChanges()){
+                    if (dc.getType() == DocumentChange.Type.ADDED){
+                        datalist.add(dc.getDocument().toObject(InitiativeDbGoals.class));
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error adding document", e);
-                    }
-                });
-*/
-    }
+                    adapter.notifyDataSetChanged();
+                }
+
+            }
+        });
+
+        }//eventchangelistener
+
     public void viewFirestore(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Initiatives-goals")
@@ -171,17 +175,8 @@ public class FirstFragment extends Fragment {
                                 idg.add(new InitiativeDbGoals(data.get("name").toString(),data.get("points").toString(),data.get("type").toString(), (String)data.get("imgpath")));
 
                                 }
-
                                 datalist.addAll(idg);
                                 Log.d(TAG, "onSuccess: " + datalist);
-
-
-
-                            // Convert the whole Query Snapshot to a list of objects directly! No need to fetch each document.
-                            //List<InitiativeDbGoals> types = documentSnapshots.toObjects(InitiativeDbGoals.class);
-                            // Add all to your list
-                            //datalist.addAll(types);
-                            //Log.d(TAG, "onSuccess: " + datalist);
                         }
                       }
             }
