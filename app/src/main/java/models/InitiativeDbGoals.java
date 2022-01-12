@@ -1,6 +1,8 @@
 package models;
 
-public class InitiativeDbGoals {
+import java.util.Objects;
+
+public class InitiativeDbGoals  {
     String name;
     String points;
     String type;
@@ -47,4 +49,16 @@ public class InitiativeDbGoals {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        InitiativeDbGoals that = (InitiativeDbGoals) o;
+        return name.equals(that.name) && points.equals(that.points) && type.equals(that.type) && imgpath.equals(that.imgpath);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, points, type, imgpath);
+    }
 }

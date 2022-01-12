@@ -54,6 +54,19 @@ class Highscorekotlin : Fragment() {
     }
 
     private fun getDbData() {
+
+
+
+
+        /* COMPERATOR KOTLIN
+        myItems.sortWith(Comparator { lhs, rhs ->
+
+            if (lhs.name > rhs.name) -1 else if (lhs.id < rhs.id) 1 else 0
+        })
+        */
+
+
+
         dbReference = FirebaseDatabase.getInstance().getReference("PointsData")
         dbReference.addValueEventListener(object : ValueEventListener
         {
@@ -65,6 +78,7 @@ class Highscorekotlin : Fragment() {
                         kotlinPointsData.add(pointsDataSnap!!)
                         //LIST HAD NO ADD FUNCTION
                     }
+                    kotlinPointsData.sortBy {pointsData -> pointsData.totalpoints }
                     recyclerviewFrag.adapter = PointsKotlinAdapter(kotlinPointsData)
                 }
             }

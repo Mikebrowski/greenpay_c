@@ -32,6 +32,9 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -86,6 +89,8 @@ public class FirstFragment extends Fragment {
         recyclerviewFrag.setLayoutManager(gridLayoutManager);
         recyclerviewFrag.setHasFixedSize(true);
 
+
+
         recyclerviewFrag.setAdapter(fetchDatabase());
         //recyclerviewfrag.setAdapter(recycleAdapter);
 
@@ -107,15 +112,24 @@ public class FirstFragment extends Fragment {
                     @Override
                     public void onSuccess(@NonNull QuerySnapshot queryDocumentSnapshots) {
                         List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                        //Com
+
+                        //Collections.sort(datalist);
+
+
                         for(DocumentSnapshot d:list) {
                             Map<String, Object> data = d.getData();
+
                             datalist.add(new InitiativeDbGoals(data.get("name").toString(),data.get("points").toString(),data.get("type").toString(), data.get("imgpath").toString()));
+
                         }
+
                         adapter.notifyDataSetChanged();
                         //recyclerviewFrag.setAdapter(adapter);
                     }
 
                 });
+
         return adapter;
 
     }
