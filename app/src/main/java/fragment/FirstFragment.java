@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -32,9 +31,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -42,7 +38,7 @@ import models.InitiativeDbGoals;
 import adapter.FragmentRecycleView;
 
 
-public class FirstFragment extends Fragment {
+public class FirstFragment extends Fragment implements FragmentRecycleView.ItemClickListener {
 
     private RecyclerView recyclerviewFrag;
     private DatabaseReference databaseReference;
@@ -50,7 +46,7 @@ public class FirstFragment extends Fragment {
     //private List<InitiativeData> initiativesDatList = new ArrayList<>();
     private FirebaseFirestore DbCon;
     private FragmentRecycleView adapter;
-    private ArrayList<InitiativeDbGoals> datalist = new ArrayList<>();
+    private final ArrayList<InitiativeDbGoals> datalist = new ArrayList<>();
 
     public FirstFragment() {
         // Required empty public constructor
@@ -123,14 +119,26 @@ public class FirstFragment extends Fragment {
                             datalist.add(new InitiativeDbGoals(data.get("name").toString(),data.get("points").toString(),data.get("type").toString(), data.get("imgpath").toString()));
 
                         }
-
                         adapter.notifyDataSetChanged();
                         //recyclerviewFrag.setAdapter(adapter);
                     }
 
                 });
+/*
+        Collections.sort(datalist, new Comparator<InitiativeDbGoals>() {
+            @Override
+            public int compare(InitiativeDbGoals o1, InitiativeDbGoals o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
+        Collections.reverse(datalist);
+*/
+        adapter.notifyDataSetChanged();
+
+
 
         return adapter;
+
 
     }
 
@@ -195,6 +203,11 @@ public class FirstFragment extends Fragment {
                       }
             }
         );}
+
+    @Override
+    public void onItemClick(InitiativeDbGoals databaseList) {
+
+    }
 }//end of frag
 
 

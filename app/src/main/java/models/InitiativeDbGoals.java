@@ -1,8 +1,10 @@
 package models;
 
+import android.content.Context;
+
 import java.util.Objects;
 
-public class InitiativeDbGoals  {
+public class InitiativeDbGoals extends Context {
     String name;
     String points;
     String type;

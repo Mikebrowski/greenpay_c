@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.greenpayremastered.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import models.InitiativeDbGoals;
 
@@ -21,6 +22,13 @@ import models.InitiativeDbGoals;
 public class FragmentRecycleView extends RecyclerView.Adapter<FragmentRecycleView.MyViewHolder>
 {
     ArrayList<InitiativeDbGoals> databaseList;
+    ItemClickListener clickListener;
+    List<InitiativeDbGoals> datalist;
+
+    public FragmentRecycleView(ArrayList<InitiativeDbGoals> databaseList) {
+        this.databaseList = databaseList;
+        this.clickListener = clickListener;
+    }
 
 
     @NonNull
@@ -37,6 +45,20 @@ public class FragmentRecycleView extends RecyclerView.Adapter<FragmentRecycleVie
         holder.txtPointsDb.setText(databaseList.get(position).getPoints());//Why cant i put Double on poitns
         //holder.txtImgDb ????? cant use settext
         holder.txtType.setText(databaseList.get(position).getType());
+
+
+        //SUGGESTION ON STACK OVERFLOW based on the error mLastPosition = holder.getAdapterPosition();
+        //HOWEVER getAdapterPostion has become now two getBindingAdapterPosition and getAbsoluteAdapterPosition
+
+        //getBindingAdapterPosition should be used when you want to get the adapter position (if it still exists in the adapter). If it no longer exists in the adapter, it will return -1(NO_POSITION).
+        //getAbsoluteAdapterPosition should be used to get the position as the RecyclerView sees it. For example, if an item has been deleted, but not yet removed from theViewHolder
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.onItemClick(databaseList.get(holder.getBindingAdapterPosition()));
+            }
+        });
     }
 
     @Override
@@ -63,8 +85,12 @@ public class FragmentRecycleView extends RecyclerView.Adapter<FragmentRecycleVie
             txtType = itemView.findViewById(R.id.typetxt);
         }
     }
-    public FragmentRecycleView(ArrayList<InitiativeDbGoals> databaseList) {
-        this.databaseList = databaseList;
+
+    //CLICKABLE FUNCTION SAME AS recycleadapter BUT WITH ABIT DIFFRENT METHODS
+
+    public interface ItemClickListener{
+        public void onItemClick(InitiativeDbGoals databaseList);
     }
+
 
 }
