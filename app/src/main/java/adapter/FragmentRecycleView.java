@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,7 +26,7 @@ public class FragmentRecycleView extends RecyclerView.Adapter<FragmentRecycleVie
     ItemClickListener clickListener;
     List<InitiativeDbGoals> datalist;
 
-    public FragmentRecycleView(ArrayList<InitiativeDbGoals> databaseList) {
+    public FragmentRecycleView(ArrayList<InitiativeDbGoals> databaseList, ItemClickListener clickListener) {
         this.databaseList = databaseList;
         this.clickListener = clickListener;
     }
@@ -56,7 +57,8 @@ public class FragmentRecycleView extends RecyclerView.Adapter<FragmentRecycleVie
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickListener.onItemClick(databaseList.get(holder.getBindingAdapterPosition()));
+                //clickListener.onItemClick(databaseList.get(position));
+                clickListener.onItemClick(databaseList.get(holder.getBindingAdapterPosition())); // This one dont work because it can't grab the correct value or element
             }
         });
     }
@@ -90,6 +92,7 @@ public class FragmentRecycleView extends RecyclerView.Adapter<FragmentRecycleVie
 
     public interface ItemClickListener{
         public void onItemClick(InitiativeDbGoals databaseList);
+         //Toast.makeText(this, "Clicked: " + initiatives.get(positionOfTheIni).getName(), Toast.LENGTH_SHORT).show();
     }
 
 

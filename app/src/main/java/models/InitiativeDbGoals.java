@@ -1,10 +1,14 @@
 package models;
 
 import android.content.Context;
+import android.content.res.AssetManager;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.Objects;
 
-public class InitiativeDbGoals extends Context {
+public class InitiativeDbGoals {
     String name;
     String points;
     String type;
@@ -63,4 +67,5 @@ public class InitiativeDbGoals extends Context {
     public int hashCode() {
         return Objects.hash(name, points, type, imgpath);
     }
+
 }

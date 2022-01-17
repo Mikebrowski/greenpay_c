@@ -85,9 +85,9 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.Initiati
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        iniClickInterface.onItemClick(getAdapterPosition());
+                        //iniClickInterface.onItemClick(getAdapterPosition());
                         //OR
-                        //iniClickInterface.onItemClick(getBindingAdapterPosition());
+                        iniClickInterface.onItemClick(getBindingAdapterPosition());
                     }
                 });
 

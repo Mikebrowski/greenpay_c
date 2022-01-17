@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -42,11 +43,13 @@ public class FirstFragment extends Fragment implements FragmentRecycleView.ItemC
 
     private RecyclerView recyclerviewFrag;
     private DatabaseReference databaseReference;
-    //private ArrayList<Initiatives> initiatives = new ArrayList<>();
-    //private List<InitiativeData> initiativesDatList = new ArrayList<>();
+
     private FirebaseFirestore DbCon;
     private FragmentRecycleView adapter;
     private final ArrayList<InitiativeDbGoals> datalist = new ArrayList<>();
+
+    public FragmentRecycleView.ItemClickListener clickListener;
+
 
     public FirstFragment() {
         // Required empty public constructor
@@ -88,6 +91,8 @@ public class FirstFragment extends Fragment implements FragmentRecycleView.ItemC
 
 
         recyclerviewFrag.setAdapter(fetchDatabase());
+
+
         //recyclerviewfrag.setAdapter(recycleAdapter);
 
     }
@@ -100,7 +105,10 @@ public class FirstFragment extends Fragment implements FragmentRecycleView.ItemC
     }
 
     public FragmentRecycleView fetchDatabase() {
-        adapter = new FragmentRecycleView(datalist);
+
+
+
+        adapter = new FragmentRecycleView(datalist, clickListener);
 
         DbCon = FirebaseFirestore.getInstance();
         DbCon.collection("Initiatives-goals").get()
@@ -206,7 +214,12 @@ public class FirstFragment extends Fragment implements FragmentRecycleView.ItemC
 
     @Override
     public void onItemClick(InitiativeDbGoals databaseList) {
+        Fragment fragment = detailsFragment.newInstance(databaseList.getType());
 
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.fragmentContainerView2, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }//end of frag
 
