@@ -23,13 +23,12 @@ import models.InitiativeDbGoals;
 public class FragmentRecycleView extends RecyclerView.Adapter<FragmentRecycleView.MyViewHolder>
 {
     ArrayList<InitiativeDbGoals> databaseList;
-    ItemClickListener clickListener;
     List<InitiativeDbGoals> datalist;
     FragRecycleInterface fragRecycleInterface;
 
-    public FragmentRecycleView(ArrayList<InitiativeDbGoals> databaseList, ItemClickListener clickListener) {
+    public FragmentRecycleView(ArrayList<InitiativeDbGoals> databaseList,FragRecycleInterface fragRecycleInterface) {
         this.databaseList = databaseList;
-        this.clickListener = clickListener;
+        this.fragRecycleInterface = fragRecycleInterface;
     }
 
 
@@ -59,7 +58,7 @@ public class FragmentRecycleView extends RecyclerView.Adapter<FragmentRecycleVie
             @Override
             public void onClick(View v) {
                 //clickListener.onItemClick(databaseList.get(position));
-                fragRecycleInterface.onItemClick(holder.getBindingAdapterPosition()); // This one dont work because it can't grab the correct value or element
+                fragRecycleInterface.onItemClick(holder.getAdapterPosition()); // This one dont work because it can't grab the correct value or element
             }
         });
     }

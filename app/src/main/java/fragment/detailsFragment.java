@@ -14,10 +14,11 @@ import com.example.greenpayremastered.R;
 public class detailsFragment extends Fragment {
 
     private static final String ARG_PARAM1 ="param1";
-    private String ARG_PARAM2 ="param2";
+    private static final String ARG_PARAM2 ="param2";
 
     private String mParam1;
     private String mParam2;
+    private String mParam3;
 
     public detailsFragment() {
         // Required empty public constructor
@@ -27,6 +28,7 @@ public class detailsFragment extends Fragment {
         detailsFragment fragment = new detailsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1,param1);
+        //args.putString(ARG);
         fragment.setArguments(args);
         return fragment;
 

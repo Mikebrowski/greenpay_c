@@ -23,8 +23,6 @@ Tapp/src/main/java/com/example/greenpayremastered/ui/slideshow/SlideshowFragment
 Qapp/src/main/java/com/example/greenpayremastered/ui/gallery/GalleryViewModel.java,9\0\90fc215e5202467fa42af45e27e378c00074dec2
 …
 Uapp/src/main/java/com/example/greenpayremastered/ui/slideshow/SlideshowViewModel.java,7\6\76df8a2acbec16a83f2211123ee9f2c1033cc5bf
-t
-Dapp/src/main/java/com/example/greenpayremastered/RecycleAdapter.java,f\a\fafddc4ff0f8fee68a8ce407ffc94092438e2e20
 `
 0app/src/main/java/futureUpdate/MapsFragment.java,0\0\00ed6d38c1edd5eb3417c5971d2758a80e2ad65f
 r
@@ -37,13 +35,5 @@ d
 Lapp/src/main/java/com/example/greenpayremastered/RegisterActivityScreen.java,9\8\98495cc1e03bc8b50d5a43180ad2587dbcdd8ad5
 `
 0app/src/main/java/alternative/improved_Main.java,d\d\dd77c1e7647db16aa9fd23c4706d0a6917c1155f
-Z
-*app/src/main/java/adapter/Initiatives.java,2\0\20b8479254956a19530d70e3f55ebf00615250fe
 ^
 .app/src/main/java/fragment/SecondFragment.java,4\7\4720a51d9773760be6692f82c3e64184441d50a6
-]
--app/src/main/java/adapter/InitiativeData.java,7\3\7365c2c37bc62e28bde9c21b0adc2bcb095b5dea
-]
--app/src/main/java/adapter/KotlinPointsData.kt,f\7\f75390b51c56304a6c79f9ecbcdb4f587d103681
-`
-0app/src/main/java/adapter/PointsKotlinAdapter.kt,1\e\1e97c755a718667f514334684b41216301d6e4b5

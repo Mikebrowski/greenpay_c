@@ -1,6 +1,8 @@
 package fragment;
 
-import static com.google.firebase.inappmessaging.internal.Logging.TAG;
+
+
+import static android.content.ContentValues.TAG;
 
 import android.os.Bundle;
 
@@ -47,13 +49,12 @@ public class FirstFragment extends Fragment implements FragmentRecycleView.FragR
     private DatabaseReference databaseReference;
 
     private FirebaseFirestore DbCon;
-    private FragmentRecycleView adapter;
-
-    FragmentRecycleView.FragRecycleInterface fragRecycleInterface;
+    //private FragmentRecycleView adapter;
 
     private final ArrayList<InitiativeDbGoals> datalist = new ArrayList<>();
 
-    FragmentRecycleView fragmentRecycleView = new FragmentRecycleView(ArrayList datalist, ItemClickListener clickListener );
+    //private FragmentRecycleView.FragRecycleInterface fragRecycleInterface;
+    private FragmentRecycleView fragmentRecycleView = new FragmentRecycleView(datalist, this);
 
 
 
@@ -115,9 +116,7 @@ public class FirstFragment extends Fragment implements FragmentRecycleView.FragR
 
     public FragmentRecycleView fetchDatabase() {
 
-
-
-        adapter = new FragmentRecycleView(datalist, clickListener);
+        FragmentRecycleView adapter = new FragmentRecycleView(datalist, this);
 
         DbCon = FirebaseFirestore.getInstance();
         DbCon.collection("Initiatives-goals").get()
@@ -169,7 +168,7 @@ public class FirstFragment extends Fragment implements FragmentRecycleView.FragR
                     if (dc.getType() == DocumentChange.Type.ADDED){
                         datalist.add(dc.getDocument().toObject(InitiativeDbGoals.class));
                     }
-                    adapter.notifyDataSetChanged();
+                    //adapter.notifyDataSetChanged();
                 }
 
             }
@@ -186,10 +185,10 @@ public class FirstFragment extends Fragment implements FragmentRecycleView.FragR
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                //Log.d(TAG, document.getId() + " => " + document.getData());
                             }
                         } else {
-                            Log.w(TAG, "Error getting documents.", task.getException());
+                            //Log.w(TAG, "Error getting documents.", task.getException());
                         }
                     }
                 });
@@ -222,17 +221,18 @@ public class FirstFragment extends Fragment implements FragmentRecycleView.FragR
         );}
 
 
-        public void onItemClick()
-
-
         @Override
         public void onItemClick(int posIntFragRes){
 
 
-            Fragment fragment = detailsFragment.newInstance(datalist.toString());
+            //Fragment fragment = detailsFragment.newInstance(datalist.toString().);
 
-            FragmentTransaction transaction = Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction();
-            transaction.add(R.id.fragmentContainerView2, fragment);
+            Fragment fragment = detailsFragment.newInstance(datalist.getClass().getName());
+
+            FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+            //transaction.add(R.id.firstFragment, fragment);
+            transaction.replace(R.id.fragmentContainerView2, fragment);
+            //transaction.
             transaction.addToBackStack(null);
             transaction.commit();
         }
