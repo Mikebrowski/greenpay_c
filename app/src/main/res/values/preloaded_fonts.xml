@@ -3,5 +3,6 @@
     <array name="preloaded_fonts" translatable="false">
         <item>@font/aldrich</item>
         <item>@font/averia_gruesa_libre</item>
+        <item>@font/new_rocker</item>
     </array>
 </resources>

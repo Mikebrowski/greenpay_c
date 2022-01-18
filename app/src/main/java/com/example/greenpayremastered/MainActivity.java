@@ -1,64 +1,104 @@
 package com.example.greenpayremastered;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
-//import fragments;
+import androidx.navigation.ui.AppBarConfiguration;
+
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+import android.widget.Button;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.example.greenpayremastered.databinding.ActivityImprovedMainBinding;
 
-
-/*
-private FirebaseDatabase firebaseDatabase;
-private DatabaseReference databaseReference;
-private static ArrayList<DBHelper> arrayList  = new ArrayList<>();
-private RecyclerView list;
-private Button btnCreate;
-public static Activity Fa;
-*/
 
 public class MainActivity extends AppCompatActivity {
+
+
+    /*GUI*/
+    private Button regButton;
+    private Button loginButton;
+
+    /*Action bar */
+    // Define ActionBar object
+    ActionBar actionBar;
+
+    private AppBarConfiguration mAppBarConfiguration;
+    private ActivityImprovedMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        regButton=(Button)findViewById(R.id.regButton);
+        loginButton=(Button)findViewById(R.id.insideLoginBtn);
 
+        regButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newIntentRegWindow = new Intent(MainActivity.this, RegisterActivityScreen.class);
+                startActivity(newIntentRegWindow);
+            }
+        });
 
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newIntentLoginWindow = new Intent(MainActivity.this,LoginActivity.class);
+                startActivity(newIntentLoginWindow);
+            }
+        });
+    }// ON CREATE END
 
-
-
-
-/*
-        ConstraintLayout constraintLayout = findViewById(R.id.MainActivity);
-
-        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(1500);
-        animationDrawable.setExitFadeDuration(3000);
-        animationDrawable.start();
-*/
-        //MainFragment
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.profile_menu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
+
     // In order to move from one window to another you have to use Intents. These are objects that are used for tranferring
     // This method will be void and go another object in this case RegisterActivity
     public void goToRegisterActivity()
     {
-        Intent newIntentWindow = new Intent(MainActivity.this,RegisterActivityX.class);
+        Intent newIntentRegWindow = new Intent(MainActivity.this, RegisterActivityScreen.class);
         //INSERT THE intent ObjectName
-        startActivity(newIntentWindow);
+        startActivity(newIntentRegWindow);
     }
     public void registerWindow (View view)
     {
         goToRegisterActivity();
     }
-
+    public void goToLoginActivity()
+    {
+        Intent newIntentLoginWindow = new Intent(MainActivity.this,LoginActivity.class);
+        startActivity(newIntentLoginWindow);
+    }
+    public void loginActivity(View view)
+    {
+        goToLoginActivity();
+    }
 }
+
+
+
+
+/*
+*         //actionBar = getSupportActionBar();
+
+        // Define ColorDrawable object and parse color
+        // using parseColor method
+        // with color hash code as its parameter
+        //ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#0F9D58"));
+
+        // Set BackgroundDrawable
+        // actionBar.setBackgroundDrawable(colorDrawable);
+*
+*
+*
+* */

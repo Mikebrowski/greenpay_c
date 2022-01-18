@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/gridLayout2"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/toolbar2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/insideLoginBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:backgroundTint="#B08249"
+            android:drawableTop="@drawable/ic_baseline_login_24"
+            android:onClick="goRegToLoginActivity"
+            android:text="Login"
+            android:textColor="#00FFFF"
+            android:textSize="20dp"
+            app:icon="@drawable/ic_baseline_login_24"
+            app:layout_column="0"
+            app:layout_row="2"
+            tools:layout_editor_absoluteX="-49dp"
+            tools:layout_editor_absoluteY="652dp" />
+
+        <Button
+            android:id="@+id/registerButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:backgroundTint="#B08249"
+            android:drawableTop="@drawable/ic_baseline_how_to_reg_24"
+            android:fontFamily="@font/aldrich"
+
+            android:text="Registrer"
+            android:textSize="20dp"
+
+            android:textStyle="bold"
+            app:icon="@drawable/ic_baseline_how_to_reg_24"
+            app:layout_column="0"
+            app:layout_row="1"
+            tools:layout_editor_absoluteX="-70dp"
+            tools:layout_editor_absoluteY="702dp" />
+
+    </androidx.gridlayout.widget.GridLayout>
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#90C158"
+        android:fontFamily="@font/aldrich"
+        android:onClick="btnRegisterClick"
+        android:soundEffectsEnabled="false"
+        android:text="Green Pay"
+        android:textAlignment="center"
+        android:textColor="#0FFFFF"
+        android:textColorLink="#0FFFFF"
+        android:textSize="60sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="592dp"
+        android:text="Lag en bruker"
+        android:textAllCaps="false"
+        android:textColor="#070606"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/profilePic"
+        android:layout_width="122dp"
+        android:layout_height="128dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="Brukerbildet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/subtitle"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:background="#90C158"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/regprogressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="112dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toStartOf="@+id/profilePic"
+        app:layout_constraintHorizontal_bias="0.39"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <LinearLayout
+        android:layout_width="396dp"
+        android:layout_height="211dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/gridLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chooseProfileBtn"
+        app:layout_constraintVertical_bias="0.698">
+
+        <EditText
+            android:id="@+id/editTextViewEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Skriv epost...."
+            android:inputType="textEmailAddress"
+            android:minHeight="48dp" />
+
+        <EditText
+            android:id="@+id/editTextTextPassword1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Skriv passord..."
+            android:inputType="textPassword"
+            android:minHeight="48dp"
+            tools:layout_editor_absoluteX="160dp"
+            tools:layout_editor_absoluteY="542dp" />
+
+        <EditText
+            android:id="@+id/usernameInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Skriv brukernavn...."
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            tools:layout_editor_absoluteX="-92dp"
+            tools:layout_editor_absoluteY="520dp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/chooseProfileBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/round_drawable"
+        android:text="Velg bilde"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/subtitle" />
+
+    <Button
+        android:id="@+id/uploadBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Upload"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/chooseProfileBtn"
+        app:layout_constraintTop_toBottomOf="@+id/chooseProfileBtn" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
