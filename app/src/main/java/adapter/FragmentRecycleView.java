@@ -25,6 +25,7 @@ public class FragmentRecycleView extends RecyclerView.Adapter<FragmentRecycleVie
     ArrayList<InitiativeDbGoals> databaseList;
     ItemClickListener clickListener;
     List<InitiativeDbGoals> datalist;
+    FragRecycleInterface fragRecycleInterface;
 
     public FragmentRecycleView(ArrayList<InitiativeDbGoals> databaseList, ItemClickListener clickListener) {
         this.databaseList = databaseList;
@@ -58,7 +59,7 @@ public class FragmentRecycleView extends RecyclerView.Adapter<FragmentRecycleVie
             @Override
             public void onClick(View v) {
                 //clickListener.onItemClick(databaseList.get(position));
-                clickListener.onItemClick(databaseList.get(holder.getBindingAdapterPosition())); // This one dont work because it can't grab the correct value or element
+                fragRecycleInterface.onItemClick(holder.getBindingAdapterPosition()); // This one dont work because it can't grab the correct value or element
             }
         });
     }
@@ -90,10 +91,8 @@ public class FragmentRecycleView extends RecyclerView.Adapter<FragmentRecycleVie
 
     //CLICKABLE FUNCTION SAME AS recycleadapter BUT WITH ABIT DIFFRENT METHODS
 
-    public interface ItemClickListener{
-        public void onItemClick(InitiativeDbGoals databaseList);
-         //Toast.makeText(this, "Clicked: " + initiatives.get(positionOfTheIni).getName(), Toast.LENGTH_SHORT).show();
+
+    public interface FragRecycleInterface {
+        void onItemClick(int posIntFragRes);
     }
-
-
 }

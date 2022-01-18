@@ -130,6 +130,9 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.Initiati
     public int getItemCount() {
             return initiativesData.size();
     }
+
+
+
     public interface IniClickInterface{
         void onItemClick(int positionOfTheIni);
     }

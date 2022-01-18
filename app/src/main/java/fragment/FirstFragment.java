@@ -34,21 +34,28 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
+import adapter.RecycleAdapter;
 import models.InitiativeDbGoals;
 import adapter.FragmentRecycleView;
 
 
-public class FirstFragment extends Fragment implements FragmentRecycleView.ItemClickListener {
+public class FirstFragment extends Fragment implements FragmentRecycleView.FragRecycleInterface {
 
     private RecyclerView recyclerviewFrag;
     private DatabaseReference databaseReference;
 
     private FirebaseFirestore DbCon;
     private FragmentRecycleView adapter;
+
+    FragmentRecycleView.FragRecycleInterface fragRecycleInterface;
+
     private final ArrayList<InitiativeDbGoals> datalist = new ArrayList<>();
 
-    public FragmentRecycleView.ItemClickListener clickListener;
+    FragmentRecycleView fragmentRecycleView = new FragmentRecycleView(ArrayList datalist, ItemClickListener clickListener );
+
+
 
 
     public FirstFragment() {
@@ -91,6 +98,8 @@ public class FirstFragment extends Fragment implements FragmentRecycleView.ItemC
 
 
         recyclerviewFrag.setAdapter(fetchDatabase());
+
+
 
 
         //recyclerviewfrag.setAdapter(recycleAdapter);
@@ -212,15 +221,23 @@ public class FirstFragment extends Fragment implements FragmentRecycleView.ItemC
             }
         );}
 
-    @Override
-    public void onItemClick(InitiativeDbGoals databaseList) {
-        Fragment fragment = detailsFragment.newInstance(databaseList.getType());
 
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.fragmentContainerView2, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
+        public void onItemClick()
+
+
+        @Override
+        public void onItemClick(int posIntFragRes){
+
+
+            Fragment fragment = detailsFragment.newInstance(datalist.toString());
+
+            FragmentTransaction transaction = Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction();
+            transaction.add(R.id.fragmentContainerView2, fragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
+
+
 }//end of frag
 
 
