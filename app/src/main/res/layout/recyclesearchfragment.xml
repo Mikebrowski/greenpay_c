@@ -7,7 +7,9 @@
     android:layout_margin="5dp"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    cardview:cardCornerRadius="4dp">
+    cardview:cardCornerRadius="4dp"
+
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,6 +21,7 @@
             android:id="@+id/typetxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#C31F33"
             android:gravity="center"
             android:text="Bærekraft type" />
 

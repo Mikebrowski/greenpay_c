@@ -11,6 +11,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/nativelib" />
+            <option value="$PROJECT_DIR$/phone and tablets" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

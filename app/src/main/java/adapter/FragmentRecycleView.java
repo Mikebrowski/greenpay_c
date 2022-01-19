@@ -47,8 +47,6 @@ public class FragmentRecycleView extends RecyclerView.Adapter<FragmentRecycleVie
         //holder.txtImgDb ????? cant use settext
         holder.txtType.setText(databaseList.get(position).getType());
 
-
-        //SUGGESTION ON STACK OVERFLOW based on the error mLastPosition = holder.getAdapterPosition();
         //HOWEVER getAdapterPostion has become now two getBindingAdapterPosition and getAbsoluteAdapterPosition
 
         //getBindingAdapterPosition should be used when you want to get the adapter position (if it still exists in the adapter). If it no longer exists in the adapter, it will return -1(NO_POSITION).
@@ -58,9 +56,11 @@ public class FragmentRecycleView extends RecyclerView.Adapter<FragmentRecycleVie
             @Override
             public void onClick(View v) {
                 //clickListener.onItemClick(databaseList.get(position));
-                fragRecycleInterface.onItemClick(holder.getAdapterPosition()); // This one dont work because it can't grab the correct value or element
+                //fragRecycleInterface.onItemClick(holder.getBindingAdapterPosition());
+                fragRecycleInterface.onItemClick(holder.getBindingAdapterPosition()); // This one dont work because it can't grab the correct value or element
             }
         });
+        //holder.txtNameDb.setbac
     }
 
     @Override
