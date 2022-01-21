@@ -78,7 +78,26 @@ class Highscorekotlin : Fragment() {
                         kotlinPointsData.add(pointsDataSnap!!)
                         //LIST HAD NO ADD FUNCTION
                     }
+
+
+                    var sum= 0;
+                    for (i in kotlinPointsData){
+                        sum += i.totalpoints!!;
+                    }
+
+                    //OR tranform it/ POLOMORHOP IT into a diffrent object that has a build in ITERATOR
+
+                    val mutableArrayList : MutableList<kotlinPointsData> = ArrayList()
+                    for (i in kotlinPointsData){
+                        mutableArrayList += i.username
+                        mutableArrayList += i.totalpoints
+                    }
+                    return mutableArrayList
+
+
+
                     kotlinPointsData.sortBy {pointsData -> pointsData.totalpoints }
+
                     recyclerviewFrag.adapter = PointsKotlinAdapter(kotlinPointsData)
                 }
             }
