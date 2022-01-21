@@ -36,9 +36,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
-import adapter.RecycleAdapter;
 import models.InitiativeDbGoals;
 import adapter.FragmentRecycleView;
 
@@ -132,7 +130,8 @@ public class FirstFragment extends Fragment implements FragmentRecycleView.FragR
                         for(DocumentSnapshot d:list) {
                             Map<String, Object> data = d.getData();
 
-                            datalist.add(new InitiativeDbGoals(data.get("name").toString(),data.get("points").toString(),data.get("type").toString(), data.get("imgpath").toString()));
+                            datalist.add(new InitiativeDbGoals(data.get("name").toString(),data.get("points").toString(),data.get("type").toString(), data.get("imgpath").toString()
+                            ,data.get("description").toString()));
 
                         }
                         adapter.notifyDataSetChanged();
@@ -210,7 +209,8 @@ public class FirstFragment extends Fragment implements FragmentRecycleView.FragR
                                 for(DocumentSnapshot ds:test)
                                 {
                                 Map<String, Object> data = ds.getData();
-                                idg.add(new InitiativeDbGoals(data.get("name").toString(),data.get("points").toString(),data.get("type").toString(), (String)data.get("imgpath")));
+                                idg.add(new InitiativeDbGoals(data.get("name").toString(),data.get("points").toString(),data.get("type").toString(), (String)data.get("imgpath")
+                                        ,data.get("description").toString()));
 
                                 }
                                 datalist.addAll(idg);
@@ -227,7 +227,8 @@ public class FirstFragment extends Fragment implements FragmentRecycleView.FragR
 
             //Fragment fragment = detailsFragment.newInstance(datalist.toString().);
 
-            Fragment fragment = detailsFragment.newInstance(datalist.get(posIntFragRes).getType(),datalist.get(posIntFragRes).getName(),datalist.get(posIntFragRes).getPoints());
+            Fragment fragment = detailsFragment.newInstance(datalist.get(posIntFragRes).getType(),datalist.get(posIntFragRes).getName()
+                    ,datalist.get(posIntFragRes).getPoints(), datalist.get(posIntFragRes).getBeskrivelse());
 
             FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
             //transaction.add(R.id.firstFragment, fragment);
