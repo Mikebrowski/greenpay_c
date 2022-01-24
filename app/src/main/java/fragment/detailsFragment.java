@@ -11,28 +11,29 @@ import android.widget.TextView;
 
 import com.example.greenpayremastered.R;
 
-import org.w3c.dom.Text;
-
 public class detailsFragment extends Fragment {
 
     private static final String ARG_PARAM1 ="param1";
     private static final String ARG_PARAM2 ="param2";
     private static final String ARG_PARAM3 ="param3";
+    private static final String ARG_PARAM4 ="param4";
 
     private String mParam1;
     private String mParam2;
     private String mParam3;
+    private String mParam4;
 
     public detailsFragment() {
         // Required empty public constructor
     }
 
-    public static detailsFragment newInstance(String param1,String param2, String param3){
+    public static detailsFragment newInstance(String param1, String param2, String param3, String param4){
         detailsFragment fragment = new detailsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1,param1);
         args.putString(ARG_PARAM2,param2);
         args.putString(ARG_PARAM3,param3);
+        args.putString(ARG_PARAM3,param4);
         //args.putString(ARG);
         fragment.setArguments(args);
         return fragment;
@@ -47,6 +48,7 @@ public class detailsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
             mParam3 = getArguments().getString(ARG_PARAM3);
+            mParam3 = getArguments().getString(ARG_PARAM4);
         }
     }
     @Override
@@ -56,10 +58,13 @@ public class detailsFragment extends Fragment {
         TextView typeDetails = view.findViewById(R.id.typeDetails);
         TextView nameDetails = view.findViewById(R.id.nameDetails);
         TextView pointsDetails = view.findViewById(R.id.pointsDetails);
+        TextView infoDetails = view.findViewById(R.id.infoText);
 
         typeDetails.setText(mParam1);
         nameDetails.setText(mParam2);
         pointsDetails.setText(mParam3);
+        infoDetails.setText(mParam4);
+
 
         return view;
     }

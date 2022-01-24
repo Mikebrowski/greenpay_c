@@ -13,13 +13,32 @@ public class InitiativeDbGoals {
     String points;
     String type;
     String imgpath;
+    String beskrivelse;
 
-    public InitiativeDbGoals(String name, String points, String type, String imgpath) {
+    public String getImgpath() {
+        return imgpath;
+    }
+
+    public void setImgpath(String imgpath) {
+        this.imgpath = imgpath;
+    }
+
+    public String getBeskrivelse() {
+        return beskrivelse;
+    }
+
+    public InitiativeDbGoals(String name, String points, String type, String imgpath, String beskrivelse) {
         this.name = name;
         this.points = points;
         this.type = type;
         this.imgpath = imgpath;
+        this.beskrivelse = beskrivelse;
     }
+
+    public void setBeskrivelse(String beskrivelse) {
+        this.beskrivelse = beskrivelse;
+    }
+
 
 
     public String getName() {
@@ -53,6 +72,7 @@ public class InitiativeDbGoals {
     public void setImgPath(String imgpath) {
         this.imgpath = imgpath;
     }
+
 
 
     @Override

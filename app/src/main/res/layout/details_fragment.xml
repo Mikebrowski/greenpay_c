@@ -24,6 +24,7 @@
             android:layout_height="wrap_content"
             android:text="TextView"
             android:textAlignment="center"
+            android:textSize="34sp"
             android:textStyle="bold" />
 
         <ImageView
@@ -37,14 +38,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/pointsDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/infoText"
