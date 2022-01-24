@@ -3,6 +3,7 @@ package adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.greenpayremastered.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +46,9 @@ public class FragmentRecycleView extends RecyclerView.Adapter<FragmentRecycleVie
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.txtNameDb.setText(databaseList.get(position).getName());
         holder.txtPointsDb.setText(databaseList.get(position).getPoints());//Why cant i put Double on poitns
-        //holder.txtImgDb ????? cant use settext
+        Picasso.get()
+                .load(databaseList.get(position).getImgpath())
+                .into(holder.txtImgDb);
         holder.txtType.setText(databaseList.get(position).getType());
 
 
@@ -71,7 +75,7 @@ public class FragmentRecycleView extends RecyclerView.Adapter<FragmentRecycleVie
     static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView txtNameDb;
         TextView txtPointsDb;
-        //TextView txtImgDb;
+        ImageView txtImgDb;
         TextView txtType;
         //Color
 
@@ -83,7 +87,7 @@ public class FragmentRecycleView extends RecyclerView.Adapter<FragmentRecycleVie
 
             txtNameDb = itemView.findViewById(R.id.db_ini_name);
             txtPointsDb = itemView.findViewById(R.id.db_ini_points);
-            //txtImgDb = itemView.findViewById(R.id.db_ini_img);
+            txtImgDb = itemView.findViewById(R.id.db_ini_img);
             txtType = itemView.findViewById(R.id.typetxt);
         }
     }

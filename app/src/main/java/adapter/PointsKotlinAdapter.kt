@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.greenpayremastered.R
 import models.KotlinPointsData
 
-class PointsKotlinAdapter (private val KotlinPointsData: ArrayList<KotlinPointsData>) : RecyclerView.Adapter<PointsKotlinAdapter.MyViewHolder>()
+class PointsKotlinAdapter (private val KotlinPointsData: List<KotlinPointsData>) : RecyclerView.Adapter<PointsKotlinAdapter.MyViewHolder>()
 {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -22,7 +22,7 @@ class PointsKotlinAdapter (private val KotlinPointsData: ArrayList<KotlinPointsD
 
         holder.usernameFromDb.text = currentItem.username
         holder.totalpointsFromDb.text = currentItem.totalpoints.toString()
-        //holder.datafromDb.text = currentItem.currentDateS.toString()
+        holder.positionTV.text = "${position+1}"
     }
 
     override fun getItemCount(): Int {
@@ -32,7 +32,7 @@ class PointsKotlinAdapter (private val KotlinPointsData: ArrayList<KotlinPointsD
 
         val usernameFromDb : TextView = itemView.findViewById(R.id.usernametxt)
         val totalpointsFromDb : TextView = itemView.findViewById(R.id.totalpointsTxt)
-        //val datafromDb : TextView = itemView.findViewById(R.id.currentdateDb)
+        val positionTV : TextView = itemView.findViewById(R.id.tvNumber)
 
     }
 
