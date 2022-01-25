@@ -128,10 +128,9 @@ public class FirstFragment extends Fragment implements FragmentRecycleView.FragR
 
 
                         for(DocumentSnapshot d:list) {
-                            Map<String, Object> data = d.getData();
+                            InitiativeDbGoals item = d.toObject(InitiativeDbGoals.class);
 
-                            datalist.add(new InitiativeDbGoals(data.get("name").toString(),data.get("points").toString(),data.get("type").toString(), data.get("imgpath").toString()
-                            ,data.get("description").toString()));
+                            datalist.add(item);
 
                         }
                         adapter.notifyDataSetChanged();
@@ -228,7 +227,7 @@ public class FirstFragment extends Fragment implements FragmentRecycleView.FragR
             //Fragment fragment = detailsFragment.newInstance(datalist.toString().);
 
             Fragment fragment = detailsFragment.newInstance(datalist.get(posIntFragRes).getType(),datalist.get(posIntFragRes).getName()
-                    ,datalist.get(posIntFragRes).getPoints(), datalist.get(posIntFragRes).getBeskrivelse());
+                    ,datalist.get(posIntFragRes).getPoints(), datalist.get(posIntFragRes).getDescription());
 
             FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
             //transaction.add(R.id.firstFragment, fragment);
