@@ -1,42 +1,29 @@
 package models;
 
-import android.content.Context;
-import android.content.res.AssetManager;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import java.util.Objects;
-
 public class InitiativeDbGoals {
     String name;
     String points;
     String type;
     String imgpath;
-    String beskrivelse;
+    String description;
 
-    public String getImgpath() {
-        return imgpath;
+
+    public String getDescription() {
+        return description;
     }
 
-    public void setImgpath(String imgpath) {
-        this.imgpath = imgpath;
-    }
+    public InitiativeDbGoals(){}
 
-    public String getBeskrivelse() {
-        return beskrivelse;
-    }
-
-    public InitiativeDbGoals(String name, String points, String type, String imgpath, String beskrivelse) {
+    public InitiativeDbGoals(String name, String points, String type, String imgPath, String description) {
         this.name = name;
         this.points = points;
         this.type = type;
-        this.imgpath = imgpath;
-        this.beskrivelse = beskrivelse;
+        this.imgpath = imgPath;
+        this.description = description;
     }
 
-    public void setBeskrivelse(String beskrivelse) {
-        this.beskrivelse = beskrivelse;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 
@@ -65,27 +52,14 @@ public class InitiativeDbGoals {
         this.type = type;
     }
 
-    public String getImgPath() {
+    public String getImgpath() {
         return imgpath;
     }
 
-    public void setImgPath(String imgpath) {
+    public void setImgpath(String imgpath) {
         this.imgpath = imgpath;
     }
 
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        InitiativeDbGoals that = (InitiativeDbGoals) o;
-        return name.equals(that.name) && points.equals(that.points) && type.equals(that.type) && imgpath.equals(that.imgpath);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, points, type, imgpath);
-    }
 
 }

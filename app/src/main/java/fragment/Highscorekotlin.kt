@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
 import com.example.greenpayremastered.R
+import com.google.firebase.firestore.auth.User
+import java.lang.reflect.Array.get
 
 // fragments are modular part of a activity
 // YOU CAN SHOW MULTIPLE SCREENS THATS THE KEY HERE
@@ -79,7 +81,7 @@ class Highscorekotlin : Fragment() {
                         //LIST HAD NO ADD FUNCTION
                     }
 
-
+/*
                     var sum= 0;
                     for (i in kotlinPointsData){
                         sum += i.totalpoints!!;
@@ -93,12 +95,46 @@ class Highscorekotlin : Fragment() {
                         mutableArrayList += i.totalpoints
                     }
                     return mutableArrayList
+*/
+
+
+                    //kotlinPointsData.sortBy {pointsData -> pointsData.totalpoints }
+                    kotlinPointsData.sortByDescending { it.totalpoints }
 
 
 
-                    kotlinPointsData.sortBy {pointsData -> pointsData.totalpoints }
 
-                    recyclerviewFrag.adapter = PointsKotlinAdapter(kotlinPointsData)
+                    //val highscore : Int = kotlinPointsData.get().totalpoints.sumOf
+
+                    val highscoreListOutput = kotlinPointsData.sumOf { it.totalpoints!! }// GETTTING SOMETHING HERE COUNTS ALL THE ROWS TOGETHER
+
+
+
+                    //val usernameAndPoints : List<KotlinPointsData> = kotlinPointsData.map { it.username: highscoreList -> highscoreListOutput(it.totalpoints, it.username) }
+
+
+                    val highscoreTest = kotlinPointsData.groupBy { it.username}.map { KotlinPointsData().apply {
+                        username = it.key
+                        totalpoints = it.value.sumOf { it.totalpoints ?: 0 }}}
+
+
+
+
+                    //val highscore = kotlinPointsData.groupBy { it.username }
+
+
+
+
+
+                    // CHANGE THE VALUE HERE BEFORE PASTING IT INTO THE ADAPTER
+                    recyclerviewFrag.adapter = PointsKotlinAdapter(highscoreTest)
+                    //print("HEREEEE: $highscoreListOutput")
+                    //print(highscoreList)
+
+
+
+
+
                 }
             }
             override fun onCancelled(error: DatabaseError) {
