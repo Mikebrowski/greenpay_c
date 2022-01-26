@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,12 +27,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Objects;
 
+import ViewModel.CalculatePointsViewModel;
 import database.UserData;
 import models.PointsData;
 
-public class detailsFragment extends Fragment {
+public class DetailsFragment extends Fragment {
 
     private static final String ARG_PARAM1 ="param1";
     private static final String ARG_PARAM2 ="param2";
@@ -42,14 +44,24 @@ public class detailsFragment extends Fragment {
     private String mParam3;
     private String mParam4;
 
-    //private View mainView;
+    TextView amountPresssesBox;
+    TextView totalvaluebox;
+
+    private CalculatePointsViewModel viewModel;
 
     private int counter = 0;
 
+    FirebaseDatabase mFirebaseDatabase;
+    FirebaseAuth mAuth;
+    FirebaseAuth.AuthStateListener mAuthListener;
+    DatabaseReference mDatabase;
 
+    String userID;
+    String initiativeName;
+    Date currentDateS;
 
-    public static detailsFragment newInstance(String param1, String param2, String param3, String param4){
-        detailsFragment fragment = new detailsFragment();
+    public static DetailsFragment newInstance(String param1, String param2, String param3, String param4){
+        DetailsFragment fragment = new DetailsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1,param1);
         args.putString(ARG_PARAM2,param2);
@@ -69,25 +81,31 @@ public class detailsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
             mParam3 = getArguments().getString(ARG_PARAM3);
-            mParam3 = getArguments().getString(ARG_PARAM4);
+            mParam4 = getArguments().getString(ARG_PARAM4);
         }
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View mainView = inflater.inflate(R.layout.details_fragment, container, false);
+        return mainView;
+    }
 
-        TextView typeDetails = mainView.findViewById(R.id.typeDetails);
-        TextView nameDetails = mainView.findViewById(R.id.nameDetails);
-        TextView pointsDetails = mainView.findViewById(R.id.pointsDetails);
-        TextView infoDetails = mainView.findViewById(R.id.infoText);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        Button plusButton = mainView.findViewById(R.id.plusB);
-        Button minusButton = mainView.findViewById(R.id.minusB);
-        Button sendToDbButton = mainView.findViewById(R.id.sendIntoDBB);
+        TextView typeDetails = view.findViewById(R.id.typeDetails);
+        TextView nameDetails = view.findViewById(R.id.nameDetails);
+        TextView pointsDetails = view.findViewById(R.id.pointsDetails);
+        TextView infoDetails = view.findViewById(R.id.infoText);
 
-        TextView amountPresssesBox =mainView.findViewById(R.id.pointsAmount);
-        TextView totalvaluebox =mainView.findViewById(R.id.totalValuedetails);
+        Button plusButton = view.findViewById(R.id.plusB);
+        Button minusButton = view.findViewById(R.id.minusB);
+        Button sendToDbButton = view.findViewById(R.id.sendIntoDBB);
+
+        TextView amountPresssesBox =view.findViewById(R.id.pointsAmount);
+        TextView totalvaluebox =view.findViewById(R.id.totalValuedetails);
 
 
         typeDetails.setText(mParam1);
@@ -97,11 +115,16 @@ public class detailsFragment extends Fragment {
 
         totalvaluebox.setVisibility(View.INVISIBLE);
 
-               sendToDbButton.setText("Regn ut poeng");
+        sendToDbButton.setText("Regn ut poeng");
         sendToDbButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                sendToDbButton.setText("Send dataen til databasen");
-                totalvaluebox.setVisibility(View.VISIBLE);
+                if (counter > 0){
+                    sendToDbButton.setText("Send dataen til databasen");
+                    totalvaluebox.setVisibility(View.VISIBLE);
+                    //totalvaluebox.setText(calculatedValue);
+                    seeTotalpoints();
+
+                }
             }
         });
 
@@ -118,7 +141,7 @@ public class detailsFragment extends Fragment {
         });
         minusButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (counter > 1) {
+                if (counter > 0) {
                     counter--;
                 } else {
                     minusButton.setVisibility(View.INVISIBLE);
@@ -126,16 +149,27 @@ public class detailsFragment extends Fragment {
                 amountPresssesBox.setText(Integer.toString(counter));
             }
         });
+        TextWatcher listener = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //textChanged();
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-        return mainView;
-    }
+            }
 
+            @Override
+            public void afterTextChanged(Editable s) {
 
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+            }
+        };
+                /*
+                editTextA.addTextChangedListener(listener);
+                totalvaluebox.addTextChangedListener(listener);
+                editTextC.addTextChangedListener(listener);
+                */
 
 
 
@@ -147,44 +181,12 @@ public class detailsFragment extends Fragment {
     /*CAULCULATING AND ADDTION METHODS*/
 
 
-    /*
-    private void seeTotalPoints() {
-        //mainView.
-
-
-        String correctPointFormat = Objects.requireNonNull(getView()).findViewById(R.id.pointsDetails).toString();
-        int num = Integer.parseInt(correctPointFormat);
-
-        String s = getView().findViewById(R.id.pointsAmount).toString();
-        if (s.toLowerCase().startsWith("t"))
-        {
-            s = "1";
-        }
-        int pointsFromR2 = Integer.valueOf(s);
-        int calculatedValue = Integer.valueOf(pointsFromR2 * num);
-
-
-        //View result = getView().findViewById(R.id.totalValuedetails);
-
-        //result.setText(String.valueOf(calculatedValue));
-        addToDatabase(calculatedValue);
-    }
-
-    private void addNumber() {
-        counter++;
-        showTotalValue.setText(Integer.toString(counter));
-    }
-
-    private void deductNumber() {
-        counter--;
-        showTotalValue.setText(Integer.toString(counter));
-    }
 
     private void addToDatabase(int calculatedValue) {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
 
-        initiativeName = txtFromIni.getText().toString();
+        initiativeName = mParam2;
         Calendar calendar = Calendar.getInstance();
 
         currentDateS = calendar.getTime();
@@ -206,7 +208,7 @@ public class detailsFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                userNameField.setText("NOPE");
+                return;
             }
         };
         uidRef.addValueEventListener(valueEventListener);
@@ -229,8 +231,17 @@ public class detailsFragment extends Fragment {
     public void currentDateM(){
         Calendar calendar = Calendar.getInstance();
         String currentDate = DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(calendar.getTime());
-        userNameField.setText(currentDate);
     }
-    */
+
+    private void seeTotalpoints()
+    {
+        String correctPointsFormat = amountPresssesBox.getText().toString();
+        int changeToInt = Integer.parseInt(correctPointsFormat);
+        int calculatedValue = Integer.valueOf(counter * changeToInt);
+        totalvaluebox.setText(calculatedValue);
+        //addToDatabase(calculatedValue);
+    }
+
+
 
 }
