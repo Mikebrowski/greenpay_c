@@ -33,3 +33,5 @@ Lapp/src/main/java/com/example/greenpayremastered/RegisterActivityScreen.java,9
 0app/src/main/java/alternative/improved_Main.java,d\d\dd77c1e7647db16aa9fd23c4706d0a6917c1155f
 ^
 .app/src/main/java/fragment/SecondFragment.java,4\7\4720a51d9773760be6692f82c3e64184441d50a6
+b
+2app/src/main/java/adapter/FragmentRecycleView.java,c\4\c44735660548754ee041d2e4515280f4834dc350

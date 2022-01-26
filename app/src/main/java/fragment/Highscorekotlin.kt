@@ -25,9 +25,6 @@ class Highscorekotlin : Fragment() {
 
     val rootRef = FirebaseDatabase.getInstance().reference
 
-    //var pointsData : List<PointsData>? = null
-
-
     private lateinit var dbReference : DatabaseReference
     private lateinit var recyclerviewFrag : RecyclerView
     private lateinit var kotlinPointsData: ArrayList<KotlinPointsData>
@@ -42,7 +39,6 @@ class Highscorekotlin : Fragment() {
         return inflater.inflate(R.layout.frag_highscorekotlin, container, false)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerviewFrag = getView()!!.findViewById(R.id.recyclerViewfragX)
@@ -52,22 +48,9 @@ class Highscorekotlin : Fragment() {
         recyclerviewFrag.setHasFixedSize(true)
         kotlinPointsData = arrayListOf<KotlinPointsData>()
         getDbData()
-
     }
 
     private fun getDbData() {
-
-
-
-
-        /* COMPERATOR KOTLIN
-        myItems.sortWith(Comparator { lhs, rhs ->
-
-            if (lhs.name > rhs.name) -1 else if (lhs.id < rhs.id) 1 else 0
-        })
-        */
-
-
 
         dbReference = FirebaseDatabase.getInstance().getReference("PointsData")
         dbReference.addValueEventListener(object : ValueEventListener
@@ -78,63 +61,14 @@ class Highscorekotlin : Fragment() {
                     {
                         val pointsDataSnap = userPointsData.getValue(KotlinPointsData::class.java)
                         kotlinPointsData.add(pointsDataSnap!!)
-                        //LIST HAD NO ADD FUNCTION
                     }
-
-/*
-                    var sum= 0;
-                    for (i in kotlinPointsData){
-                        sum += i.totalpoints!!;
-                    }
-
-                    //OR tranform it/ POLOMORHOP IT into a diffrent object that has a build in ITERATOR
-
-                    val mutableArrayList : MutableList<kotlinPointsData> = ArrayList()
-                    for (i in kotlinPointsData){
-                        mutableArrayList += i.username
-                        mutableArrayList += i.totalpoints
-                    }
-                    return mutableArrayList
-*/
-
-
-                    //kotlinPointsData.sortBy {pointsData -> pointsData.totalpoints }
                     kotlinPointsData.sortByDescending { it.totalpoints }
-
-
-
-
-                    //val highscore : Int = kotlinPointsData.get().totalpoints.sumOf
-
-                    val highscoreListOutput = kotlinPointsData.sumOf { it.totalpoints!! }// GETTTING SOMETHING HERE COUNTS ALL THE ROWS TOGETHER
-
-
-
-                    //val usernameAndPoints : List<KotlinPointsData> = kotlinPointsData.map { it.username: highscoreList -> highscoreListOutput(it.totalpoints, it.username) }
-
 
                     val highscoreTest = kotlinPointsData.groupBy { it.username}.map { KotlinPointsData().apply {
                         username = it.key
                         totalpoints = it.value.sumOf { it.totalpoints ?: 0 }}}
 
-
-
-
-                    //val highscore = kotlinPointsData.groupBy { it.username }
-
-
-
-
-
-                    // CHANGE THE VALUE HERE BEFORE PASTING IT INTO THE ADAPTER
                     recyclerviewFrag.adapter = PointsKotlinAdapter(highscoreTest)
-                    //print("HEREEEE: $highscoreListOutput")
-                    //print(highscoreList)
-
-
-
-
-
                 }
             }
             override fun onCancelled(error: DatabaseError) {
@@ -203,32 +137,4 @@ class Highscorekotlin : Fragment() {
         // changed for the recycler view
         //myRecyclerViewAdapter.notifyDataSetChanged()
     }
-/*
-    fun showDbData(){
-        mAuth = FirebaseAuth.getInstance()
-        //val dbReference = FirebaseDatabase.getInstance().getReference("PointsData/").child(mAuth!!.uid!!)
-        val childEventListener = object : ChildEventListener{
-            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                    val initiativeData = snapshot.getValue(InitiativeData::class.java)
-                    initiativeData?.name = snapshot.key
-                    //initiativeData?.points = snapshot.key
-
-                }
-        override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
-
-        override fun onChildRemoved(snapshot: DataSnapshot) {}
-
-        override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
-
-        override fun onCancelled(error: DatabaseError) {}
-
-            } //Child eventlistener
-        }// showDbData
-    */
-
-
-
-
 }
-
-
