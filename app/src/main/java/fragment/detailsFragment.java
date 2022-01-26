@@ -32,10 +32,10 @@ import models.PointsData;
 
 public class detailsFragment extends Fragment {
 
-    private static final String ARG_PARAM1 ="param1";
-    private static final String ARG_PARAM2 ="param2";
-    private static final String ARG_PARAM3 ="param3";
-    private static final String ARG_PARAM4 ="param4";
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM3 = "param3";
+    private static final String ARG_PARAM4 = "param4";
 
     private String mParam1;
     private String mParam2;
@@ -47,14 +47,13 @@ public class detailsFragment extends Fragment {
     private int counter = 0;
 
 
-
-    public static detailsFragment newInstance(String param1, String param2, String param3, String param4){
+    public static detailsFragment newInstance(String param1, String param2, String param3, String param4) {
         detailsFragment fragment = new detailsFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1,param1);
-        args.putString(ARG_PARAM2,param2);
-        args.putString(ARG_PARAM3,param3);
-        args.putString(ARG_PARAM4,param4);
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_PARAM3, param3);
+        args.putString(ARG_PARAM4, param4);
 
         fragment.setArguments(args);
         return fragment;
@@ -62,19 +61,18 @@ public class detailsFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null){
+        if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
             mParam3 = getArguments().getString(ARG_PARAM3);
             mParam3 = getArguments().getString(ARG_PARAM4);
         }
     }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.details_fragment, container, false);
 
         TextView typeDetails = mainView.findViewById(R.id.typeDetails);
@@ -85,8 +83,8 @@ public class detailsFragment extends Fragment {
         Button plusButton = mainView.findViewById(R.id.plusB);
         Button minusButton = mainView.findViewById(R.id.minusB);
 
-        TextView amountPresssesBox =mainView.findViewById(R.id.pointsAmount);
-        TextView totalvaluebox =mainView.findViewById(R.id.totalValuedetails);
+        TextView amountPresssesBox = mainView.findViewById(R.id.pointsAmount);
+//        TextView totalvaluebox =mainView.findViewById(R.id.totalValuedetails);
 
 
         typeDetails.setText(mParam1);
@@ -94,22 +92,30 @@ public class detailsFragment extends Fragment {
         pointsDetails.setText(mParam3);
         infoDetails.setText(mParam4);
 
+        if (counter == 0) {
+            minusButton.setVisibility(View.INVISIBLE);
+        }
+
 
         plusButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 counter++;
                 amountPresssesBox.setText(Integer.toString(counter));
+                minusButton.setVisibility(View.VISIBLE);
             }
         });
 
 
         minusButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                counter--;
+                if (counter > 0) {
+                    counter--;
+                } else {
+                    minusButton.setVisibility(View.INVISIBLE);
+                }
                 amountPresssesBox.setText(Integer.toString(counter));
             }
         });
-
 
 
         return mainView;
@@ -118,7 +124,6 @@ public class detailsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
 
 
         //seeTotalPoints(totalvaluebox.setText());
