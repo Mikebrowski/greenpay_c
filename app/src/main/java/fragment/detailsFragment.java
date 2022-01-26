@@ -84,6 +84,7 @@ public class detailsFragment extends Fragment {
 
         Button plusButton = mainView.findViewById(R.id.plusB);
         Button minusButton = mainView.findViewById(R.id.minusB);
+        Button sendToDbButton = mainView.findViewById(R.id.send)
 
         TextView amountPresssesBox =mainView.findViewById(R.id.pointsAmount);
         TextView totalvaluebox =mainView.findViewById(R.id.totalValuedetails);
@@ -93,6 +94,8 @@ public class detailsFragment extends Fragment {
         nameDetails.setText(mParam2);
         pointsDetails.setText(mParam3);
         infoDetails.setText(mParam4);
+
+        totalvaluebox.setVisibility(View.INVISIBLE);
 
 
         if (counter == 0) {
@@ -115,6 +118,7 @@ public class detailsFragment extends Fragment {
                 amountPresssesBox.setText(Integer.toString(counter));
             }
         });
+
 
         return mainView;
     }
