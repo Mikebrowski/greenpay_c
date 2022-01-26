@@ -35,3 +35,17 @@ Lapp/src/main/java/com/example/greenpayremastered/RegisterActivityScreen.java,9
 .app/src/main/java/fragment/SecondFragment.java,4\7\4720a51d9773760be6692f82c3e64184441d50a6
 b
 2app/src/main/java/adapter/FragmentRecycleView.java,c\4\c44735660548754ee041d2e4515280f4834dc350
+@
+app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
+]
+-app/src/main/java/fragment/Highscorekotlin.kt,3\2\3207b3cc4cadb9291d109386624e5002f832bfc6
+w
+Gapp/src/main/java/com/example/greenpayremastered/EditUsersActivity.java,8\1\819d1838b819e2ed22703eaa5fdd496dd533802f
+]
+-app/src/main/java/adapter/RecycleAdapter.java,4\6\4613741fc5fb4fe17ea42452a4f08990f927d37e
+u
+Eapp/src/main/java/com/example/greenpayremastered/InitiativesInfo.java,9\c\9c4253507ebd2a9de3aa3d4d2fd8852103ea6042
+]
+-app/src/main/java/fragment/FirstFragment.java,3\b\3b5496d90fd0d8c3ba9fc6e4ec132b418f80efb5
+`
+0app/src/main/java/adapter/PointsKotlinAdapter.kt,1\e\1e97c755a718667f514334684b41216301d6e4b5
