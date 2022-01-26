@@ -10,11 +10,11 @@
     cardview:cardCornerRadius="4dp"
     >
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
 
         <TextView
             android:id="@+id/typetxt"
@@ -54,5 +54,7 @@
             android:textSize="13sp" />
 
     </LinearLayout>
+
+
 
 </androidx.cardview.widget.CardView>

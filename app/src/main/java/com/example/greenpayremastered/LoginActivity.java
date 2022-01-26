@@ -43,9 +43,15 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
 
+        /*
+                // OLD VERSION
+                inputEmail= (EditText) findViewById(R.id.inputEmail);
+                inputPassword= (EditText) findViewById(R.id.inputPassword);
+        */
+        inputEmail = (EditText) findViewById(R.id.emailX);
+        inputPassword = (EditText) findViewById(R.id.passwordX);
 
-        inputEmail= (EditText) findViewById(R.id.inputEmail);
-        inputPassword= (EditText) findViewById(R.id.inputPassword);
+
         progressBar = (ProgressBar)findViewById(R.id.progressBarBot);
         progressBar.setVisibility(View.GONE);
 

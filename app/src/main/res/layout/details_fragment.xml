@@ -64,7 +64,7 @@
 
     <androidx.gridlayout.widget.GridLayout
         android:id="@+id/gridLayout3"
-        android:layout_width="343dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginBottom="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -95,8 +95,8 @@
 
         <TextView
             android:id="@+id/totalValuedetails"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="95dp"
+            android:layout_height="35dp"
             android:layout_marginStart="32dp"
             android:layout_marginBottom="36dp"
             android:gravity="center"
@@ -106,8 +106,8 @@
 
         <TextView
             android:id="@+id/pointsAmount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="95dp"
+            android:layout_height="35dp"
             android:layout_marginEnd="12dp"
             android:layout_marginBottom="36dp"
             android:gravity="center"
@@ -118,11 +118,13 @@
     </androidx.gridlayout.widget.GridLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/sendIntoDBB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Send inn"
         app:layout_constraintEnd_toEndOf="@+id/gridLayout3"
         app:layout_constraintStart_toStartOf="@+id/gridLayout3"
         app:layout_constraintTop_toBottomOf="@+id/gridLayout3" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
