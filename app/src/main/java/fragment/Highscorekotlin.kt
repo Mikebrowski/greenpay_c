@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -72,69 +73,9 @@ class Highscorekotlin : Fragment() {
                 }
             }
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                // TODO: 26.01.2022
             }
         })
     }
+}//END OF HIGHSCORE
 
-
-/*
-
-    fun sortList(){\
-        //TODO: MUTABLE LIST for sorting with COMPARATOR to value tv1 to tv2 ect
-        //MUTABLE LIST NOT UNMUTABLE BECAUSE LISTOF IS NOTABLE
-
-
-        b1!!.setOnClickListener(View.OnClickListener {
-            fun onClick(v: View?) {
-                b1!!.setText("test")
-            }
-        })
-    }
-*/
-    fun addRecyclerView(){
-        //val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
-
-        // create list of RecyclerViewData
-
-
-        //var recyclerViewData = mutableListOf<PointsData>()
-
-        //PointsData (String totalpoitns, String Name)
-        //var recyclerViewData2 = MutableList<PointsData>()
-        //recyclerViewData = ad(snap, "One")
-        /*
-        recyclerViewData = recyclerViewData + RecyclerViewData("1", "One")
-        recyclerViewData = recyclerViewData + RecyclerViewData("2", "Two")
-        recyclerViewData = recyclerViewData + RecyclerViewData("3", "Three")
-        recyclerViewData = recyclerViewData + RecyclerViewData("4", "Four")
-        recyclerViewData = recyclerViewData + RecyclerViewData("5", "Five")
-        recyclerViewData = recyclerViewData + RecyclerViewData("6", "Six")
-        recyclerViewData = recyclerViewData + RecyclerViewData("7", "Seven")
-        recyclerViewData = recyclerViewData + RecyclerViewData("8", "Eight")
-        recyclerViewData = recyclerViewData + RecyclerViewData("9", "Nine")
-        recyclerViewData = recyclerViewData + RecyclerViewData("10", "Ten")
-        recyclerViewData = recyclerViewData + RecyclerViewData("11", "Eleven")
-        recyclerViewData = recyclerViewData + RecyclerViewData("12", "Twelve")
-        recyclerViewData = recyclerViewData + RecyclerViewData("13", "Thirteen")
-        recyclerViewData = recyclerViewData + RecyclerViewData("14", "Fourteen")
-        recyclerViewData = recyclerViewData + RecyclerViewData("15", "Fifteen")
-        */
-        // create a vertical layout manager
-
-        //val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-
-        // create instance of MyRecyclerViewAdapter
-        //val myRecyclerViewAdapter = MyRecyclerViewAdapter(recyclerViewData)
-
-        // attach the adapter to the recycler view
-        //recyclerView.adapter = myRecyclerViewAdapter
-
-        // also attach the layout manager
-        //recyclerView.layoutManager = layoutManager
-
-        // make the adapter the data set
-        // changed for the recycler view
-        //myRecyclerViewAdapter.notifyDataSetChanged()
-    }
-}
