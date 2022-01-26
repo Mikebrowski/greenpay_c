@@ -35,7 +35,5 @@ w
 Gapp/src/main/java/com/example/greenpayremastered/EditUsersActivity.java,8\1\819d1838b819e2ed22703eaa5fdd496dd533802f
 ]
 -app/src/main/java/adapter/RecycleAdapter.java,4\6\4613741fc5fb4fe17ea42452a4f08990f927d37e
-u
-Eapp/src/main/java/com/example/greenpayremastered/InitiativesInfo.java,9\c\9c4253507ebd2a9de3aa3d4d2fd8852103ea6042
 `
 0app/src/main/java/adapter/PointsKotlinAdapter.kt,1\e\1e97c755a718667f514334684b41216301d6e4b5

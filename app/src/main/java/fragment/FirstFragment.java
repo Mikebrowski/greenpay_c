@@ -226,7 +226,7 @@ public class FirstFragment extends Fragment implements FragmentRecycleView.FragR
 
             //Fragment fragment = detailsFragment.newInstance(datalist.toString().);
 
-            Fragment fragment = detailsFragment.newInstance(datalist.get(posIntFragRes).getType(),datalist.get(posIntFragRes).getName()
+            Fragment fragment = DetailsFragment.newInstance(datalist.get(posIntFragRes).getType(),datalist.get(posIntFragRes).getName()
                     ,datalist.get(posIntFragRes).getPoints(), datalist.get(posIntFragRes).getDescription());
 
             FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
