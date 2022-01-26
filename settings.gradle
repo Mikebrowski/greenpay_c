@@ -8,3 +8,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Green Pay Remastered"
 include ':app'
+include ':phone and tablets'
+include ':nativelib'
