@@ -121,8 +121,15 @@ public class DetailsFragment extends Fragment {
                 if (counter > 0){
                     sendToDbButton.setText("Send dataen til databasen");
                     totalvaluebox.setVisibility(View.VISIBLE);
+
+                    int changeToInt = Integer.parseInt(pointsSelected);
+                    int calculatedValue = counter * changeToInt;
+
+                    totalvaluebox.setText(Integer.toString(calculatedValue)); //IGNORE SOLARLINT WITHOUT INT TO STRING the android crashes
+
+
                     //totalvaluebox.setText(calculatedValue);
-                    seeTotalpoints();
+                    //seeTotalpoints();
 
                 }
             }
