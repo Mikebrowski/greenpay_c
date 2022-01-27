@@ -36,12 +36,12 @@ public class DetailsFragment extends Fragment {
 
     private static final String ARG_PARAM1 ="param1";
     private static final String ARG_PARAM2 ="param2";
-    private static final String ARG_PARAM3 ="param3";
+    private static final String ARG_PARAM3 ="pointsSelected";
     private static final String ARG_PARAM4 ="param4";
 
     private String mParam1;
     private String mParam2;
-    private String mParam3;
+    private String pointsSelected;
     private String mParam4;
 
     TextView amountPresssesBox;
@@ -60,12 +60,12 @@ public class DetailsFragment extends Fragment {
     String initiativeName;
     Date currentDateS;
 
-    public static DetailsFragment newInstance(String param1, String param2, String param3, String param4){
+    public static DetailsFragment newInstance(String param1, String param2, String pointsSelected, String param4){
         DetailsFragment fragment = new DetailsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1,param1);
         args.putString(ARG_PARAM2,param2);
-        args.putString(ARG_PARAM3,param3);
+        args.putString(ARG_PARAM3,pointsSelected);
         args.putString(ARG_PARAM4,param4);
 
         fragment.setArguments(args);
@@ -80,7 +80,7 @@ public class DetailsFragment extends Fragment {
         if (getArguments() != null){
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
-            mParam3 = getArguments().getString(ARG_PARAM3);
+            pointsSelected = getArguments().getString(ARG_PARAM3);
             mParam4 = getArguments().getString(ARG_PARAM4);
         }
     }
@@ -110,7 +110,7 @@ public class DetailsFragment extends Fragment {
 
         typeDetails.setText(mParam1);
         nameDetails.setText(mParam2);
-        pointsDetails.setText(mParam3);
+        pointsDetails.setText(pointsSelected);
         infoDetails.setText(mParam4);
 
         totalvaluebox.setVisibility(View.INVISIBLE);
@@ -235,8 +235,8 @@ public class DetailsFragment extends Fragment {
 
     private void seeTotalpoints()
     {
-        String correctPointsFormat = amountPresssesBox.getText().toString();
-        int changeToInt = Integer.parseInt(correctPointsFormat);
+        //String correctPointsFormat = amountPresssesBox.getText().toString(); // NEEDS A POSSIBLE TEXTLISTINER
+        int changeToInt = Integer.parseInt(pointsSelected);
         int calculatedValue = Integer.valueOf(counter * changeToInt);
         totalvaluebox.setText(calculatedValue);
         //addToDatabase(calculatedValue);
