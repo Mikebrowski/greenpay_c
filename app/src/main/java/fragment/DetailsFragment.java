@@ -35,12 +35,12 @@ import models.PointsData;
 public class DetailsFragment extends Fragment {
 
     private static final String ARG_PARAM1 ="param1";
-    private static final String ARG_PARAM2 ="param2";
+    private static final String ARG_PARAM2 ="iniNameFromDb";
     private static final String ARG_PARAM3 ="pointsSelected";
     private static final String ARG_PARAM4 ="param4";
 
     private String mParam1;
-    private String mParam2;
+    private String iniNameFromDb;// Iniative data
     private String pointsSelected;
     private String mParam4;
 
@@ -60,11 +60,11 @@ public class DetailsFragment extends Fragment {
     String initiativeName;
     Date currentDateS;
 
-    public static DetailsFragment newInstance(String param1, String param2, String pointsSelected, String param4){
+    public static DetailsFragment newInstance(String param1, String iniNameFromDb, String pointsSelected, String param4){
         DetailsFragment fragment = new DetailsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1,param1);
-        args.putString(ARG_PARAM2,param2);
+        args.putString(ARG_PARAM2,iniNameFromDb);
         args.putString(ARG_PARAM3,pointsSelected);
         args.putString(ARG_PARAM4,param4);
 
@@ -79,7 +79,7 @@ public class DetailsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null){
             mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            iniNameFromDb = getArguments().getString(ARG_PARAM2);
             pointsSelected = getArguments().getString(ARG_PARAM3);
             mParam4 = getArguments().getString(ARG_PARAM4);
         }
@@ -109,7 +109,7 @@ public class DetailsFragment extends Fragment {
 
 
         typeDetails.setText(mParam1);
-        nameDetails.setText(mParam2);
+        nameDetails.setText(iniNameFromDb);
         pointsDetails.setText(pointsSelected);
         infoDetails.setText(mParam4);
 
@@ -126,6 +126,8 @@ public class DetailsFragment extends Fragment {
                     int calculatedValue = counter * changeToInt;
 
                     totalvaluebox.setText(Integer.toString(calculatedValue)); //IGNORE SOLARLINT WITHOUT INT TO STRING the android crashes
+
+                    addToDatabase(calculatedValue);
 
 
                     //totalvaluebox.setText(calculatedValue);
@@ -193,9 +195,9 @@ public class DetailsFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
 
-        initiativeName = mParam2;
-        Calendar calendar = Calendar.getInstance();
+        initiativeName = iniNameFromDb;
 
+        Calendar calendar = Calendar.getInstance();
         currentDateS = calendar.getTime();
         //String currentDateS = DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(calendar.getTime());
         //userNameField.setText(user.getUid()); GIR EN ANNEN ID EN FORVENTET
@@ -221,11 +223,8 @@ public class DetailsFragment extends Fragment {
         uidRef.addValueEventListener(valueEventListener);
     }
 
-    public Task<Void> addIntoDB(Integer totalpoints, String username, String initiativeName, Date currentDateS) {
-
-        //DatabaseReference uidRef = rootRef.child("user");
-        //mFirebaseDatabase.getInstance().getReference("pointsData");
-
+    public Task<Void> addIntoDB(Integer totalpoints, String username, String initiativeName, Date currentDateS)
+    {
         mAuth = FirebaseAuth.getInstance();
         PointsData pointsData = new PointsData(totalpoints,username,initiativeName,currentDateS);
         currentDateM();
