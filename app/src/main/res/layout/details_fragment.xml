@@ -64,7 +64,7 @@
 
     <androidx.gridlayout.widget.GridLayout
         android:id="@+id/gridLayout3"
-        android:layout_width="0dp"
+        android:layout_width="343dp"
         android:layout_height="50dp"
         android:layout_marginBottom="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -84,6 +84,19 @@
             app:layout_column="0"
             app:layout_row="1" />
 
+        <TextView
+            android:id="@+id/pointsAmount"
+            android:layout_width="150dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="-10dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:rotationX="0"
+            app:layout_column="2"
+            app:layout_row="1" />
+
         <Button
             android:id="@+id/plusB"
             android:layout_width="wrap_content"
@@ -93,38 +106,14 @@
             app:layout_column="4"
             app:layout_row="1" />
 
-        <TextView
-            android:id="@+id/totalValuedetails"
-            android:layout_width="95dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginBottom="36dp"
-            android:gravity="center"
-            android:text="TextView"
-            app:layout_column="1"
-            app:layout_row="1" />
-
-        <TextView
-            android:id="@+id/pointsAmount"
-            android:layout_width="95dp"
-            android:layout_height="35dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="36dp"
-            android:gravity="center"
-            android:text="TextView"
-            app:layout_column="2"
-            app:layout_row="1" />
-
     </androidx.gridlayout.widget.GridLayout>
 
     <Button
-        android:id="@+id/sendIntoDBB"
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Send inn"
         app:layout_constraintEnd_toEndOf="@+id/gridLayout3"
         app:layout_constraintStart_toStartOf="@+id/gridLayout3"
         app:layout_constraintTop_toBottomOf="@+id/gridLayout3" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
