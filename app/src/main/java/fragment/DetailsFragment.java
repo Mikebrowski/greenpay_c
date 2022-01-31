@@ -24,9 +24,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Time;
 import java.text.DateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 import ViewModel.CalculatePointsViewModel;
 import database.UserData;
@@ -236,6 +241,16 @@ public class DetailsFragment extends Fragment {
     }
     public void currentDateM(){
         Calendar calendar = Calendar.getInstance();
+        Date date = new Date(System.currentTimeMillis());
+        //
+        //  API 26 LocalDateTime.now(ZoneOffset.UTC);
+        //
+        // DateTimeFormatter formatter =
+
+        DateFormat df = DateFormat.getTimeInstance();
+        df.setTimeZone(TimeZone.getTimeZone("gmt"));
+        String gmtTime = df.format(new Date());
+
         String currentDate = DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(calendar.getTime());
     }
 
