@@ -2,7 +2,12 @@ package com.example.greenpayremastered;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.ui.AppBarConfiguration;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,8 +17,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TableLayout;
 
 import com.example.greenpayremastered.databinding.ActivityImprovedMainBinding;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+
+import adapter.ViewPagerFragmentAdapter;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -27,8 +37,15 @@ public class MainActivity extends AppCompatActivity {
     // Define ActionBar object
     ActionBar actionBar;
 
+    ViewPagerFragmentAdapter viewPagerFragmentAdapter;
+    ViewPager2 viewPager2;
+    TabLayout tabLayout;
+
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityImprovedMainBinding binding;
+    private String[] pageTitles = new String[] {"Register","Login"};
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +70,26 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(newIntentLoginWindow);
             }
         });
+
+
+        viewPager2 = findViewById(R.id.view_pager2);
+        tabLayout = findViewById(R.id.tab_layout);
+        viewPagerFragmentAdapter = new ViewPagerFragmentAdapter(this);
+
+        viewPager2.setAdapter(viewPagerFragmentAdapter);
+        //viewPager.setAdapter(viewPagerFragmentAdapter);
+        new TabLayoutMediator(tabLayout,viewPager2,((tab, position) -> tab.setText(pageTitles[position]))).attach();
+
+/*
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager
+                .beginTransaction()
+                .add(R.id.fragment_container, new GridFragment(), GridFragment.class.getSimpleName())
+                .commit();
+
+*/
+
     }// ON CREATE END
 
     @Override
