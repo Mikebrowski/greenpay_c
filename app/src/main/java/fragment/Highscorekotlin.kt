@@ -21,13 +21,12 @@ import java.lang.reflect.Array.get
 // A FRAGMENT MUST RUN INSIDE A ACTIVITY
 
 
-
 class Highscorekotlin : Fragment() {
 
     val rootRef = FirebaseDatabase.getInstance().reference
 
-    private lateinit var dbReference : DatabaseReference
-    private lateinit var recyclerviewFrag : RecyclerView
+    private lateinit var dbReference: DatabaseReference
+    private lateinit var recyclerviewFrag: RecyclerView
     private lateinit var kotlinPointsData: ArrayList<KotlinPointsData>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,8 +34,7 @@ class Highscorekotlin : Fragment() {
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
-    {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.frag_highscorekotlin, container, false)
     }
 
@@ -72,6 +70,7 @@ class Highscorekotlin : Fragment() {
                     recyclerviewFrag.adapter = PointsKotlinAdapter(highscoreTest)
                 }
             }
+
             override fun onCancelled(error: DatabaseError) {
                 // TODO: 26.01.2022
             }
