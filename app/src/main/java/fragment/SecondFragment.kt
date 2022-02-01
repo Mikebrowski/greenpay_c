@@ -1,171 +1,140 @@
-package fragment;
+package fragment
 
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.os.Bundle;
+import android.graphics.Color
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import com.example.greenpayremastered.R
+import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.components.Legend
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.formatter.PercentFormatter
+import com.github.mikephil.charting.utils.ColorTemplate
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
+import database.UserData
+import models.KotlinPiePointsWithDate
+import java.util.*
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+class SecondFragment : Fragment() {
+    private var pieChart: PieChart? = null
+    private var WhosLoggedIn: TextView? = null
+    private var mAuth: FirebaseAuth? = null
+    private var dBRefUser: DatabaseReference? = null
+    private var dBRefPoints: DatabaseReference? = null
+    private var uid: String? = null
 
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.greenpayremastered.R;
-import com.github.*;
-import com.github.mikephil.charting.animation.Easing;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.charts.ScatterChart;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.data.ScatterData;
-import com.github.mikephil.charting.data.ScatterDataSet;
-import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.interfaces.datasets.IScatterDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.Objects;
-
-import database.UserData;
-
-public class SecondFragment extends Fragment {
-    private PieChart pieChart;
-    private TextView WhosLoggedIn;
-    private FirebaseAuth mAuth;
-    private DatabaseReference databaseReference;
-    private String uid;
-
-
-
-    public SecondFragment() {
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val v = inflater.inflate(R.layout.fragment_second, container, false)
+        pieChart = v.findViewById(R.id.profilePieChart)
+        WhosLoggedIn = v.findViewById(R.id.WhosLoggedIn)
+        setupPieChart()
+        loadPieChartData()
+        setProfileName()
+        return v
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_second, container, false);
-        pieChart = v.findViewById(R.id.profilePieChart);
-        WhosLoggedIn = v.findViewById(R.id.WhosLoggedIn);
-
-        setupPieChart();
-        loadPieChartData();
-
-        setProfileName();
-
-        return v;
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    private fun setupPieChart() {
+        pieChart!!.isDrawHoleEnabled = true
+        pieChart!!.setUsePercentValues(true)
+        pieChart!!.setEntryLabelTextSize(12f)
+        pieChart!!.setEntryLabelColor(Color.BLACK)
+        pieChart!!.centerText = "Spending by Category"
+        pieChart!!.setCenterTextSize(24f)
+        pieChart!!.description.isEnabled = false
+        val l = pieChart!!.legend
+        l.verticalAlignment = Legend.LegendVerticalAlignment.TOP
+        l.horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
+        l.orientation = Legend.LegendOrientation.VERTICAL
+        l.setDrawInside(false)
+        l.isEnabled = true
     }
 
-    private void setupPieChart() {
-        pieChart.setDrawHoleEnabled(true);
-        pieChart.setUsePercentValues(true);
-        pieChart.setEntryLabelTextSize(12);
-        pieChart.setEntryLabelColor(Color.BLACK);
-        pieChart.setCenterText("Spending by Category");
-        pieChart.setCenterTextSize(24);
-        pieChart.getDescription().setEnabled(false);
-
-        Legend l = pieChart.getLegend();
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
-        l.setOrientation(Legend.LegendOrientation.VERTICAL);
-        l.setDrawInside(false);
-        l.setEnabled(true);
-    }
-
-
-
-    private void loadPieChartData() {
-        ArrayList<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(0.2f, "Food & Dining"));
-        entries.add(new PieEntry(0.15f, "Medical"));
-        entries.add(new PieEntry(0.10f, "Entertainment"));
-        entries.add(new PieEntry(0.25f, "Electricity and Gas"));
-        entries.add(new PieEntry(0.3f, "Housing"));
-
-        ArrayList<Integer> colors = new ArrayList<>();
-        for (int color: ColorTemplate.MATERIAL_COLORS) {
-            colors.add(color);
+    private fun loadPieChartData() {
+        val entries = ArrayList<PieEntry>()
+        getDbData().forEach { it ->
+            entries.add(PieEntry(it.totalpoints!!.toFloat(), it.name))
         }
-
-        for (int color: ColorTemplate.VORDIPLOM_COLORS) {
-            colors.add(color);
+//        entries.add(PieEntry(0.2f, "Food & Dining"))
+//        entries.add(PieEntry(0.15f, "Medical"))
+//        entries.add(PieEntry(0.10f, "Entertainment"))
+//        entries.add(PieEntry(0.25f, "Electricity and Gas"))
+//        entries.add(PieEntry(0.3f, "Housing"))
+        val colors = ArrayList<Int>()
+        for (color in ColorTemplate.MATERIAL_COLORS) {
+            colors.add(color)
         }
-
-        PieDataSet dataSet = new PieDataSet(entries, "Expense Category");
-        dataSet.setColors(colors);
-
-        PieData data = new PieData(dataSet);
-        data.setDrawValues(true);
-        data.setValueFormatter(new PercentFormatter(pieChart));
-        data.setValueTextSize(12f);
-        data.setValueTextColor(Color.BLACK);
-
-        pieChart.setData(data);
-        pieChart.invalidate();
-
-        pieChart.animateY(1400, Easing.EaseInOutQuad);
-
-
+        for (color in ColorTemplate.VORDIPLOM_COLORS) {
+            colors.add(color)
+        }
+        val dataSet = PieDataSet(entries, "Expense Category")
+        dataSet.colors = colors
+        val data = PieData(dataSet)
+        data.setDrawValues(true)
+        data.setValueFormatter(PercentFormatter(pieChart))
+        data.setValueTextSize(12f)
+        data.setValueTextColor(Color.BLACK)
+        pieChart!!.data = data
+        pieChart!!.invalidate()
+        pieChart!!.animateY(1400, Easing.EaseInOutQuad)
     }
-    public void setProfileName() {
-        mAuth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference("user");
-        uid = mAuth.getCurrentUser().getUid().toString();
 
-        if(uid != null){
-            databaseReference.child(uid).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    String usernameOnProfile = snapshot.getValue(UserData.class).getUsername();
+    fun setProfileName() {
+        mAuth = FirebaseAuth.getInstance()
+        dBRefUser = FirebaseDatabase.getInstance().getReference("user")
+        uid = mAuth!!.currentUser!!.uid
+        if (uid != null) {
+            dBRefUser!!.child(uid!!).addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val usernameOnProfile = snapshot.getValue(UserData::class.java)!!.username
                     //String picture
-                    WhosLoggedIn.setText(usernameOnProfile);
-
+                    WhosLoggedIn!!.text = usernameOnProfile
                 }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(getContext(), "Noe gikk galt", Toast.LENGTH_SHORT).show();
-
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(context, "Noe gikk galt", Toast.LENGTH_SHORT).show()
                 }
-            });
-
-
+            })
         }
-
-
-
-        //final String userID = intent.getStringExtra("userID");
-        //FirebaseUser user = firebaseAuth.getCurrentUser()
-
-
-        //DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        //WhosLoggedIn.setText(mAuth.getCurrentUser().getEmail());
-
-        //tring uid = (String) mAuth.getCurrentUser().getUid();
     }
 
+    private fun getDbData(): ArrayList<KotlinPiePointsWithDate> {
+        val piePoints: ArrayList<KotlinPiePointsWithDate> = arrayListOf<KotlinPiePointsWithDate>()
 
+        dBRefPoints = FirebaseDatabase.getInstance().getReference("PointsData")
+        dBRefPoints!!.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    val points: ArrayList<KotlinPiePointsWithDate> = arrayListOf<KotlinPiePointsWithDate>()
 
+                    for (userPointsData in snapshot.children)//Can also do WHILE
+                    {
+                        val pointsDataSnap = userPointsData.getValue(KotlinPiePointsWithDate::class.java)
+                        points.add(pointsDataSnap!!)
+
+                        piePoints.addAll(points.groupBy { it.name }.map { it ->
+                            KotlinPiePointsWithDate(it.key, it.value.sumOf { it.totalpoints ?: 0 })
+                        })
+
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // TODO: 26.01.2022
+            }
+        })
+        return piePoints
+    }
 }
