@@ -24,9 +24,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Time;
 import java.text.DateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 import ViewModel.CalculatePointsViewModel;
 import database.UserData;
@@ -34,14 +39,14 @@ import models.PointsData;
 
 public class DetailsFragment extends Fragment {
 
-    private static final String ARG_PARAM1 ="param1";
-    private static final String ARG_PARAM2 ="param2";
-    private static final String ARG_PARAM3 ="param3";
-    private static final String ARG_PARAM4 ="param4";
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "iniNameFromDb";
+    private static final String ARG_PARAM3 = "pointsSelected";
+    private static final String ARG_PARAM4 = "param4";
 
     private String mParam1;
-    private String mParam2;
-    private String mParam3;
+    private String iniNameFromDb;// Iniative data
+    private String pointsSelected;
     private String mParam4;
 
     TextView amountPresssesBox;
@@ -60,13 +65,13 @@ public class DetailsFragment extends Fragment {
     String initiativeName;
     Date currentDateS;
 
-    public static DetailsFragment newInstance(String param1, String param2, String param3, String param4){
+    public static DetailsFragment newInstance(String param1, String iniNameFromDb, String pointsSelected, String param4) {
         DetailsFragment fragment = new DetailsFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1,param1);
-        args.putString(ARG_PARAM2,param2);
-        args.putString(ARG_PARAM3,param3);
-        args.putString(ARG_PARAM4,param4);
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, iniNameFromDb);
+        args.putString(ARG_PARAM3, pointsSelected);
+        args.putString(ARG_PARAM4, param4);
 
         fragment.setArguments(args);
         return fragment;
@@ -74,19 +79,18 @@ public class DetailsFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null){
+        if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-            mParam3 = getArguments().getString(ARG_PARAM3);
+            iniNameFromDb = getArguments().getString(ARG_PARAM2);
+            pointsSelected = getArguments().getString(ARG_PARAM3);
             mParam4 = getArguments().getString(ARG_PARAM4);
         }
     }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.details_fragment, container, false);
         return mainView;
     }
@@ -104,13 +108,13 @@ public class DetailsFragment extends Fragment {
         Button minusButton = view.findViewById(R.id.minusB);
         Button sendToDbButton = view.findViewById(R.id.sendIntoDBB);
 
-        TextView amountPresssesBox =view.findViewById(R.id.pointsAmount);
-        TextView totalvaluebox =view.findViewById(R.id.totalValuedetails);
+        TextView amountPresssesBox = view.findViewById(R.id.pointsAmount);
+        TextView totalvaluebox = view.findViewById(R.id.totalValuedetails);
 
 
         typeDetails.setText(mParam1);
-        nameDetails.setText(mParam2);
-        pointsDetails.setText(mParam3);
+        nameDetails.setText(iniNameFromDb);
+        pointsDetails.setText(pointsSelected);
         infoDetails.setText(mParam4);
 
         totalvaluebox.setVisibility(View.INVISIBLE);
@@ -118,11 +122,20 @@ public class DetailsFragment extends Fragment {
         sendToDbButton.setText("Regn ut poeng");
         sendToDbButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (counter > 0){
+                if (counter > 0) {
                     sendToDbButton.setText("Send dataen til databasen");
                     totalvaluebox.setVisibility(View.VISIBLE);
+
+                    int changeToInt = Integer.parseInt(pointsSelected);
+                    int calculatedValue = counter * changeToInt;
+
+                    totalvaluebox.setText(Integer.toString(calculatedValue)); //IGNORE SOLARLINT WITHOUT INT TO STRING the android crashes
+
+                    addToDatabase(calculatedValue);
+
+
                     //totalvaluebox.setText(calculatedValue);
-                    seeTotalpoints();
+                    //seeTotalpoints();
 
                 }
             }
@@ -172,7 +185,6 @@ public class DetailsFragment extends Fragment {
                 */
 
 
-
         //seeTotalPoints(totalvaluebox.setText());
 
 
@@ -181,14 +193,13 @@ public class DetailsFragment extends Fragment {
     /*CAULCULATING AND ADDTION METHODS*/
 
 
-
     private void addToDatabase(int calculatedValue) {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
 
-        initiativeName = mParam2;
-        Calendar calendar = Calendar.getInstance();
+        initiativeName = iniNameFromDb;
 
+        Calendar calendar = Calendar.getInstance();
         currentDateS = calendar.getTime();
         //String currentDateS = DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(calendar.getTime());
         //userNameField.setText(user.getUid()); GIR EN ANNEN ID EN FORVENTET
@@ -197,13 +208,12 @@ public class DetailsFragment extends Fragment {
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference uidRef = rootRef.child("user").child(uid);
-        ValueEventListener valueEventListener = new ValueEventListener()
-        {
+        ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String usernameOnProfile = snapshot.getValue(UserData.class).getUsername();
                 //userNameField.setText(usernameOnProfile);
-                addIntoDB(calculatedValue, snapshot.getValue(UserData.class).getUsername(),initiativeName,currentDateS);
+                addIntoDB(calculatedValue, snapshot.getValue(UserData.class).getUsername(), initiativeName, currentDateS);
             }
 
             @Override
@@ -215,33 +225,36 @@ public class DetailsFragment extends Fragment {
     }
 
     public Task<Void> addIntoDB(Integer totalpoints, String username, String initiativeName, Date currentDateS) {
-
-        //DatabaseReference uidRef = rootRef.child("user");
-        //mFirebaseDatabase.getInstance().getReference("pointsData");
-
         mAuth = FirebaseAuth.getInstance();
-        PointsData pointsData = new PointsData(totalpoints,username,initiativeName,currentDateS);
+        PointsData pointsData = new PointsData(totalpoints, username, initiativeName, currentDateS);
         currentDateM();
 
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = db.getReference(PointsData.class.getSimpleName());
 
-        return databaseReference.push().setValue(new PointsData(totalpoints,username,initiativeName,currentDateS));
+        return databaseReference.push().setValue(new PointsData(totalpoints, username, initiativeName, currentDateS));
     }
-    public void currentDateM(){
+
+    public void currentDateM() {
         Calendar calendar = Calendar.getInstance();
+        Date date = new Date(System.currentTimeMillis());
+        //
+        //  API 26 LocalDateTime.now(ZoneOffset.UTC);
+        //
+        // DateTimeFormatter formatter =
+
+        DateFormat df = DateFormat.getTimeInstance();
+        df.setTimeZone(TimeZone.getTimeZone("gmt"));
+        String gmtTime = df.format(new Date());
+
         String currentDate = DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(calendar.getTime());
     }
 
-    private void seeTotalpoints()
-    {
-        String correctPointsFormat = amountPresssesBox.getText().toString();
-        int changeToInt = Integer.parseInt(correctPointsFormat);
+    private void seeTotalpoints() {
+        //String correctPointsFormat = amountPresssesBox.getText().toString(); // NEEDS A POSSIBLE TEXTLISTINER
+        int changeToInt = Integer.parseInt(pointsSelected);
         int calculatedValue = Integer.valueOf(counter * changeToInt);
         totalvaluebox.setText(calculatedValue);
         //addToDatabase(calculatedValue);
     }
-
-
-
 }

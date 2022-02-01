@@ -118,6 +118,7 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
 
         navigationView = findViewById(R.id.bottomNavigationView);
         navigationView.setOnNavigationItemSelectedListener(selectedListener);
+        // NEWER VERSION setOnNavigationItemSelectedListener
 
         FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragmentContainerView2,frag1,"Dashboaret");
