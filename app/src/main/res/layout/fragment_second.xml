@@ -9,19 +9,6 @@
     <!-- TODO: Update blank fragment layout -->
 
 
-    <TextView
-        android:id="@+id/WhosLoggedIn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="second fragment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.22"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.464" />
-
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -32,63 +19,54 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFF"
-            android:paddingBottom="20dp">
+            android:paddingBottom="5dp">
 
             <RelativeLayout
                 android:id="@+id/imgUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-               >
+                android:layout_marginTop="20dp">
 
                 <ImageView
-                    android:layout_width="111dp"
-                    android:layout_height="117dp"
+                    android:layout_width="78dp"
+                    android:layout_height="55dp"
                     android:layout_marginStart="9dp"
                     android:layout_marginTop="9dp"
                     android:layout_marginEnd="9dp"
                     android:layout_marginBottom="9dp"
                     android:adjustViewBounds="true"
                     android:background="@drawable/circle"
+                    android:backgroundTint="#8F1414"
                     android:padding="3dp"
                     android:scaleType="centerInside" />
 
             </RelativeLayout>
 
             <TextView
-                android:id="@+id/tv_name"
+                android:id="@+id/WhosLoggedIn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/imgUser"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="15sp"
-                android:fontFamily="sans-serif-light"
+                android:layout_marginTop="5dp"
+                android:fontFamily="sans-serif-black"
                 android:text="Funny stuff"
-                android:textColor="@color/white"
+                android:textColor="@color/gray"
                 android:textSize="32sp" />
 
 
             <TextView
-                android:id="@+id/tv_address"
+                android:id="@+id/organization"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_name"
+                android:layout_below="@+id/WhosLoggedIn"
                 android:layout_centerHorizontal="true"
                 android:fontFamily="sans-serif"
-                android:text="company"
+                android:text="Knowit"
                 android:textAllCaps="true"
                 android:textColor="@color/address"
                 android:textSize="14sp" />
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="15dp"
-                android:adjustViewBounds="true"
-                android:scaleType="centerInside" />
 
         </RelativeLayout>
 
@@ -97,7 +75,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/rellay1"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/profilePieChart"
@@ -156,13 +134,13 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="4dp"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Phone"
+                        android:text="Brukernavn"
                         android:textColor="@color/headings"
                         android:textSize="13sp" />
 

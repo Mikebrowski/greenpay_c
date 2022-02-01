@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.greenpayremastered.R;
 import com.github.*;
@@ -32,8 +33,10 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IScatterDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -46,6 +49,8 @@ public class SecondFragment extends Fragment {
     private PieChart pieChart;
     private TextView WhosLoggedIn;
     private FirebaseAuth mAuth;
+    private DatabaseReference databaseReference;
+    private String uid;
 
 
 
@@ -61,6 +66,8 @@ public class SecondFragment extends Fragment {
 
         setupPieChart();
         loadPieChartData();
+
+        setProfileName();
 
         return v;
     }
@@ -123,26 +130,40 @@ public class SecondFragment extends Fragment {
 
     }
     public void setProfileName() {
+        mAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference("user");
+        uid = mAuth.getCurrentUser().getUid().toString();
 
-        FirebaseDatabase.getInstance().getReference("user/").child(mAuth.getUid()).addValueEventListener(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+        if(uid != null){
+            databaseReference.child(uid).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String usernameOnProfile = snapshot.getValue(UserData.class).getUsername();
+                    //String picture
+                    WhosLoggedIn.setText(usernameOnProfile);
 
-                        String usernameOnProfile = snapshot.getValue(UserData.class).getUsername();
+                }
 
-                        String emailOnUser = snapshot.getValue(UserData.class).getEmail();
-                        String profilePicUser = snapshot.getValue(UserData.class).getProfilePicture();
-                        WhosLoggedIn.setText(usernameOnProfile);
-                    }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(getContext(), "Noe gikk galt", Toast.LENGTH_SHORT).show();
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
+                }
+            });
 
 
-                });
+        }
+
+
+
+        //final String userID = intent.getStringExtra("userID");
+        //FirebaseUser user = firebaseAuth.getCurrentUser()
+
+
+        //DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        //WhosLoggedIn.setText(mAuth.getCurrentUser().getEmail());
+
+        //tring uid = (String) mAuth.getCurrentUser().getUid();
     }
 
 
