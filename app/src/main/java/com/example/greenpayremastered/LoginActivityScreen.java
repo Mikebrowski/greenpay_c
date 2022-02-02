@@ -41,7 +41,7 @@ import fragment.Highscorekotlin;
 import fragment.SecondFragment;
 
 
-public class LoginActivityScreen extends AppCompatActivity implements RecycleAdapter.IniClickInterface {
+public class LoginActivityScreen extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private RecyclerView recyclerView;
@@ -50,7 +50,9 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
     private ArrayList<Initiatives> initiatives = new ArrayList<>();
     private List<InitiativeData> initiativesDatList = new ArrayList<>();
 
-    private RecycleAdapter recycleAdapter = new RecycleAdapter(initiatives, this, this, initiativesDatList);
+    //private RecycleAdapter recycleAdapter = new RecycleAdapter(initiatives, this, this, initiativesDatList);
+    // NEEDS THIS BACK WHEN IT WAS STACTIC RECYCLEVIEW
+    // public class LoginActivityScreen extends AppCompatActivity implements RecycleAdapter.IniClickInterface
 
     private SearchView searchArea;
     private Button logoutBtn;
@@ -70,12 +72,12 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
 
         FirstFragment frag1 = new FirstFragment();
 
-        recyclerView = (RecyclerView) findViewById(R.id.fragment_recycleview_s);
+        //recyclerView = (RecyclerView) findViewById(R.id.fragment_recycleview_s);
         searchArea = (SearchView) findViewById(R.id.searchI);
-        logoutBtn = (Button) findViewById(R.id.logoutBtn);
-        loginText = (TextView) findViewById(R.id.loggedInTextview);
-        firstButton = (Button) findViewById(R.id.firstButton);
-        secondButton = (Button) findViewById(R.id.secondButton);
+        //logoutBtn = (Button) findViewById(R.id.logoutBtn);
+        //loginText = (TextView) findViewById(R.id.loggedInTextview);
+        //firstButton = (Button) findViewById(R.id.firstButton);
+        //secondButton = (Button) findViewById(R.id.secondButton);
 
         actionBar = getSupportActionBar();
         actionBar.setTitle("Welcome to Greenpay");
@@ -127,14 +129,14 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
 
-        recycleViewPopulate();
-        setListData();
+        //recycleViewPopulate();
+        //setListData();
 
         Highscorekotlin highscorekotlin = new Highscorekotlin();
 
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
+/*
         firstButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -158,6 +160,7 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
 
             }
         });
+ */
 /*
         searchArea.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -175,7 +178,7 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
             }
         });
 */
-
+/*
         secondButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -193,18 +196,8 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
             }
         });
 
-
+*/
     }//end of onCreate
-
-
-    private void showUserName(DataSnapshot dataSnapshot) {
-        for (DataSnapshot ds : dataSnapshot.getChildren()) {
-
-            FirebaseUser user = mAuth.getCurrentUser();
-            //userData.setEmail(ds.child(user).getValue(UserData.class).getUsername());
-        }
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -220,8 +213,8 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
             startActivity(new Intent(LoginActivityScreen.this, LoginActivity.class));
         }
     }
+    /*
 
-    /*METHODS TO DO STUFF*/
     public void setListData() {
         initiativesDatList.add(new InitiativeData("Gikk til jobben A", "20"));
         initiativesDatList.add(new InitiativeData("Gjenbrukte gamle klær", "25"));
@@ -247,7 +240,7 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
         recyclerView.setAdapter(recycleAdapter);
 
     }//End of recycleViewPopulate
-
+/*
     @Override
     public void onItemClick(int positionOfTheIni) {
         Toast.makeText(this, "Clicked: " + initiatives.get(positionOfTheIni).getName(), Toast.LENGTH_SHORT).show();
@@ -257,6 +250,7 @@ public class LoginActivityScreen extends AppCompatActivity implements RecycleAda
         intent.putExtra("points", initiatives.get(positionOfTheIni).getPoints());
         startActivity(intent);
     }
+*/
 /*
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
