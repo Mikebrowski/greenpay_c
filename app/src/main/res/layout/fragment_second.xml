@@ -9,191 +9,74 @@
     <!-- TODO: Update blank fragment layout -->
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.halo.profileui.Activity_Main">
+    <LinearLayout
+        android:id="@+id/linlay1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
-        <RelativeLayout
-            android:id="@+id/rellay1"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/WhosLoggedIn"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#FFF"
-            android:paddingBottom="5dp">
+            android:fontFamily="@font/aldrich"
+            android:text="brukernavn"
+            android:textColor="#000000"
+            android:textSize="18sp" />
 
-            <RelativeLayout
-                android:id="@+id/imgUser"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp">
-
-                <ImageView
-                    android:layout_width="78dp"
-                    android:layout_height="55dp"
-                    android:layout_marginStart="9dp"
-                    android:layout_marginTop="9dp"
-                    android:layout_marginEnd="9dp"
-                    android:layout_marginBottom="9dp"
-                    android:adjustViewBounds="true"
-                    android:background="@drawable/circle"
-                    android:backgroundTint="#8F1414"
-                    android:padding="3dp"
-                    android:scaleType="centerInside" />
-
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/WhosLoggedIn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/imgUser"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="5dp"
-                android:fontFamily="sans-serif-black"
-                android:text="Funny stuff"
-                android:textColor="@color/gray"
-                android:textSize="32sp" />
-
-
-            <TextView
-                android:id="@+id/organization"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/WhosLoggedIn"
-                android:layout_centerHorizontal="true"
-                android:fontFamily="sans-serif"
-                android:text="Knowit"
-                android:textAllCaps="true"
-                android:textColor="@color/address"
-                android:textSize="14sp" />
-
-        </RelativeLayout>
-
-        <LinearLayout
-            android:id="@+id/linlay1"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/rellay1"
-            android:orientation="vertical">
+            android:background="@drawable/circle"
+            tools:src="@drawable/account_img" />
 
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/profilePieChart"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Epost"
+            android:textColor="@color/green"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/aldrich"
+            android:text="ssssssss"
+            android:textColor="#000000"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Poeng"
+            android:textColor="@color/green"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/aldrich"
+            android:text="test@test"
+            android:textColor="#000000"
+            android:textSize="18sp" />
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/profilePieChart"
 
 
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-
-                ></com.github.mikephil.charting.charts.PieChart>
-
-        </LinearLayout>
-
-
-        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="190dp"
-            android:layout_below="@+id/linlay1">
+            android:layout_height="331dp"
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="30dp"
-                android:orientation="vertical">
+            ></com.github.mikephil.charting.charts.PieChart>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Epost"
-                        android:textColor="@color/headings"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-light"
-                        android:text="test@test"
-                        android:textColor="#000000"
-                        android:textSize="18sp" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="15dp"
-                        android:background="@color/grey" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Brukernavn"
-                        android:textColor="@color/headings"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-light"
-                        android:text="brukernavn"
-                        android:textColor="#000000"
-                        android:textSize="18sp" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="15dp"
-                        android:background="@color/grey" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Poeng"
-                        android:textColor="@color/headings"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-light"
-                        android:text="ssssssss"
-                        android:textColor="#000000"
-                        android:textSize="18sp" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="15dp"
-                        android:background="@color/grey" />
-
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-        </RelativeLayout>
-
-    </RelativeLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

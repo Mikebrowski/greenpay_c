@@ -35,8 +35,8 @@ class SecondFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_second, container, false)
         pieChart = v.findViewById(R.id.profilePieChart)
         WhosLoggedIn = v.findViewById(R.id.WhosLoggedIn)
-        getDbData()
         setupPieChart()
+        loadPieChartData()
         setProfileName()
         return v
     }
@@ -61,9 +61,9 @@ class SecondFragment : Fragment() {
         l.isEnabled = true
     }
 
-    private fun loadPieChartData(points: ArrayList<KotlinPiePointsWithDate>) {
+    private fun loadPieChartData() {
         val entries = ArrayList<PieEntry>()
-        points.forEach { it ->
+        getDbData().forEach { it ->
             entries.add(PieEntry(it.totalpoints!!.toFloat(), it.name))
         }
 //        entries.add(PieEntry(0.2f, "Food & Dining"))
@@ -109,7 +109,7 @@ class SecondFragment : Fragment() {
         }
     }
 
-    private fun getDbData() {
+    private fun getDbData(): ArrayList<KotlinPiePointsWithDate> {
         val piePoints: ArrayList<KotlinPiePointsWithDate> = arrayListOf<KotlinPiePointsWithDate>()
 
         dBRefPoints = FirebaseDatabase.getInstance().getReference("PointsData")
@@ -128,7 +128,6 @@ class SecondFragment : Fragment() {
                         })
 
                     }
-                    loadPieChartData(piePoints)
                 }
             }
 
@@ -136,6 +135,6 @@ class SecondFragment : Fragment() {
                 // TODO: 26.01.2022
             }
         })
-
+        return piePoints
     }
 }
