@@ -53,6 +53,7 @@ class Highscorekotlin : Fragment() {
 
     private fun getDbData() {
 
+
         dbReference = FirebaseDatabase.getInstance().getReference("PointsData")
         dbReference.addValueEventListener(object : ValueEventListener
         {

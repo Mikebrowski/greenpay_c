@@ -13,8 +13,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tittle">Green Pay</string>
     <string name="title_activity_improved_main">improved_Main</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>

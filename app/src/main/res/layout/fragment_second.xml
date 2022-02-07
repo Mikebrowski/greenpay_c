@@ -15,7 +15,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <ImageView
@@ -23,8 +23,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:background="@drawable/circle"
-                tools:src="@drawable/account_img"
-                android:contentDescription="TODO" />
+                android:contentDescription="TODO"
+                tools:src="@drawable/button_back" />
 
             <LinearLayout
                 android:id="@+id/center"
@@ -89,9 +89,9 @@
 
                 <LinearLayout
                     android:id="@+id/right"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:gravity="right"
                     android:orientation="vertical">
 
                     <TextView
@@ -116,6 +116,17 @@
 
             </LinearLayout>
 
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/profilePieChart"
+
+
+                android:layout_width="match_parent"
+                android:layout_height="360dp"
+
+                >
+
+            </com.github.mikephil.charting.charts.PieChart>
+
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab"
                 android:layout_width="wrap_content"
@@ -127,19 +138,5 @@
 
         </LinearLayout>
     </ScrollView>
-
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/profilePieChart"
-
-
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </com.github.mikephil.charting.charts.PieChart>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

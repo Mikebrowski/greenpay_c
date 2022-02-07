@@ -1,142 +1,131 @@
-package com.example.greenpayremastered;
+package com.example.greenpayremastered
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.SearchView;
-import android.widget.TextView;
-import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
+import models.Initiatives
+import models.InitiativeData
+import android.widget.TextView
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.database.DatabaseReference
+import com.google.android.material.navigation.NavigationView
+import android.os.Bundle
+import com.example.greenpayremastered.R
+import fragment.FirstFragment
+import androidx.drawerlayout.widget.DrawerLayout
+import fragment.SecondFragment
+import fragment.HighScoreFragment
+import fragment.Highscorekotlin
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.FirebaseDatabase
+import android.content.Intent
+import android.view.Menu
+import android.view.View
+import android.widget.Button
+import android.widget.SearchView
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.navigation.NavController
+import androidx.recyclerview.widget.RecyclerView
+import com.example.greenpayremastered.LoginActivity
+import java.util.ArrayList
 
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import adapter.RecycleAdapter;
-import models.InitiativeData;
-import models.Initiatives;
-import database.UserData;
-import fragment.FirstFragment;
-import fragment.HighScoreFragment;
-import fragment.Highscorekotlin;
-import fragment.SecondFragment;
-
-
-public class LoginActivityScreen extends AppCompatActivity {
-
-    private FirebaseAuth mAuth;
-    private RecyclerView recyclerView;
-
-
-    private ArrayList<Initiatives> initiatives = new ArrayList<>();
-    private List<InitiativeData> initiativesDatList = new ArrayList<>();
+class LoginActivityScreen : AppCompatActivity() {
+    private var mAuth: FirebaseAuth? = null
+    private val recyclerView: RecyclerView? = null
+    private val initiatives = ArrayList<Initiatives>()
+    private val initiativesDatList: List<InitiativeData> = ArrayList()
 
     //private RecycleAdapter recycleAdapter = new RecycleAdapter(initiatives, this, this, initiativesDatList);
     // NEEDS THIS BACK WHEN IT WAS STACTIC RECYCLEVIEW
     // public class LoginActivityScreen extends AppCompatActivity implements RecycleAdapter.IniClickInterface
+    private var searchArea: SearchView? = null
+    private val logoutBtn: Button? = null
+    private val loginText: TextView? = null
+    private val firstButton: Button? = null
+    private val secondButton: Button? = null
 
-    private SearchView searchArea;
-    private Button logoutBtn;
-    private TextView loginText;
-    private Button firstButton;
-    private Button secondButton;
+    private lateinit var appBarConfiguration: AppBarConfiguration
+
     //private View bottomNavigation;
-    private BottomNavigationView bottomNavigationView;
-    private DatabaseReference mDatabase;
-    ActionBar actionBar;
-    BottomNavigationView navigationView;
+    private val bottomNavigationView: BottomNavigationView? = null
+    private var mDatabase: DatabaseReference? = null
+    var actionBar: ActionBar? = null
+    var navigationView: BottomNavigationView? = null
+    var toggleActionDrawer: ActionBarDrawerToggle? = null
+    var navigationViewTop: NavigationView? = null
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.loggetscreen);
 
-        FirstFragment frag1 = new FirstFragment();
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.loggetscreen)
+        val frag1 = FirstFragment()
 
         //recyclerView = (RecyclerView) findViewById(R.id.fragment_recycleview_s);
-        searchArea = (SearchView) findViewById(R.id.searchI);
+        searchArea = findViewById<View>(R.id.searchI) as SearchView
+        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout_1)
+        val navController : NavController = find
+
+
+        navigationViewTop = findViewById(R.id.nav_view_login)
+        toggleActionDrawer = ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         //logoutBtn = (Button) findViewById(R.id.logoutBtn);
         //loginText = (TextView) findViewById(R.id.loggedInTextview);
         //firstButton = (Button) findViewById(R.id.firstButton);
         //secondButton = (Button) findViewById(R.id.secondButton);
+        drawerLayout.addDrawerListener(toggleActionDrawer!!)
+        toggleActionDrawer!!.syncState()
 
-        actionBar = getSupportActionBar();
-        actionBar.setTitle("Welcome to Greenpay");
 
-        BottomNavigationView.OnNavigationItemSelectedListener selectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-
-                    case R.id.firstFragment:
-                        actionBar.setTitle("Dashboaret");
-                        FirstFragment frag1 = new FirstFragment();
-                        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.fragmentContainerView2, frag1);
-                        fragmentTransaction.commit();
-                        return true;
-
-                    case R.id.secondFragment:
-                        actionBar.setTitle("Profil");
-                        SecondFragment frag2 = new SecondFragment();
-                        FragmentTransaction fragmentTransaction1 = getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction1.replace(R.id.fragmentContainerView2, frag2);
-                        fragmentTransaction1.commit();
-                        return true;
-
-                    case R.id.highScoreFragment:
-                        actionBar.setTitle("High Score");
-                        HighScoreFragment frag3 = new HighScoreFragment();
-                        Highscorekotlin frag3kotlin = new Highscorekotlin();
-                        FragmentTransaction fragmentTransaction3 = getSupportFragmentManager().beginTransaction();
-                        //fragmentTransaction3.replace(R.id.fragmentContainerView2, frag3);
-
-                        fragmentTransaction3.replace(R.id.fragmentContainerView2, frag3kotlin);
-                        fragmentTransaction3.commit();
-                        return true;
+        //support
+        actionBar = supportActionBar
+        actionBar!!.setTitle("Welcome to Greenpay")
+        val selectedListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.firstFragment -> {
+                    actionBar!!.setTitle("Dashboaret")
+                    val frag1 = FirstFragment()
+                    val fragmentTransaction = supportFragmentManager.beginTransaction()
+                    fragmentTransaction.replace(R.id.fragmentContainerView2, frag1)
+                    fragmentTransaction.commit()
+                    return@OnNavigationItemSelectedListener true
                 }
-                return false;
+                R.id.secondFragment -> {
+                    actionBar!!.setTitle("Profil")
+                    val frag2 = SecondFragment()
+                    val fragmentTransaction1 = supportFragmentManager.beginTransaction()
+                    fragmentTransaction1.replace(R.id.fragmentContainerView2, frag2)
+                    fragmentTransaction1.commit()
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.highScoreFragment -> {
+                    actionBar!!.setTitle("High Score")
+                    val frag3 = HighScoreFragment()
+                    val frag3kotlin = Highscorekotlin()
+                    val fragmentTransaction3 = supportFragmentManager.beginTransaction()
+                    //fragmentTransaction3.replace(R.id.fragmentContainerView2, frag3);
+                    fragmentTransaction3.replace(R.id.fragmentContainerView2, frag3kotlin)
+                    fragmentTransaction3.commit()
+                    return@OnNavigationItemSelectedListener true
+                }
             }
-        };
-
-        navigationView = findViewById(R.id.bottomNavigationView);
-        navigationView.setOnNavigationItemSelectedListener(selectedListener);
+            false
+        }
+        navigationView = findViewById(R.id.bottomNavigationView)
+        navigationView.setOnNavigationItemSelectedListener(selectedListener)
         // NEWER VERSION setOnNavigationItemSelectedListener
-
-        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentContainerView2,frag1,"Dashboaret");
-        fragmentTransaction.commit();
-
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fragmentContainerView2, frag1, "Dashboaret")
+        fragmentTransaction.commit()
+        mAuth = FirebaseAuth.getInstance()
+        val user = mAuth!!.currentUser
 
         //recycleViewPopulate();
         //setListData();
-
-        Highscorekotlin highscorekotlin = new Highscorekotlin();
-
-
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-/*
+        val highscorekotlin = Highscorekotlin()
+        mDatabase = FirebaseDatabase.getInstance().reference
+        /*
         firstButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -197,23 +186,20 @@ public class LoginActivityScreen extends AppCompatActivity {
         });
 
 */
-    }//end of onCreate
+    } //end of onCreate
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.profile_menu, menu);
-        return true;
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.profile_menu, menu)
+        return true
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseUser user = mAuth.getCurrentUser();
+    override fun onStart() {
+        super.onStart()
+        val user = mAuth!!.currentUser
         if (user == null) {
-            startActivity(new Intent(LoginActivityScreen.this, LoginActivity.class));
+            startActivity(Intent(this@LoginActivityScreen, LoginActivity::class.java))
         }
-    }
-    /*
+    } /*
 
     public void setListData() {
         initiativesDatList.add(new InitiativeData("Gikk til jobben A", "20"));
@@ -240,7 +226,7 @@ public class LoginActivityScreen extends AppCompatActivity {
         recyclerView.setAdapter(recycleAdapter);
 
     }//End of recycleViewPopulate
-/*
+/ *
     @Override
     public void onItemClick(int positionOfTheIni) {
         Toast.makeText(this, "Clicked: " + initiatives.get(positionOfTheIni).getName(), Toast.LENGTH_SHORT).show();
@@ -251,7 +237,7 @@ public class LoginActivityScreen extends AppCompatActivity {
         startActivity(intent);
     }
 */
-/*
+    /*
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
 
@@ -286,6 +272,4 @@ public class LoginActivityScreen extends AppCompatActivity {
         });
 
 */
-
-
 }
