@@ -24,8 +24,22 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.NavHost
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+//import androidx.navigation.Navi
+
 import androidx.navigation.ui.*
+import androidx.navigation.ui.AppBarConfiguration
+
+
+/*
+implementation "androidx.navigation:navigation-fragment:$nav_version"
+implementation "androidx.navigation:navigation-ui:$nav_version"
+
+*/
 
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.ArrayList
@@ -59,7 +73,7 @@ class LoginActivityScreen2 : AppCompatActivity() {
     //lateinit var binding: LoginActivityScreen
 
     lateinit var drawerLayout: DrawerLayout
-    private lateinit var navController: NavController
+    lateinit var navController: NavController
     lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var bottomNav:BottomNavigationView
 
@@ -70,7 +84,7 @@ class LoginActivityScreen2 : AppCompatActivity() {
         setContentView(R.layout.loggetscreen)
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.loggedActivityFragmentView) as NavHostFragment
-        val navController = navHostFragment.navController
+        var navController = navHostFragment.navController
         //OR
         //navController= findNavController(R.id.loggedActivityFragmentView)
 
@@ -82,19 +96,29 @@ class LoginActivityScreen2 : AppCompatActivity() {
 
         drawerLayout = findViewById(R.id.drawer_layout_1)
 
-        appBarConfiguration = AppBarConfiguration(navController.graph,drawerLayout)
-        NavigationUI.setupActionBarWithNavController(this,navController,drawerLayout)
-        NavigationUI.navigateUp(navController, appBarConfiguration)
 
-        NavigationUI.setupWithNavController(navigationViewTop,navController)
+        //appBarConfiguration = AppBarConfiguration(navController.graph,drawerLayout)
+        navController = findNavController(R.id.loggedActivityFragmentView)
+        appBarConfiguration = AppBarConfiguration(setOf(R.id.firstFragment2,R.id.firstFragment2,R.id.highScoreFragment))
+
+        setupActionBarWithNavController(navController,drawerLayout)
+        navigationViewTop.setupWithNavController(navController)
+
+        //NavigationUI.setupActionBarWithNavController(this,navController,drawerLayout)
+
+        //NavigationUI.navigateUp(navController, appBarConfiguration)
+
+        //NavigationUI.setupWithNavController(navigationViewTop,navController)
         //NavigationUI.setupWithNavController(navigationViewTop,navController)
 
+        /*
         val finalHost = NavHostFragment.create(R.navigation.nav_graph)
         supportFragmentManager.beginTransaction()
             .replace(R.id.loggedActivityFragmentView, finalHost)
             .setPrimaryNavigationFragment(finalHost) // equivalent to app:defaultNavHost="true"
             .commit()
-
+        */
+        //Navigation.findNavController(view).navigate(R.id.view_transition)
 
 
         mAuth = FirebaseAuth.getInstance()
@@ -119,6 +143,7 @@ LOG OUT METHOD
     } //end of onCreate
 
 
+
     private fun setTheCorrectFragment(fragment:Fragment) {
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.loggedActivityFragmentView, fragment)
@@ -139,12 +164,17 @@ LOG OUT METHOD
         }
     }
     private fun setupBottomNavigation() {
-        bottomNav.setupWithNavController(navController)
+        //bottomNav.setupWithNavController(navController)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val navController = findNavController(R.id.loggedActivityFragmentView)
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.loggedActivityFragmentView)
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 /*
 
@@ -258,6 +288,8 @@ LOG OUT METHOD
 
 
 }
+
+
 
 
 

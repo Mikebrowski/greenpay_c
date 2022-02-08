@@ -9,12 +9,15 @@ import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -26,6 +29,7 @@ import com.example.greenpayremastered.databinding.ActivityImprovedMainBinding;
 import com.example.greenpayremastered.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -36,6 +40,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import adapter.RecycleAdapter;
 import models.InitiativeData;
@@ -68,6 +73,11 @@ public class LoginActivityScreen extends AppCompatActivity {
     //private View bottomNavigation;
     private BottomNavigationView bottomNavigationView;
     private DatabaseReference mDatabase;
+    private DrawerLayout mDrawer;
+    private Toolbar toolbar;
+    private androidx.appcompat.widget.Toolbar toolbarproper;
+    private NavigationView nvDrawer;
+
     ActionBar actionBar;
     BottomNavigationView navigationView;
 
@@ -84,21 +94,22 @@ public class LoginActivityScreen extends AppCompatActivity {
         //binding = LoginActivityScreen.infate(getLayoutInflater());
 
         FirstFragment frag1 = new FirstFragment();
-        //replaceFragments(new FirstFragment());
+
+        nvDrawer = (NavigationView) findViewById(R.id.navigation_view);
+        setupDrawerContent(nvDrawer);
 
 
-
-
-        //recyclerView = (RecyclerView) findViewById(R.id.fragment_recycleview_s);
-        //searchArea = (SearchView) findViewById(R.id.searchI);
-        //logoutBtn = (Button) findViewById(R.id.logoutBtn);
-        //loginText = (TextView) findViewById(R.id.loggedInTextview);
-        //firstButton = (Button) findViewById(R.id.firstButton);
-        //secondButton = (Button) findViewById(R.id.secondButton);
+        /*
+        toolbarproper = findViewById(R.id.properToolbar);
+        setSupportActionBar(toolbarproper);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        toolbarproper.setNavigationIcon(R.drawable.ic_baseline_menu_24);
+        */
+        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        actionBar = getSupportActionBar();
-        actionBar.setTitle("Welcome to Greenpay");
+        //actionBar = getSupportActionBar();
+        //actionBar.setTitle("Welcome to Greenpay");
 /*
 
         //BottomNavigationView WHY DOES IT SHOW UP HERE?? THE SETONITEMRESELECTED
@@ -130,7 +141,7 @@ public class LoginActivityScreen extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
 
                     case R.id.firstFragment:
-                        actionBar.setTitle("Dashboaret");
+                        //actionBar.setTitle("Dashboaret");
                         FirstFragment frag1 = new FirstFragment();
                         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.loggedActivityFragmentView, frag1);
@@ -138,7 +149,7 @@ public class LoginActivityScreen extends AppCompatActivity {
                         return true;
 
                     case R.id.secondFragment:
-                        actionBar.setTitle("Profil");
+                        //actionBar.setTitle("Profil");
                         SecondFragment frag2 = new SecondFragment();
                         FragmentTransaction fragmentTransaction1 = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction1.replace(R.id.loggedActivityFragmentView, frag2);
@@ -146,7 +157,7 @@ public class LoginActivityScreen extends AppCompatActivity {
                         return true;
 
                     case R.id.highScoreFragment:
-                        actionBar.setTitle("High Score");
+                        //actionBar.setTitle("High Score");
                         //Highscorekotlin frag3 = new HighScoreFragment();
                         Highscorekotlin frag3kotlin = new Highscorekotlin();
                         FragmentTransaction fragmentTransaction3 = getSupportFragmentManager().beginTransaction();
@@ -235,6 +246,62 @@ public class LoginActivityScreen extends AppCompatActivity {
 
 */
     }//end of onCreate
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // The action bar home/up action should open or close the drawer.
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                mDrawer.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    private void setupDrawerContent(NavigationView navigationView) {
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        selectDrawerItem(menuItem);
+                        return true;
+                    }
+                }); }
+
+
+    public void selectDrawerItem(MenuItem menuItem) {
+        // Create a new fragment and specify the fragment to show based on nav item clicked
+        Fragment fragment = null;
+        Class fragmentClass;
+        switch(menuItem.getItemId()) {
+            case R.id.firstFragment2:
+                fragmentClass = FirstFragment.class;
+                break;
+            case R.id.secondFragment2:
+                fragmentClass = SecondFragment.class;
+                break;
+            case R.id.highScoreFragment:
+                fragmentClass = Highscorekotlin.class;
+                break;
+            default:
+                fragmentClass = FirstFragment.class;
+        }
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // Insert the fragment by replacing any existing fragment
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        assert fragment != null;
+        fragmentManager.beginTransaction().replace(R.id.loggedActivityFragmentView, fragment).commit();
+        // Highlight the selected item has been done by NavigationView
+        menuItem.setChecked(true);
+        // Set action bar title
+        setTitle(menuItem.getTitle());
+        // Close the navigation drawer
+        mDrawer.closeDrawers();
+    }
+
+
     public void setBinding(LoginActivityScreen binding) {
         this.binding = binding;
     }
