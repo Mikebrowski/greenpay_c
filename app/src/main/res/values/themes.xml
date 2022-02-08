@@ -37,6 +37,7 @@
     <style name="Theme.ActionBar.Text" parent="@android:style/TextAppearance">
         <item name="android:textColor">#CFFAFF</item>
     </style>
+    <style name="AppTheme.popUpOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
 <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
 <item name="bottomSheetStyle">@style/AppModalStyle</item>

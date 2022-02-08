@@ -1,6 +1,5 @@
 package fragment
 
-import adapter.PointsKotlinAdapter
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -26,6 +25,7 @@ import database.UserData
 import models.KotlinPiePointsWithDate
 import models.KotlinPointsData
 import java.util.*
+import kotlin.collections.ArrayList
 
 class SecondFragment : Fragment() {
     private var pieChart: PieChart? = null
@@ -41,6 +41,7 @@ class SecondFragment : Fragment() {
 
     private lateinit var dbReference : DatabaseReference
     private lateinit var kotlinPointsData: ArrayList<KotlinPointsData>
+
     private var errorText: String? = "Noe gikk galt"
 
 
@@ -49,7 +50,10 @@ class SecondFragment : Fragment() {
         pieChart = v.findViewById(R.id.profilePieChart)
         userLoggedIn = v.findViewById(R.id.WhosLoggedIn)
         userEmail = v.findViewById(R.id.emailOfUser)
-        poengFraDB = v.findViewById(R.id.poengFraDB)
+        poengFraDB = v.findViewById(R.id.showPointsDB)
+        //poengFraDB = v.findViewById(R.id.displayDbPoeng)
+        //poengFraDB = v.findViewById(R.id.Poengfradb)
+
         getDbData()
         setupPieChart()
 
@@ -75,7 +79,7 @@ class SecondFragment : Fragment() {
                     val usernameOnProfile = snapshot.getValue(UserData::class.java)!!.username
 
 
-                    poengFraDB!!.text = usernameOnProfile
+                    userLoggedIn!!.text = usernameOnProfile
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -87,7 +91,7 @@ class SecondFragment : Fragment() {
 
     private fun setUserEmail() {
         mAuth = FirebaseAuth.getInstance()
-        dBRefUser = FirebaseDatabase.getInstance().getReference("PointsData")
+        dBRefUser = FirebaseDatabase.getInstance().getReference("user")
         uid = mAuth!!.currentUser!!.uid
         if (uid != null)
         {
@@ -108,40 +112,80 @@ class SecondFragment : Fragment() {
     {
         // calculate the totalpoints of user that is logged in
         mAuth = FirebaseAuth.getInstance()
-        //dBRefUser = FirebaseDatabase.getInstance().getReference("user")
         uid = mAuth!!.currentUser!!.uid
         if (uid != null)
         {
             dbReference = FirebaseDatabase.getInstance().getReference("PointsData")
-            dBRefUser!!.child(uid!!).addValueEventListener(object : ValueEventListener
+            dbReference.addValueEventListener(object : ValueEventListener
             {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    if(snapshot.exists()){
+                    if(snapshot.exists())
+                    {
+
+                        /*
+                        val test = arrayListOf<Int>()
+                        val counter = intArrayOf()
+
                         for (userPointsData in snapshot.children)//Can also do WHILE
                         {
-                            val pointsDataSnap = userPointsData.getValue(KotlinPointsData::class.java)
-                            kotlinPointsData.add(pointsDataSnap!!)
+                            val pointsDataSnap = snapshot.getValue(KotlinPointsData::class.java)!!.totalpoints
+                            //val pointsPointsDb = snapshot.getValue(KotlinPointsData::class.java)?.totalpoints
+                            //val counter = pointsDataSnap!!.toInt()
+                            if (pointsDataSnap != null) {
+                                test.add(pointsDataSnap)
+                                val counter =test.toString().toInt()
+                            }
+                            ///                            kotlinPointsData.add(pointsDataSnap!!)
                         }
 
-                        val scoreTest = kotlinPointsData.groupBy { it.username}.map { KotlinPointsData().apply {
-                            totalpoints = it.value.sumOf { it.totalpoints ?: 0 }}}
+                        poengFraDB?.setText(counter.sum())
 
-                        for (element in scoreTest)
+*/
+/*
+                        kotlinPointsData
+                        val totalPointsGained = kotlinPointsData.groupBy { it.username}.map {
+                            KotlinPointsData().apply {
+                                totalpoints = it.value.sumOf { it.totalpoints!! }
+
+                            }
+                        }
+                        poengFraDB!!.setText(totalPointsGained.toString())
+                        */
+
+
+                        //poengFraDB.setText(totalPointsGained)
+
+
+                        //poengFraDB!!.setText(pointsPointsDb.toString().sumOf { pointsPointsDb!! })
+/*
+                        if(usernameFromUserInput.equals(userLoggedIn))
                         {
-                            //poengFraDB.setText(append(element.toString())
+                          poengFraDB!!.setText(pointsPointsDb.toString().sumOf { pointsPointsDb!! })
+                        }
+*/
+                        /*
+                        for (userPointsData in snapshot.children)//Can also do WHILE
+                        {
+                            val pointsDataSnap = userPointsData.getValue(KotlinPointsData::class.java)?.totalpoints
+                            if (pointsDataSnap != null) {
+                                poengFraDB.setText(pointsDataSnap)
+                            }
                         }
 
+                         */
 
-                        //OR
-                        //poengFraDB.setText(totalpoints.value.sumOf { it.totalpoints ?: 0 })
+
                     }
-                    //poengFraDB.setText(scoreTest)
+
+
                 }
                 override fun onCancelled(error: DatabaseError) {
                     Toast.makeText(context, errorText, Toast.LENGTH_SHORT).show()
                 }
             })
-        }//
+        }
+
+
     }//setupemail end
 
 
@@ -150,10 +194,11 @@ class SecondFragment : Fragment() {
     private fun setupPieChart() {
         pieChart!!.isDrawHoleEnabled = true
         pieChart!!.setUsePercentValues(true)
+
         pieChart!!.setEntryLabelTextSize(12f)
         pieChart!!.setEntryLabelColor(Color.BLACK)
-        pieChart!!.centerText = "Spending by Category"
-        pieChart!!.setCenterTextSize(24f)
+        pieChart!!.centerText = "Poeng fordeling"
+        pieChart!!.setCenterTextSize(10f)
         pieChart!!.description.isEnabled = false
         val l = pieChart!!.legend
         l.verticalAlignment = Legend.LegendVerticalAlignment.TOP
@@ -168,6 +213,7 @@ class SecondFragment : Fragment() {
         points.forEach {
             entries.add(PieEntry(it.totalpoints!!.toFloat(), it.name))
         }
+
 //        entries.add(PieEntry(0.2f, "Food & Dining"))
 //        entries.add(PieEntry(0.15f, "Medical"))
 //        entries.add(PieEntry(0.10f, "Entertainment"))
@@ -180,7 +226,7 @@ class SecondFragment : Fragment() {
         for (color in ColorTemplate.VORDIPLOM_COLORS) {
             colors.add(color)
         }
-        val dataSet = PieDataSet(entries, "Expense Category")
+        val dataSet = PieDataSet(entries, "Poeng fordeling")
         dataSet.colors = colors
         val data = PieData(dataSet)
         data.setDrawValues(true)

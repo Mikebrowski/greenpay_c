@@ -47,6 +47,10 @@
         <activity
             android:name=".LoginActivityScreen"
             android:exported="false" /> <!-- Here is the main activity STARTING! -->
+
+        <activity
+            android:name=".LoginActivityScreen2"
+            android:exported="false" /> <!-- Here is the main activity STARTING! -->
         <activity
             android:name=".MainActivity"
             android:exported="true" >

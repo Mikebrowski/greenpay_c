@@ -15,11 +15,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.greenpayremastered.R;
+import com.example.greenpayremastered.databinding.ActivityImprovedMainBinding;
+import com.example.greenpayremastered.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -36,7 +42,7 @@ import models.InitiativeData;
 import models.Initiatives;
 import database.UserData;
 import fragment.FirstFragment;
-import fragment.HighScoreFragment;
+
 import fragment.Highscorekotlin;
 import fragment.SecondFragment;
 
@@ -65,22 +71,58 @@ public class LoginActivityScreen extends AppCompatActivity {
     ActionBar actionBar;
     BottomNavigationView navigationView;
 
+    private LoginActivityScreen binding;
+
+    //private ActivityMainBinding test2;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loggetscreen);
+        //binding = LoginActivityScreen.infate(getLayoutInflater());
 
         FirstFragment frag1 = new FirstFragment();
+        //replaceFragments(new FirstFragment());
+
+
+
 
         //recyclerView = (RecyclerView) findViewById(R.id.fragment_recycleview_s);
-        searchArea = (SearchView) findViewById(R.id.searchI);
+        //searchArea = (SearchView) findViewById(R.id.searchI);
         //logoutBtn = (Button) findViewById(R.id.logoutBtn);
         //loginText = (TextView) findViewById(R.id.loggedInTextview);
         //firstButton = (Button) findViewById(R.id.firstButton);
         //secondButton = (Button) findViewById(R.id.secondButton);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         actionBar = getSupportActionBar();
         actionBar.setTitle("Welcome to Greenpay");
+/*
+
+        //BottomNavigationView WHY DOES IT SHOW UP HERE?? THE SETONITEMRESELECTED
+        getBinding().bottomNavigationView.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()){
+                case R.id.firstFragment:
+                    replaceFragments(new FirstFragment());
+                    break;
+
+                case R.id.secondFragment:
+                    replaceFragments(new SecondFragment());
+                    break;
+                case R.id.highScoreFragment:
+                    replaceFragments(new Highscorekotlin());
+                    break;
+            }
+            return true;
+        });
+*/
+
+
+
+
+        //NavigationBarView.OnItemSelectedListener; diffrent attempt still meh.
 
         BottomNavigationView.OnNavigationItemSelectedListener selectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -91,7 +133,7 @@ public class LoginActivityScreen extends AppCompatActivity {
                         actionBar.setTitle("Dashboaret");
                         FirstFragment frag1 = new FirstFragment();
                         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.fragmentContainerView2, frag1);
+                        fragmentTransaction.replace(R.id.loggedActivityFragmentView, frag1);
                         fragmentTransaction.commit();
                         return true;
 
@@ -99,18 +141,18 @@ public class LoginActivityScreen extends AppCompatActivity {
                         actionBar.setTitle("Profil");
                         SecondFragment frag2 = new SecondFragment();
                         FragmentTransaction fragmentTransaction1 = getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction1.replace(R.id.fragmentContainerView2, frag2);
+                        fragmentTransaction1.replace(R.id.loggedActivityFragmentView, frag2);
                         fragmentTransaction1.commit();
                         return true;
 
                     case R.id.highScoreFragment:
                         actionBar.setTitle("High Score");
-                        HighScoreFragment frag3 = new HighScoreFragment();
+                        //Highscorekotlin frag3 = new HighScoreFragment();
                         Highscorekotlin frag3kotlin = new Highscorekotlin();
                         FragmentTransaction fragmentTransaction3 = getSupportFragmentManager().beginTransaction();
                         //fragmentTransaction3.replace(R.id.fragmentContainerView2, frag3);
 
-                        fragmentTransaction3.replace(R.id.fragmentContainerView2, frag3kotlin);
+                        fragmentTransaction3.replace(R.id.loggedActivityFragmentView, frag3kotlin);
                         fragmentTransaction3.commit();
                         return true;
                 }
@@ -118,23 +160,18 @@ public class LoginActivityScreen extends AppCompatActivity {
             }
         };
 
-        navigationView = findViewById(R.id.bottomNavigationView);
+        navigationView = findViewById(R.id.bottom_navigation);
         navigationView.setOnNavigationItemSelectedListener(selectedListener);
         // NEWER VERSION setOnNavigationItemSelectedListener
 
         FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentContainerView2,frag1,"Dashboaret");
+        fragmentTransaction.replace(R.id.loggedActivityFragmentView,frag1,"Dashboaret");
         fragmentTransaction.commit();
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
-
         //recycleViewPopulate();
         //setListData();
-
-        Highscorekotlin highscorekotlin = new Highscorekotlin();
-
-
         mDatabase = FirebaseDatabase.getInstance().getReference();
 /*
         firstButton.setOnClickListener(new View.OnClickListener() {
@@ -198,6 +235,23 @@ public class LoginActivityScreen extends AppCompatActivity {
 
 */
     }//end of onCreate
+    public void setBinding(LoginActivityScreen binding) {
+        this.binding = binding;
+    }
+
+    public LoginActivityScreen getBinding() {
+        return binding;
+
+    }
+
+
+    private void replaceFragments(Fragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.loggedActivityFragmentView,fragment);
+        fragmentTransaction.commit();
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

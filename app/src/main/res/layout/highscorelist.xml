@@ -11,9 +11,10 @@
         android:id="@+id/imageView"
         android:layout_width="54dp"
         android:layout_height="54dp"
-        android:src="@drawable/ic_audiotrack_light"
+        android:src="@drawable/ic_baseline_music_note_24"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <TextView
         android:id="@+id/tvNumber"

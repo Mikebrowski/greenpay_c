@@ -29,3 +29,13 @@ Lapp/src/main/java/com/example/greenpayremastered/RegisterActivityScreen.java,9
 0app/src/main/java/alternative/improved_Main.java,d\d\dd77c1e7647db16aa9fd23c4706d0a6917c1155f
 w
 Gapp/src/main/java/com/example/greenpayremastered/EditUsersActivity.java,8\1\819d1838b819e2ed22703eaa5fdd496dd533802f
+X
+(app/src/main/java/models/PointsData.java,6\1\61a04c85bf566ee66cc9c23ee60c882b77432a99
+u
+Eapp/src/main/java/com/example/greenpayremastered/InitiativesInfo.java,9\c\9c4253507ebd2a9de3aa3d4d2fd8852103ea6042
+c
+3app/src/main/java/models/KotlinPiePointsWithDate.kt,7\d\7d52c513a8aebe8e4093e573bf45c9437a08a029
+s
+Capp/src/main/java/com/example/greenpayremastered/LoginActivity.java,3\0\30e78fcae5293fa05c28b7fc157c07f695af4ca9
+a
+1app/src/main/java/fragment/HighScoreFragment.java,1\9\191bd42ae785eeabbdbcae8ae79a0a05cd7d347c
