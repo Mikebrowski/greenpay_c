@@ -102,7 +102,25 @@ public class FirstFragment extends Fragment implements FragmentRecycleView.FragR
 
 
         //recyclerviewfrag.setAdapter(recycleAdapter);
+/*
+        searchArea.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
 
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                String search = newText;
+                recycleAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });s
+
+
+ */
     }
 
     private void setupResCyclerview(){
@@ -222,17 +240,10 @@ public class FirstFragment extends Fragment implements FragmentRecycleView.FragR
 
         @Override
         public void onItemClick(int posIntFragRes){
-
-
-            //Fragment fragment = detailsFragment.newInstance(datalist.toString().);
-
             Fragment fragment = DetailsFragment.newInstance(datalist.get(posIntFragRes).getType(),datalist.get(posIntFragRes).getName()
                     ,datalist.get(posIntFragRes).getPoints(), datalist.get(posIntFragRes).getDescription());
-
             FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-            //transaction.add(R.id.firstFragment, fragment);
-            transaction.replace(R.id.fragmentContainerView2, fragment);
-            //transaction.
+            transaction.replace(R.id.loggedActivityFragmentView, fragment);
             transaction.addToBackStack(null);
             transaction.commit();
         }

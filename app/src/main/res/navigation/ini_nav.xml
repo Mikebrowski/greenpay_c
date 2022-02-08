@@ -17,8 +17,8 @@
         android:label="Profile"
         tools:layout="@layout/fragment_second" />
     <fragment
-        android:id="@+id/highScoreFragment"
-        android:name="fragment.HighScoreFragment"
-        android:label="High Score"
-        tools:layout="@layout/hight_score_fl" />
+        android:id="@+id/highscorekotlin"
+        android:name="fragment.Highscorekotlin"
+        android:label="frag_highscorekotlin"
+        tools:layout="@layout/frag_highscorekotlin" />
 </navigation>

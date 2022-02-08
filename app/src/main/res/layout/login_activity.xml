@@ -44,8 +44,8 @@
 
         <pl.droidsonroids.gif.GifImageView
             android:id="@+id/gifAnimation"
-            android:layout_width="match_parent"
-            android:layout_height="310dp"
+            android:layout_width="328dp"
+            android:layout_height="170dp"
 
             android:src="@drawable/planetsmile"
             app:layout_column="1"
@@ -59,7 +59,7 @@
         android:id="@+id/MaterialLinerlayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/toolbar2"
         app:layout_constraintEnd_toEndOf="parent"

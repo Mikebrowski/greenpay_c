@@ -50,7 +50,10 @@ class SecondFragment : Fragment() {
         pieChart = v.findViewById(R.id.profilePieChart)
         userLoggedIn = v.findViewById(R.id.WhosLoggedIn)
         userEmail = v.findViewById(R.id.emailOfUser)
-        poengFraDB = v.findViewById(R.id.poengFraDB)
+        poengFraDB = v.findViewById(R.id.showPointsDB)
+        //poengFraDB = v.findViewById(R.id.displayDbPoeng)
+        //poengFraDB = v.findViewById(R.id.Poengfradb)
+
         getDbData()
         setupPieChart()
 
@@ -191,10 +194,11 @@ class SecondFragment : Fragment() {
     private fun setupPieChart() {
         pieChart!!.isDrawHoleEnabled = true
         pieChart!!.setUsePercentValues(true)
+
         pieChart!!.setEntryLabelTextSize(12f)
         pieChart!!.setEntryLabelColor(Color.BLACK)
-        pieChart!!.centerText = "Spending by Category"
-        pieChart!!.setCenterTextSize(24f)
+        pieChart!!.centerText = "Poeng fordeling"
+        pieChart!!.setCenterTextSize(10f)
         pieChart!!.description.isEnabled = false
         val l = pieChart!!.legend
         l.verticalAlignment = Legend.LegendVerticalAlignment.TOP
@@ -209,6 +213,7 @@ class SecondFragment : Fragment() {
         points.forEach {
             entries.add(PieEntry(it.totalpoints!!.toFloat(), it.name))
         }
+
 //        entries.add(PieEntry(0.2f, "Food & Dining"))
 //        entries.add(PieEntry(0.15f, "Medical"))
 //        entries.add(PieEntry(0.10f, "Entertainment"))
@@ -221,7 +226,7 @@ class SecondFragment : Fragment() {
         for (color in ColorTemplate.VORDIPLOM_COLORS) {
             colors.add(color)
         }
-        val dataSet = PieDataSet(entries, "Expense Category")
+        val dataSet = PieDataSet(entries, "Poeng fordeling")
         dataSet.colors = colors
         val data = PieData(dataSet)
         data.setDrawValues(true)

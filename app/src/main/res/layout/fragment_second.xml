@@ -22,9 +22,8 @@
                 android:id="@+id/imageView3"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:background="@drawable/circle"
-                android:contentDescription="TODO"
-                tools:src="@drawable/button_back" />
+                android:contentDescription="Profile picture"
+                tools:src="@drawable/account_img" />
 
             <LinearLayout
                 android:id="@+id/center"
@@ -32,24 +31,6 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/epost"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Email"
-                    android:textColor="#827717"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/emailOfUser"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/aldrich"
-                    android:text="test@test"
-                    android:textColor="#000000"
-                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -64,8 +45,7 @@
                     android:id="@+id/left"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="10dp"
-                    android:gravity="center"
+                    android:gravity="start|center_horizontal|left|center_vertical"
                     android:orientation="vertical">
 
                     <TextView
@@ -83,14 +63,14 @@
                         android:fontFamily="@font/aldrich"
                         android:text="brukernavn"
                         android:textColor="#000000"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/right"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:gravity="right"
                     android:orientation="vertical">
 
@@ -104,11 +84,30 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/poengFraDB"
+                        android:id="@+id/showPointsDB"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/aldrich"
+                        android:text="300000"
+                        android:textAlignment="textEnd"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/epost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Email"
+                        android:textColor="#827717"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/emailOfUser"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/aldrich"
-                        android:text="30000"
+                        android:text="test@test"
                         android:textColor="#000000"
                         android:textSize="18sp" />
 
@@ -133,7 +132,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|bottom"
                 android:layout_margin="16dp"
-                android:contentDescription="@string/mr_button_content_description"
+                android:contentDescription="funbutton"
                 android:src="@drawable/ic_baseline_login_24" />
 
         </LinearLayout>

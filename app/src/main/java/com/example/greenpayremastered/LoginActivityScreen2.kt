@@ -1,35 +1,36 @@
 package com.example.greenpayremastered
 
-import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import models.Initiatives
 import models.InitiativeData
 import android.widget.TextView
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.database.DatabaseReference
 import com.google.android.material.navigation.NavigationView
 import android.os.Bundle
-import com.example.greenpayremastered.R
-import fragment.FirstFragment
-import androidx.drawerlayout.widget.DrawerLayout
-import fragment.SecondFragment
-import fragment.HighScoreFragment
-import fragment.Highscorekotlin
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
 import android.content.Intent
 import android.view.Menu
-import android.view.View
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.SearchView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
-import com.example.greenpayremastered.LoginActivity
+
+
+import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.navigation.findNavController
+import androidx.navigation.ui.*
+
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.ArrayList
 
-class LoginActivityScreen : AppCompatActivity() {
+class LoginActivityScreen2 : AppCompatActivity() {
     private var mAuth: FirebaseAuth? = null
     private val recyclerView: RecyclerView? = null
     private val initiatives = ArrayList<Initiatives>()
@@ -44,138 +45,67 @@ class LoginActivityScreen : AppCompatActivity() {
     private val firstButton: Button? = null
     private val secondButton: Button? = null
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
 
-    //private View bottomNavigation;
-    private val bottomNavigationView: BottomNavigationView? = null
+
+
+
     private var mDatabase: DatabaseReference? = null
     var actionBar: ActionBar? = null
-    var navigationView: BottomNavigationView? = null
     var toggleActionDrawer: ActionBarDrawerToggle? = null
-    var navigationViewTop: NavigationView? = null
+    lateinit var navigationViewTop: NavigationView
 
+
+
+    //lateinit var binding: LoginActivityScreen
+
+    lateinit var drawerLayout: DrawerLayout
+    private lateinit var navController: NavController
+    lateinit var appBarConfiguration: AppBarConfiguration
+    lateinit var bottomNav:BottomNavigationView
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.loggetscreen)
-        val frag1 = FirstFragment()
 
-        //recyclerView = (RecyclerView) findViewById(R.id.fragment_recycleview_s);
-        searchArea = findViewById<View>(R.id.searchI) as SearchView
-        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout_1)
-        val navController : NavController = find
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.loggedActivityFragmentView) as NavHostFragment
+        val navController = navHostFragment.navController
+        //OR
+        //navController= findNavController(R.id.loggedActivityFragmentView)
 
-
-        navigationViewTop = findViewById(R.id.nav_view_login)
-        toggleActionDrawer = ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        //logoutBtn = (Button) findViewById(R.id.logoutBtn);
-        //loginText = (TextView) findViewById(R.id.loggedInTextview);
-        //firstButton = (Button) findViewById(R.id.firstButton);
-        //secondButton = (Button) findViewById(R.id.secondButton);
-        drawerLayout.addDrawerListener(toggleActionDrawer!!)
-        toggleActionDrawer!!.syncState()
+        //NEW WAY TO SETUP BOTTOM NAVIGATION
+        bottomNav = findViewById(R.id.bottom_navigation)
+        navigationViewTop = findViewById(R.id.navigation_view)
+        bottomNav.setupWithNavController(navController)
 
 
-        //support
-        actionBar = supportActionBar
-        actionBar!!.setTitle("Welcome to Greenpay")
-        val selectedListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.firstFragment -> {
-                    actionBar!!.setTitle("Dashboaret")
-                    val frag1 = FirstFragment()
-                    val fragmentTransaction = supportFragmentManager.beginTransaction()
-                    fragmentTransaction.replace(R.id.fragmentContainerView2, frag1)
-                    fragmentTransaction.commit()
-                    return@OnNavigationItemSelectedListener true
-                }
-                R.id.secondFragment -> {
-                    actionBar!!.setTitle("Profil")
-                    val frag2 = SecondFragment()
-                    val fragmentTransaction1 = supportFragmentManager.beginTransaction()
-                    fragmentTransaction1.replace(R.id.fragmentContainerView2, frag2)
-                    fragmentTransaction1.commit()
-                    return@OnNavigationItemSelectedListener true
-                }
-                R.id.highScoreFragment -> {
-                    actionBar!!.setTitle("High Score")
-                    val frag3 = HighScoreFragment()
-                    val frag3kotlin = Highscorekotlin()
-                    val fragmentTransaction3 = supportFragmentManager.beginTransaction()
-                    //fragmentTransaction3.replace(R.id.fragmentContainerView2, frag3);
-                    fragmentTransaction3.replace(R.id.fragmentContainerView2, frag3kotlin)
-                    fragmentTransaction3.commit()
-                    return@OnNavigationItemSelectedListener true
-                }
-            }
-            false
-        }
-        navigationView = findViewById(R.id.bottomNavigationView)
-        navigationView.setOnNavigationItemSelectedListener(selectedListener)
-        // NEWER VERSION setOnNavigationItemSelectedListener
-        val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.fragmentContainerView2, frag1, "Dashboaret")
-        fragmentTransaction.commit()
+        drawerLayout = findViewById(R.id.drawer_layout_1)
+
+        appBarConfiguration = AppBarConfiguration(navController.graph,drawerLayout)
+        NavigationUI.setupActionBarWithNavController(this,navController,drawerLayout)
+        NavigationUI.navigateUp(navController, appBarConfiguration)
+
+        NavigationUI.setupWithNavController(navigationViewTop,navController)
+        //NavigationUI.setupWithNavController(navigationViewTop,navController)
+
+        val finalHost = NavHostFragment.create(R.navigation.nav_graph)
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.loggedActivityFragmentView, finalHost)
+            .setPrimaryNavigationFragment(finalHost) // equivalent to app:defaultNavHost="true"
+            .commit()
+
+
+
         mAuth = FirebaseAuth.getInstance()
         val user = mAuth!!.currentUser
 
-        //recycleViewPopulate();
-        //setListData();
-        val highscorekotlin = Highscorekotlin()
+
         mDatabase = FirebaseDatabase.getInstance().reference
-        /*
-        firstButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseDatabase.getInstance().getReference("user/").child(mAuth.getUid()).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        String usernameOnProfile = snapshot.getValue(UserData.class).getUsername();
-
-                        String emailOnUser = snapshot.getValue(UserData.class).getEmail();
-                        String profilePicUser = snapshot.getValue(UserData.class).getProfilePicture();
-                        loginText.setText(usernameOnProfile);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        loginText.setText("Funket ikke korret");
-                    }
-                });
-
-
-            }
-        });
- */
 /*
-        searchArea.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
 
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-
-                String search = newText;
-                recycleAdapter.getFilter().filter(newText);
-                return false;
-            }
-        });
-*/
-/*
-        secondButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loginText.setText("I HAVE CHANGED INTO " + mAuth.getCurrentUser().getEmail());
-                firstButton.setText(mAuth.getCurrentUser().getEmail());
-            }
-        });
-
+LOG OUT METHOD
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -188,6 +118,14 @@ class LoginActivityScreen : AppCompatActivity() {
 */
     } //end of onCreate
 
+
+    private fun setTheCorrectFragment(fragment:Fragment) {
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.loggedActivityFragmentView, fragment)
+            commit()
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.profile_menu, menu)
         return true
@@ -197,9 +135,18 @@ class LoginActivityScreen : AppCompatActivity() {
         super.onStart()
         val user = mAuth!!.currentUser
         if (user == null) {
-            startActivity(Intent(this@LoginActivityScreen, LoginActivity::class.java))
+            startActivity(Intent(this, LoginActivity::class.java))
         }
-    } /*
+    }
+    private fun setupBottomNavigation() {
+        bottomNav.setupWithNavController(navController)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val navController = findNavController(R.id.loggedActivityFragmentView)
+        return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
+    }
+/*
 
     public void setListData() {
         initiativesDatList.add(new InitiativeData("Gikk til jobben A", "20"));
@@ -272,4 +219,49 @@ class LoginActivityScreen : AppCompatActivity() {
         });
 
 */
+    /*
+        //setContentView(R.layout.loggetscreen)
+        //binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(R.layout.loggetscreen)
+        //setContentView(binding.root)
+
+
+
+        val firstFragment = FirstFragment()
+        val secondFragment = SecondFragment()
+        val highscore = Highscorekotlin()
+
+
+        //bottomNavigationView.setOnitem
+        bottomNavigationView?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        setTheCorrectFragment(firstFragment)
+
+
+        bottomNavigationView!!.setOnItemSelectedListener {
+                when(it.itemId){
+                    R.id.firstFragment ->{
+                        setTheCorrectFragment(firstFragment)
+                    }
+                    R.id.secondFragment->{
+                        setTheCorrectFragment(secondFragment)
+                    }
+                    R.id.highscorekotlin->{
+                        setTheCorrectFragment(highscore)
+                    }
+                }
+            true
+            }
+
+
+    * */
+
+
+
 }
+
+
+
+
+
+
+

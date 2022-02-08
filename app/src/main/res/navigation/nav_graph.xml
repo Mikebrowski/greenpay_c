@@ -3,33 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/firstFragment2">
 
-    <activity
-        android:id="@+id/mainActivity"
-        android:name="com.example.greenpayremastered.MainActivity"
-        android:label="activity_main"
-        tools:layout="@layout/activity_main" />
-    <activity
-        android:id="@+id/registerActivity"
-        android:name="com.example.greenpayremastered.RegisterActivity"
-        android:label="activity_register"
-        tools:layout="@layout/activity_register" />
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.example.greenpayremastered.MainFragment"
-        android:label="fragment_main_layout"
-        tools:layout="@layout/fragment_main_layout" >
+        android:id="@+id/firstFragment2"
+        android:name="fragment.FirstFragment"
+        android:label="fragment_first"
+        tools:layout="@layout/fragment_first" >
         <action
-            android:id="@+id/action_mainFragment_to_registerActivity"
-            app:destination="@id/registerActivity" />
+            android:id="@+id/action_firstFragment2_to_highscore_kotlin_id"
+            app:destination="@id/highscore_kotlin_id" />
         <action
-            android:id="@+id/action_mainFragment_to_baerekraftFragment"
-            app:destination="@id/baerekraftFragment" />
+            android:id="@+id/action_firstFragment2_to_secondFragment2"
+            app:destination="@id/secondFragment2" />
     </fragment>
     <fragment
-        android:id="@+id/baerekraftFragment"
-        android:name="com.example.greenpayremastered.BaerekraftFragment"
-        android:label="fragment_baerekraft"
-        tools:layout="@layout/fragment_baerekraft" />
+        android:id="@+id/secondFragment2"
+        android:name="fragment.SecondFragment"
+        android:label="fragment_second"
+        tools:layout="@layout/fragment_second" />
+    <fragment
+        android:id="@+id/highscore_kotlin_id"
+        android:name="fragment.Highscorekotlin"
+        android:label="frag_highscorekotlin"
+        tools:layout="@layout/frag_highscorekotlin" />
+    <action
+        android:id="@+id/action_global_firstFragment2"
+        app:destination="@id/firstFragment2" />
+
 </navigation>

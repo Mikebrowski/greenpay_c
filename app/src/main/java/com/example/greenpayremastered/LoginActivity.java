@@ -92,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
                         Toast.makeText(LoginActivity.this,"Logget velykkende med følgende: "+emailString,Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(LoginActivity.this, LoginActivityScreen.class));
+                        startActivity(new Intent(LoginActivity.this, LoginActivityScreen2.class));
                         progressBar.setVisibility(View.VISIBLE);
                     }
 
