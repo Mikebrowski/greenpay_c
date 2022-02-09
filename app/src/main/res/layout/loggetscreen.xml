@@ -21,20 +21,34 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/loggedActivityFragmentView"
-            android:name="androidx.navigation.fragment.NavHostFragment"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="60dp"
-            app:defaultNavHost="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/properToolbar"
-            app:navGraph="@navigation/nav_graph" />
+        <!---
+                        <fragment
+                            android:id="@+id/loggedActivityFragmentView"
+                            android:name="androidx.navigation.fragment.NavHostFragment"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginBottom="60dp"
+                            app:defaultNavHost="true"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/properToolbar"
+                            app:navGraph="@navigation/bottom_navigation" />
+        -->
+                        <fragment
+                            android:id="@+id/loggedActivityFragmentView"
+                            android:name="androidx.navigation.fragment.NavHostFragment"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginBottom="60dp"
+                            app:defaultNavHost="true"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/properToolbar"
+                            app:navGraph="@navigation/drawer_navigation" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
@@ -71,6 +85,7 @@
         android:fitsSystemWindows="true"
         app:menu="@menu/nav_menu"
         app:headerLayout="@layout/nav_header"
+
         />
 
 </androidx.drawerlayout.widget.DrawerLayout>

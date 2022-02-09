@@ -25,8 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.greenpayremastered.R;
-import com.example.greenpayremastered.databinding.ActivityImprovedMainBinding;
-import com.example.greenpayremastered.databinding.ActivityMainBinding;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
@@ -106,7 +105,7 @@ public class LoginActivityScreen extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         toolbarproper.setNavigationIcon(R.drawable.ic_baseline_menu_24);
         */
-        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout_1);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         //actionBar = getSupportActionBar();

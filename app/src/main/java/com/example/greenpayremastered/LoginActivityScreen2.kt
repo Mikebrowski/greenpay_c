@@ -9,6 +9,7 @@ import com.google.android.material.navigation.NavigationView
 import android.os.Bundle
 import com.google.firebase.database.FirebaseDatabase
 import android.content.Intent
+import android.os.Binder
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
@@ -21,7 +22,6 @@ import androidx.recyclerview.widget.RecyclerView
 
 
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.graphics.component1
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -70,42 +70,43 @@ class LoginActivityScreen2 : AppCompatActivity() {
     var toggleActionDrawer: ActionBarDrawerToggle? = null
     lateinit var navigationViewTop: NavigationView
 
-
-
-    //lateinit var binding: LoginActivityScreen
+    lateinit var binding1: ActivityMainBinding
+    // VS
+    lateinit var binding2: LoginActivityScreen
 
     lateinit var drawerLayout: DrawerLayout
-    lateinit var navController: NavController
     lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var bottomNav:BottomNavigationView
-    private lateinit var binding1: ActivityMainBinding
-    private lateinit var bindingScreen2: LoginActivityScreen2
+    lateinit var navController: NavController
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.loggetscreen)
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.loggedActivityFragmentView) as NavHostFragment
-        var navController = navHostFragment.navController
+        //setContentView(binding1.root)
+        //setContentView(binding2.)
+
+        navController = findNavController(R.id.loggedActivityFragmentView)
         //OR
         //navController= findNavController(R.id.loggedActivityFragmentView)
 
         //NEW WAY TO SETUP BOTTOM NAVIGATION
         bottomNav = findViewById(R.id.bottom_navigation)
         navigationViewTop = findViewById(R.id.navigation_view)
-        bottomNav.setupWithNavController(navController)
 
 
-        //setContentView(bindingScreen2.root)
 
         drawerLayout = findViewById(R.id.drawer_layout_1)
 
-        appBarConfiguration = AppBarConfiguration(navController.graph,drawerLayout)
+
+        //appBarConfiguration = AppBarConfiguration(navController.graph,drawerLayout)
         //navController = findNavController(R.id.loggedActivityFragmentView)
-        //appBarConfiguration = AppBarConfiguration(setOf(R.id.firstFragment2,R.id.secondFragment2,R.id.highScoreFragment),drawerLayout)
+        appBarConfiguration = AppBarConfiguration(setOf(R.id.firstFragment2,R.id.secondFragment2,R.id.highscore2), drawerLayout)
 
         setupActionBarWithNavController(navController,drawerLayout)
+        bottomNav.setupWithNavController(navController)
         navigationViewTop.setupWithNavController(navController)
 
         //NavigationUI.setupActionBarWithNavController(this,navController,drawerLayout)
@@ -172,14 +173,13 @@ LOG OUT METHOD
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val navController = findNavController(R.id.loggedActivityFragmentView)
-        return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
+        return item.onNavDestinationSelected(navController) ||
+                super.onOptionsItemSelected(item)
+    }
+    override fun onSupportNavigateUp(): Boolean {
+        return findNavController(R.id.loggedActivityFragmentView).navigateUp(appBarConfiguration)
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.loggedActivityFragmentView)
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-    }
 /*
 
     public void setListData() {

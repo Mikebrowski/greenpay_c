@@ -13,7 +13,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.greenpayremastered.databinding.ActivityImprovedMainBinding;
+
 
 
 public class MainActivity extends AppCompatActivity {
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     ActionBar actionBar;
 
     private AppBarConfiguration mAppBarConfiguration;
-    private ActivityImprovedMainBinding binding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

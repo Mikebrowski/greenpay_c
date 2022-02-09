@@ -5,53 +5,21 @@
     tools:showIn="navController"
     >
     <item
-        android:id="@+id/nav_home_own"
+        android:id="@+id/firstFragment2"
         android:icon="@drawable/ic_baseline_home_24"
         android:title="Hjem" />
     <item
-        android:id="@+id/nav_highscore"
+        android:id="@+id/highscore2"
         android:icon="@drawable/ic_baseline_score_24"
         android:title="Highscore" />
-
-    <item android:title="Bærekraft">
-        <menu>
-            <item
-                android:id="@+id/bærekraft"
-                android:icon="@drawable/planet"
-                android:title="Bækraftmål">
-            </item>
-            <item
-                android:title="Rettingslinje"
-                android:icon="@drawable/ic_baseline_help_outline_24"
-                >
-            </item>
-            <item android:title="Forslag til nye initiativer"
-                android:icon="@drawable/ic_baseline_add_24"
-                >
-
-            </item>
-        </menu>
-
-    </item>
 
 
     <item android:title="Profil">
         <menu>
             <item
-                android:id="@+id/nav_profil"
+                android:id="@+id/secondFragment2"
                 android:icon="@drawable/ic_baseline_score_24"
                 android:title="Profil" />
-
-
-            <item
-                android:id="@+id/nav_poeng"
-                android:title="Mine poeng"
-                android:icon="@drawable/ic_pointsawardedit" />
-
-            <item
-                android:id="@+id/nav_logoutMenu"
-                android:icon="@drawable/ic_baseline_login_24"
-                android:title="Logut" />
         </menu>
     </item>
 
