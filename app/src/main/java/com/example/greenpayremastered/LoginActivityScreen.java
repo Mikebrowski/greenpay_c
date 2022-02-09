@@ -99,6 +99,7 @@ public class LoginActivityScreen extends AppCompatActivity {
         setupDrawerContent(nvDrawer);
 
 
+
         /*
         toolbarproper = findViewById(R.id.properToolbar);
         setSupportActionBar(toolbarproper);

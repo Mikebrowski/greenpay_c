@@ -3,41 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/layout/activity_edit_users.xml" value="0.16197916666666667" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/layout/activity_improved_main.xml" value="0.16197916666666667" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/layout/activity_initiatives_info.xml" value="0.16197916666666667" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/layout/activity_main.xml" value="0.16197916666666667" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/layout/activity_register_screen.xml" value="0.16197916666666667" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/layout/app_bar_improved_main.xml" value="0.16197916666666667" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/layout/app_logget_in_bar.xml" value="0.16197916666666667" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/layout/card_row.xml" value="0.16197916666666667" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/layout/content_improved_main.xml" value="0.16197916666666667" />
         <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/layout/details_fragment.xml" value="0.340625" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/layout/frag_highscorekotlin.xml" value="0.16197916666666667" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/layout/fragment_blank.xml" value="0.16197916666666667" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/layout/fragment_first.xml" value="0.16197916666666667" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/layout/fragment_gallery.xml" value="0.16197916666666667" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/layout/fragment_home.xml" value="0.16197916666666667" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/layout/fragment_maps.xml" value="0.16197916666666667" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/layout/fragment_profile_fragment.xml" value="0.16197916666666667" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/layout/fragment_profile_mangement.xml" value="0.16197916666666667" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/layout/fragment_scrolling.xml" value="0.16197916666666667" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/layout/fragment_second.xml" value="0.16197916666666667" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/layout/fragment_slideshow.xml" value="0.16197916666666667" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/layout/fragment_testkotlin.xml" value="0.16197916666666667" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/layout/highscore2.xml" value="0.16197916666666667" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/layout/highscorelist.xml" value="0.16197916666666667" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/layout/hight_score_fl.xml" value="0.16197916666666667" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/layout/loggetscreen.xml" value="0.15026087454956302" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/layout/login_activity.xml" value="0.16197916666666667" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/layout/nav_header.xml" value="0.16197916666666667" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/layout/nav_header_improved_main.xml" value="0.16197916666666667" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/layout/recyclesearchfragment.xml" value="0.16197916666666667" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/menu/activity_main_drawer.xml" value="0.16197916666666667" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/menu/bottom_menu.xml" value="0.16197916666666667" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/menu/improved__main.xml" value="0.2453125" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/menu/nav_menu.xml" value="0.16197916666666667" />
-        <entry key="..\:/Projects/Greenpay_v2/app/src/main/res/menu/profile_menu.xml" value="0.2453125" />
         <entry key="..\:/Users/Mehow/AndroidStudioProjects/GreenPayRemastered/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2635416666666667" />
         <entry key="..\:/Users/Mehow/AndroidStudioProjects/GreenPayRemastered/app/src/main/res/drawable/background_1.xml" value="0.2640625" />
         <entry key="..\:/Users/Mehow/AndroidStudioProjects/GreenPayRemastered/app/src/main/res/drawable/background_2.xml" value="0.2640625" />
@@ -69,6 +35,9 @@
         <entry key="..\:/Users/Mehow/AndroidStudioProjects/Greenpay v 2/app/src/main/res/layout/fragment_second.xml" value="0.24791666666666667" />
         <entry key="..\:/Users/Mehow/AndroidStudioProjects/Greenpay v 2/app/src/main/res/layout/loggetscreen.xml" value="0.24739583333333334" />
         <entry key="..\:/Users/Mehow/AndroidStudioProjects/Greenpay v 2/app/src/main/res/layout/login_activity.xml" value="0.24739583333333334" />
+        <entry key="..\:/Users/Mehow/AndroidStudioProjects/Greenpay v 2/app/src/main/res/layout/nav_header.xml" value="0.23052536231884058" />
+        <entry key="..\:/Users/Mehow/AndroidStudioProjects/Greenpay v 2/app/src/main/res/menu/bottom_menu.xml" value="0.30625" />
+        <entry key="..\:/Users/Mehow/AndroidStudioProjects/Greenpay v 2/app/src/main/res/menu/nav_menu.xml" value="0.2" />
         <entry key="..\:/Users/Mikebrowski/AndroidStudioProjects/Greenpay v 2/app/src/main/res/layout/activity_improved_main.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/Mikebrowski/AndroidStudioProjects/Greenpay v 2/app/src/main/res/layout/app_bar_improved_main.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/Mikebrowski/AndroidStudioProjects/Greenpay v 2/app/src/main/res/layout/app_logget_in_bar.xml" value="0.20520833333333333" />
