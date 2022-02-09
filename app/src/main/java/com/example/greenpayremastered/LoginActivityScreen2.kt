@@ -9,6 +9,7 @@ import com.google.android.material.navigation.NavigationView
 import android.os.Bundle
 import com.google.firebase.database.FirebaseDatabase
 import android.content.Intent
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
@@ -21,6 +22,8 @@ import androidx.recyclerview.widget.RecyclerView
 
 
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -33,6 +36,10 @@ import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 
 import androidx.navigation.ui.*
 import androidx.navigation.ui.AppBarConfiguration
+import com.example.greenpayremastered.databinding.ActivityEditUsersBinding.inflate
+import com.example.greenpayremastered.databinding.ActivityImprovedMainBinding.inflate
+import com.example.greenpayremastered.databinding.ActivityInitiativesInfoBinding.inflate
+import com.example.greenpayremastered.databinding.ActivityMainBinding
 
 
 /*
@@ -43,6 +50,8 @@ implementation "androidx.navigation:navigation-ui:$nav_version"
 
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.ArrayList
+
+//import com.example.myapplication.databinding.ActivityMainBinding
 
 class LoginActivityScreen2 : AppCompatActivity() {
     private var mAuth: FirebaseAuth? = null
@@ -60,33 +69,41 @@ class LoginActivityScreen2 : AppCompatActivity() {
     private val secondButton: Button? = null
 
 
-
-
-
     private var mDatabase: DatabaseReference? = null
     var actionBar: ActionBar? = null
     var toggleActionDrawer: ActionBarDrawerToggle? = null
     lateinit var navigationViewTop: NavigationView
 
 
-
-    //lateinit var binding: LoginActivityScreen
-
     lateinit var drawerLayout: DrawerLayout
     lateinit var navController: NavController
     lateinit var appBarConfiguration: AppBarConfiguration
-    lateinit var bottomNav:BottomNavigationView
+    lateinit var bottomNav: BottomNavigationView
 
+    private lateinit var binding: ActivityMainBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.loggetscreen)
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.loggedActivityFragmentView) as NavHostFragment
-        var navController = navHostFragment.navController
+//        binding = ActivityMainBinding.inflate(layoutInflater)
+//        setContentView(binding.root)
+//        setContentView(R.layout.loggetscreen)
+
+        val viewRoot = LayoutInflater.from(this).inflate(R.layout.login_activity, parent, true)
+        val binding: ViewDataBinding? = DataBindingUtil.bind(viewRoot)
+
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.loggedActivityFragmentView) as NavHostFragment
+        navController = navHostFragment.navController
+
+        binding = ActivityMainBinding.inflate(R.layout.loggetscreen, item, null)
+
+        setContentView(binding.root)
+
         //OR
-        //navController= findNavController(R.id.loggedActivityFragmentView)
+//        navController = findNavController(R.id.loggedActivityFragmentView)
+//        navController = findNavController(navHostFragment.id)
 
         //NEW WAY TO SETUP BOTTOM NAVIGATION
         bottomNav = findViewById(R.id.bottom_navigation)
@@ -99,9 +116,15 @@ class LoginActivityScreen2 : AppCompatActivity() {
 
         //appBarConfiguration = AppBarConfiguration(navController.graph,drawerLayout)
         navController = findNavController(R.id.loggedActivityFragmentView)
-        appBarConfiguration = AppBarConfiguration(setOf(R.id.firstFragment2,R.id.firstFragment2,R.id.highScoreFragment))
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.firstFragment2,
+                R.id.firstFragment2,
+                R.id.highScoreFragment
+            )
+        )
 
-        setupActionBarWithNavController(navController,drawerLayout)
+        setupActionBarWithNavController(navController, appBarConfiguration)
         navigationViewTop.setupWithNavController(navController)
 
         //NavigationUI.setupActionBarWithNavController(this,navController,drawerLayout)
@@ -143,8 +166,7 @@ LOG OUT METHOD
     } //end of onCreate
 
 
-
-    private fun setTheCorrectFragment(fragment:Fragment) {
+    private fun setTheCorrectFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.loggedActivityFragmentView, fragment)
             commit()
@@ -163,6 +185,7 @@ LOG OUT METHOD
             startActivity(Intent(this, LoginActivity::class.java))
         }
     }
+
     private fun setupBottomNavigation() {
         //bottomNav.setupWithNavController(navController)
     }
@@ -284,7 +307,6 @@ LOG OUT METHOD
 
 
     * */
-
 
 
 }
