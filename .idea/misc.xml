@@ -32,6 +32,8 @@
         <entry key="..\:/Users/Mehow/AndroidStudioProjects/GreenPayRemastered/app/src/main/res/layout/login_activity_login.xml" value="0.1766304347826087" />
         <entry key="..\:/Users/Mehow/AndroidStudioProjects/GreenPayRemastered/app/src/main/res/layout/login_layout.xml" value="0.4057971014492754" />
         <entry key="..\:/Users/Mehow/AndroidStudioProjects/Greenpay v 2/app/src/main/res/layout/details_fragment.xml" value="0.29438405797101447" />
+        <entry key="..\:/Users/Mikebrowski/AndroidStudioProjects/Greenpay v 2/app/src/main/res/drawable/ripple.xml" value="0.10277777777777777" />
+        <entry key="..\:/Users/Mikebrowski/AndroidStudioProjects/Greenpay v 2/app/src/main/res/drawable/rounded_shape.xml" value="0.10277777777777777" />
         <entry key="..\:/Users/Mikebrowski/AndroidStudioProjects/Greenpay v 2/app/src/main/res/layout/activity_improved_main.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/Mikebrowski/AndroidStudioProjects/Greenpay v 2/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/Mikebrowski/AndroidStudioProjects/Greenpay v 2/app/src/main/res/layout/app_bar_improved_main.xml" value="0.20520833333333333" />
@@ -39,7 +41,12 @@
         <entry key="..\:/Users/Mikebrowski/AndroidStudioProjects/Greenpay v 2/app/src/main/res/layout/card_row.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Mikebrowski/AndroidStudioProjects/Greenpay v 2/app/src/main/res/layout/details_fragment.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/Mikebrowski/AndroidStudioProjects/Greenpay v 2/app/src/main/res/layout/frag_highscorekotlin.xml" value="0.1" />
+        <entry key="..\:/Users/Mikebrowski/AndroidStudioProjects/Greenpay v 2/app/src/main/res/layout/fragment_maps.xml" value="0.2078804347826087" />
+        <entry key="..\:/Users/Mikebrowski/AndroidStudioProjects/Greenpay v 2/app/src/main/res/layout/fragment_profile_fragment.xml" value="0.2078804347826087" />
+        <entry key="..\:/Users/Mikebrowski/AndroidStudioProjects/Greenpay v 2/app/src/main/res/layout/fragment_profile_mangement.xml" value="0.2078804347826087" />
+        <entry key="..\:/Users/Mikebrowski/AndroidStudioProjects/Greenpay v 2/app/src/main/res/layout/fragment_scrolling.xml" value="0.2078804347826087" />
         <entry key="..\:/Users/Mikebrowski/AndroidStudioProjects/Greenpay v 2/app/src/main/res/layout/fragment_second.xml" value="0.22" />
+        <entry key="..\:/Users/Mikebrowski/AndroidStudioProjects/Greenpay v 2/app/src/main/res/layout/fragment_slideshow.xml" value="0.2078804347826087" />
         <entry key="..\:/Users/Mikebrowski/AndroidStudioProjects/Greenpay v 2/app/src/main/res/layout/highscorelist.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Mikebrowski/AndroidStudioProjects/Greenpay v 2/app/src/main/res/layout/hight_score_fl.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Mikebrowski/AndroidStudioProjects/Greenpay v 2/app/src/main/res/layout/loggetscreen.xml" value="0.22" />

@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -73,6 +75,9 @@ public class FirstFragment extends Fragment implements FragmentRecycleView.FragR
         //return inflater.inflate(R.layout.fragment_first, container, false);
         View view = inflater.inflate(R.layout.fragment_first,container, false);
 
+        //NavHostFragment navHostFragment = (NavHostFragment) supportFragmentManager.findFragmentById(R.id.loggedActivityFragmentView);
+        // navController = navHostFragment.getNavController();
+
         return view;
     }
 
@@ -84,6 +89,8 @@ public class FirstFragment extends Fragment implements FragmentRecycleView.FragR
         //eventChangeListener();
 
         RecyclerView recyclerviewFrag = getView().findViewById(R.id.recycleViewDb);
+
+
 
 
         // EITHER LINEAR OR GIRD
@@ -246,6 +253,10 @@ public class FirstFragment extends Fragment implements FragmentRecycleView.FragR
             transaction.replace(R.id.loggedActivityFragmentView, fragment);
             transaction.addToBackStack(null);
             transaction.commit();
+
+
+
+            //
         }
 
 

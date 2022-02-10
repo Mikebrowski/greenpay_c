@@ -87,8 +87,10 @@ class LoginActivityScreen2 : AppCompatActivity() {
 
         //setContentView(binding1.root)
         //setContentView(binding2.)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.loggedActivityFragmentView) as NavHostFragment
+        navController = navHostFragment.navController
 
-        navController = findNavController(R.id.loggedActivityFragmentView)
+        //navController = findNavController(R.id.loggedActivityFragmentView)
         //OR
         //navController= findNavController(R.id.loggedActivityFragmentView)
 
@@ -102,34 +104,16 @@ class LoginActivityScreen2 : AppCompatActivity() {
 
 
         //appBarConfiguration = AppBarConfiguration(navController.graph,drawerLayout)
-        //navController = findNavController(R.id.loggedActivityFragmentView)
+
         appBarConfiguration = AppBarConfiguration(setOf(R.id.firstFragment2,R.id.secondFragment2,R.id.highscore2), drawerLayout)
 
         setupActionBarWithNavController(navController,drawerLayout)
         bottomNav.setupWithNavController(navController)
         navigationViewTop.setupWithNavController(navController)
 
-        //NavigationUI.setupActionBarWithNavController(this,navController,drawerLayout)
-
-        //NavigationUI.navigateUp(navController, appBarConfiguration)
-
-        //NavigationUI.setupWithNavController(navigationViewTop,navController)
-        //NavigationUI.setupWithNavController(navigationViewTop,navController)
-
-        /*
-        val finalHost = NavHostFragment.create(R.navigation.nav_graph)
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.loggedActivityFragmentView, finalHost)
-            .setPrimaryNavigationFragment(finalHost) // equivalent to app:defaultNavHost="true"
-            .commit()
-        */
-        //Navigation.findNavController(view).navigate(R.id.view_transition)
-
 
         mAuth = FirebaseAuth.getInstance()
         val user = mAuth!!.currentUser
-
-
         mDatabase = FirebaseDatabase.getInstance().reference
 
 /*

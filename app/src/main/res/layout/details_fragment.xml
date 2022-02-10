@@ -4,12 +4,12 @@
     android:id="@+id/frameLayout6"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fragment.detailsFragment">
+    tools:context="fragment.DetailsFragment">
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="414dp"
+        android:layout_height="554dp"
         android:layout_marginTop="20dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/gridLayout3"
@@ -48,83 +48,108 @@
             android:layout_height="wrap_content"
             android:text="TextView"
             android:textAlignment="center"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:textStyle="bold|italic" />
 
         <TextView
             android:id="@+id/infoText"
             android:layout_width="wrap_content"
-            android:layout_height="275dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="25dp"
+            android:fontFamily="@font/aldrich"
             android:gravity="center"
             android:text="Her skal det stå informasjon som skal hentes fra databasen. Dette er også en linje test"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textSize="16sp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/minusB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ripple"
+                android:text="-"
+                android:textSize="20dp"
+                app:layout_column="0"
+                app:layout_row="1" />
+
+            <TextView
+                android:id="@+id/pointsAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="TextView"
+                android:textAppearance="@style/Theme.ActionBar.Text"
+                android:textStyle="bold"
+                app:layout_column="2"
+                app:layout_row="1" />
+
+            <Button
+                android:id="@+id/plusB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ripple"
+                android:text="+"
+                android:textSize="20dp"
+                app:layout_column="4"
+                app:layout_row="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/totalValuedetails"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="TextView"
+                android:textAllCaps="false"
+                android:textAppearance="@style/Theme.ActionBar.Text"
+                android:textStyle="bold"
+                app:layout_column="1"
+                app:layout_row="1" />
+
+            <Button
+                android:id="@+id/sendIntoDBB"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:foregroundGravity="center_vertical"
+                android:text="Send inn"
+                android:textAlignment="center"
+                android:background="@drawable/ripple"
+                app:layout_column="0"
+                app:layout_row="1"
+                tools:layout_editor_absoluteX="-9dp"
+                tools:layout_editor_absoluteY="683dp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <androidx.gridlayout.widget.GridLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/gridLayout3"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         app:rowCount="3"
         app:rowOrderPreserved="true">
 
-        <Button
-            android:id="@+id/minusB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="-"
-            android:textSize="20dp"
-            app:layout_column="0"
-            app:layout_row="1" />
-
-        <Button
-            android:id="@+id/plusB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="+"
-            android:textSize="20dp"
-            app:layout_column="4"
-            app:layout_row="1" />
-
-        <TextView
-            android:id="@+id/totalValuedetails"
-            android:layout_width="95dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginBottom="36dp"
-            android:gravity="center"
-            android:text="TextView"
-            app:layout_column="1"
-            app:layout_row="1" />
-
-        <TextView
-            android:id="@+id/pointsAmount"
-            android:layout_width="95dp"
-            android:layout_height="35dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="36dp"
-            android:gravity="center"
-            android:text="TextView"
-            app:layout_column="2"
-            app:layout_row="1" />
-
-    </androidx.gridlayout.widget.GridLayout>
-
-    <Button
-        android:id="@+id/sendIntoDBB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Send inn"
-        app:layout_constraintEnd_toEndOf="@+id/gridLayout3"
-        app:layout_constraintStart_toStartOf="@+id/gridLayout3"
-        app:layout_constraintTop_toBottomOf="@+id/gridLayout3" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
