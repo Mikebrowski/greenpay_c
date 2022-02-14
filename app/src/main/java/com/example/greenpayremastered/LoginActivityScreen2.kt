@@ -70,7 +70,7 @@ class LoginActivityScreen2 : AppCompatActivity() {
     var toggleActionDrawer: ActionBarDrawerToggle? = null
     lateinit var navigationViewTop: NavigationView
 
-    lateinit var binding1: ActivityMainBinding
+    //lateinit var binding1: ActivityMainBinding
     // VS
     lateinit var binding2: LoginActivityScreen
 

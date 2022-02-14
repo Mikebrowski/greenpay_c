@@ -2,11 +2,13 @@ package fragment
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.Gravity.apply
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.GravityCompat.apply
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.greenpayremastered.R
@@ -74,11 +76,7 @@ class SecondFragment : Fragment() {
         if (uid != null) {
             dBRefUser!!.child(uid!!).addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-
-
                     val usernameOnProfile = snapshot.getValue(UserData::class.java)!!.username
-
-
                     userLoggedIn!!.text = usernameOnProfile
                 }
 
@@ -211,7 +209,7 @@ class SecondFragment : Fragment() {
     private fun loadPieChartData(points: ArrayList<KotlinPiePointsWithDate>) {
         val entries = ArrayList<PieEntry>()
         points.forEach {
-            entries.add(PieEntry(it.totalpoints!!.toFloat(), it.name))
+            entries.add(PieEntry(it.totalpoints!!.toFloat(), it.username))
         }
 
 //        entries.add(PieEntry(0.2f, "Food & Dining"))
@@ -239,9 +237,8 @@ class SecondFragment : Fragment() {
     }
 
 
-    private fun getDbData() {
+    private fun getDbData(){
         val piePoints: ArrayList<KotlinPiePointsWithDate> = arrayListOf<KotlinPiePointsWithDate>()
-
         dBRefPoints = FirebaseDatabase.getInstance().getReference("PointsData")
         dBRefPoints!!.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -253,12 +250,51 @@ class SecondFragment : Fragment() {
                         val pointsDataSnap = userPointsData.getValue(KotlinPiePointsWithDate::class.java)
                         points.add(pointsDataSnap!!)
 
-                        piePoints.addAll(points.groupBy { it.name }.map { it ->
-                            KotlinPiePointsWithDate(it.key, it.value.sumOf { it.totalpoints ?: 0 })
+/*
+                        piePoints.addAll(points.distinctBy{it.initiativeName}.apply{ it ->
+                            KotlinPiePointsWithDate(it.key, it.value.sumOf { it.totalpoints ?: 0 }, it.key)
                         })
+*/
+
+/*
+                        piePoints.addAll(points.groupBy{ it.username}.map{ it ->
+                            KotlinPiePointsWithDate(it.key, it.value.sumOf{ it.totalpoints ?: 0 },it.key)
+                        })
+                        */
+
+
+                        piePoints.groupBy { it.username}.map { KotlinPiePointsWithDate().apply {
+                            username = it.key
+                            initiativeName = it.key
+                            totalpoints = it.value.sumOf { it.totalpoints ?: 0 }
+                        }}
+                        /* DENNE SKAL være mest riktig
+                        piePoints.addAll(points.groupBy{it.username}.map{KotlinPiePointsWithDate().apply {
+                            username =it.key
+                            initiativeName = it.key
+                            totalpoints = it.value
+                        }})
+                        */
+/*
+                        points.groupBy { it.username}.map { KotlinPiePointsWithDate().apply {
+                            username = it.key
+                            initiativeName = it.key
+                            totalpoints = it.value.sumOf { it.totalpoints ?: 0 }
+
+                        }}
+
+*/
+
+/*
+                        points.sortByDescending {it.totalpoints}
+                        piePoints.groupBy { it.initiativeName }.map { points.apply {
+                            it.key
+                            it.value.sumOf { it.totalpoints ?: 0 }
+                        }}
+*/
+
 
                     }
-
                     loadPieChartData(piePoints)
                 }
             }
@@ -268,10 +304,5 @@ class SecondFragment : Fragment() {
             }
         })
 
-    }
-
-
-
-        //sss
-
-} //end of SecondFragment
+     }
+}//end of secondfragment
