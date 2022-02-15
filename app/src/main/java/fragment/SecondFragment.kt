@@ -13,11 +13,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.greenpayremastered.R
 import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.charts.HorizontalBarChart
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend
-import com.github.mikephil.charting.data.PieData
-import com.github.mikephil.charting.data.PieDataSet
-import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.google.common.io.Files.append
@@ -31,6 +30,7 @@ import kotlin.collections.ArrayList
 
 class SecondFragment : Fragment() {
     private var pieChart: PieChart? = null
+    private var horizontalBarChart: HorizontalBarChart? = null
 
     private var userLoggedIn: TextView? = null
     private var userEmail: TextView? = null
@@ -41,23 +41,27 @@ class SecondFragment : Fragment() {
     private var dBRefPoints: DatabaseReference? = null
     private var uid: String? = null
 
-    private lateinit var dbReference : DatabaseReference
+    private lateinit var dbReference: DatabaseReference
     private lateinit var kotlinPointsData: ArrayList<KotlinPointsData>
 
     private var errorText: String? = "Noe gikk galt"
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?): View? {
         val v = inflater.inflate(R.layout.fragment_second, container, false)
         pieChart = v.findViewById(R.id.profilePieChart)
         userLoggedIn = v.findViewById(R.id.WhosLoggedIn)
         userEmail = v.findViewById(R.id.emailOfUser)
         poengFraDB = v.findViewById(R.id.showPointsDB)
-        //poengFraDB = v.findViewById(R.id.displayDbPoeng)
-        //poengFraDB = v.findViewById(R.id.Poengfradb)
+        horizontalBarChart = v.findViewById(R.id.h_barchart)
+
 
         getDbData()
         setupPieChart()
+        //initializeBarChart()
 
         return v
     }
@@ -91,14 +95,14 @@ class SecondFragment : Fragment() {
         mAuth = FirebaseAuth.getInstance()
         dBRefUser = FirebaseDatabase.getInstance().getReference("user")
         uid = mAuth!!.currentUser!!.uid
-        if (uid != null)
-        {
+        if (uid != null) {
             dBRefUser!!.child(uid!!).addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val userEmailString = snapshot.getValue(UserData::class.java)!!.email
                     //String picture
                     userEmail!!.text = userEmailString
                 }
+
                 override fun onCancelled(error: DatabaseError) {
                     Toast.makeText(context, errorText, Toast.LENGTH_SHORT).show()
                 }
@@ -106,77 +110,49 @@ class SecondFragment : Fragment() {
         }
     }
 
-    private fun setTotalPoints()
-    {
+    private fun setTotalPoints() {
         // calculate the totalpoints of user that is logged in
         mAuth = FirebaseAuth.getInstance()
         uid = mAuth!!.currentUser!!.uid
-        if (uid != null)
-        {
+        val piePoints: ArrayList<KotlinPiePointsWithDate> =
+            arrayListOf<KotlinPiePointsWithDate>()
+        if (uid != null) {
             dbReference = FirebaseDatabase.getInstance().getReference("PointsData")
-            dbReference.addValueEventListener(object : ValueEventListener
-            {
+            dbReference.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    if(snapshot.exists())
-                    {
+                    if (snapshot.exists()) {
 
-                        /*
-                        val test = arrayListOf<Int>()
-                        val counter = intArrayOf()
+
+                        val points: ArrayList<KotlinPiePointsWithDate> =
+                            arrayListOf<KotlinPiePointsWithDate>()
 
                         for (userPointsData in snapshot.children)//Can also do WHILE
                         {
-                            val pointsDataSnap = snapshot.getValue(KotlinPointsData::class.java)!!.totalpoints
-                            //val pointsPointsDb = snapshot.getValue(KotlinPointsData::class.java)?.totalpoints
-                            //val counter = pointsDataSnap!!.toInt()
-                            if (pointsDataSnap != null) {
-                                test.add(pointsDataSnap)
-                                val counter =test.toString().toInt()
-                            }
-                            ///                            kotlinPointsData.add(pointsDataSnap!!)
+                            val pointsDataSnap =
+                                userPointsData.getValue(KotlinPiePointsWithDate::class.java)
+                            points.add(pointsDataSnap!!)
+
+                            piePoints.addAll(points.groupBy { it.username }.map { it ->
+                                KotlinPiePointsWithDate(
+                                    it.key,
+                                    it.value.sumOf { it.totalpoints ?: 0 },
+                                    it.key
+                                )
+                            })
+
                         }
+                        val sumOf = piePoints.sumOf { it.totalpoints ?: 0 }
+                        poengFraDB?.setText("test")
 
-                        poengFraDB?.setText(counter.sum())
-
-*/
-/*
-                        kotlinPointsData
-                        val totalPointsGained = kotlinPointsData.groupBy { it.username}.map {
-                            KotlinPointsData().apply {
-                                totalpoints = it.value.sumOf { it.totalpoints!! }
-
-                            }
-                        }
-                        poengFraDB!!.setText(totalPointsGained.toString())
-                        */
-
-
-                        //poengFraDB.setText(totalPointsGained)
-
-
-                        //poengFraDB!!.setText(pointsPointsDb.toString().sumOf { pointsPointsDb!! })
-/*
-                        if(usernameFromUserInput.equals(userLoggedIn))
-                        {
-                          poengFraDB!!.setText(pointsPointsDb.toString().sumOf { pointsPointsDb!! })
-                        }
-*/
-                        /*
-                        for (userPointsData in snapshot.children)//Can also do WHILE
-                        {
-                            val pointsDataSnap = userPointsData.getValue(KotlinPointsData::class.java)?.totalpoints
-                            if (pointsDataSnap != null) {
-                                poengFraDB.setText(pointsDataSnap)
-                            }
-                        }
-
-                         */
 
 
                     }
 
 
+
+
                 }
+
                 override fun onCancelled(error: DatabaseError) {
                     Toast.makeText(context, errorText, Toast.LENGTH_SHORT).show()
                 }
@@ -185,8 +161,6 @@ class SecondFragment : Fragment() {
 
 
     }//setupemail end
-
-
 
 
     private fun setupPieChart() {
@@ -208,9 +182,23 @@ class SecondFragment : Fragment() {
 
     private fun loadPieChartData(points: ArrayList<KotlinPiePointsWithDate>) {
         val entries = ArrayList<PieEntry>()
-        points.forEach {
-            entries.add(PieEntry(it.totalpoints!!.toFloat(), it.username))
+        //hasMap = {"Ali", listof(), "Mikal", listOf()}
+
+        points.groupBy { it.initiativeName }.map { map ->
+            entries.add(PieEntry(map.value.sumOf {
+                it.totalpoints ?: 0 }.toFloat(),
+                map.key
+            ))
         }
+
+        /*
+         //hasMap = {"Ali", listof(), "Mikal", listOf()}
+        points.groupBy { it.username }.map { map ->
+            entries.add(PieEntry(map.value.sumOf { it.totalpoints ?: 0 }.toFloat(), map.key))
+        }
+        * */
+
+
 
 //        entries.add(PieEntry(0.2f, "Food & Dining"))
 //        entries.add(PieEntry(0.15f, "Medical"))
@@ -237,17 +225,20 @@ class SecondFragment : Fragment() {
     }
 
 
-    private fun getDbData(){
+    private fun getDbData() {
         val piePoints: ArrayList<KotlinPiePointsWithDate> = arrayListOf<KotlinPiePointsWithDate>()
-        dBRefPoints = FirebaseDatabase.getInstance().getReference("PointsData")
+        dBRefPoints =  FirebaseDatabase.getInstance().getReference("PointsData").child( FirebaseAuth.getInstance().currentUser!!.uid)
+
         dBRefPoints!!.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
-                    val points: ArrayList<KotlinPiePointsWithDate> = arrayListOf<KotlinPiePointsWithDate>()
+                    val points: ArrayList<KotlinPiePointsWithDate> =
+                        arrayListOf<KotlinPiePointsWithDate>()
 
                     for (userPointsData in snapshot.children)//Can also do WHILE
                     {
-                        val pointsDataSnap = userPointsData.getValue(KotlinPiePointsWithDate::class.java)
+                        val pointsDataSnap =
+                            userPointsData.getValue(KotlinPiePointsWithDate::class.java)
                         points.add(pointsDataSnap!!)
 
 /*
@@ -256,18 +247,24 @@ class SecondFragment : Fragment() {
                         })
 */
 
-/*
-                        piePoints.addAll(points.groupBy{ it.username}.map{ it ->
-                            KotlinPiePointsWithDate(it.key, it.value.sumOf{ it.totalpoints ?: 0 },it.key)
+
+                        piePoints.addAll(points.groupBy { it.initiativeName }.map { it ->
+                            KotlinPiePointsWithDate(
+                                it.key,
+                                it.value.sumOf { it.totalpoints ?: 0 },
+                                it.value.first().username
+                            )
                         })
-                        */
 
 
+/*
                         piePoints.groupBy { it.username}.map { KotlinPiePointsWithDate().apply {
                             username = it.key
                             initiativeName = it.key
                             totalpoints = it.value.sumOf { it.totalpoints ?: 0 }
                         }}
+
+ */
                         /* DENNE SKAL være mest riktig
                         piePoints.addAll(points.groupBy{it.username}.map{KotlinPiePointsWithDate().apply {
                             username =it.key
@@ -296,6 +293,7 @@ class SecondFragment : Fragment() {
 
                     }
                     loadPieChartData(piePoints)
+
                 }
             }
 
@@ -304,5 +302,32 @@ class SecondFragment : Fragment() {
             }
         })
 
-     }
+    }
+
+    private fun initializeBarChart() {
+        // Create bars
+        val points: ArrayList<BarEntry> = ArrayList()
+        points.add(BarEntry(0f, 883f))
+        points.add(BarEntry(0f, 77f))
+        points.add(BarEntry(0f, 66f))
+        points.add(BarEntry(0f, 44f))
+        points.add(BarEntry(0f, 55f))
+        points.add(BarEntry(0f, 33f))
+        // Add bars to a bar set
+        // Add bars to a bar set
+        val barSet = BarDataSet(points, "Tenses")
+        // Create a BarData object and assign it to the chart
+        // Create a BarData object and assign it to the chart
+        val barData = BarData(barSet)
+        // Display it as a percentage
+        // Display it as a percentage
+        barData.setValueFormatter(PercentFormatter())
+        //barChart!!.data = barData
+
+        barSet.setDrawValues(true)
+        //barChart.invalidate()
+
+        horizontalBarChart!!.invalidate()
+    }
+
 }//end of secondfragment

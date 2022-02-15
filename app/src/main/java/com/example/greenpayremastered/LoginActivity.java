@@ -57,6 +57,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
+
         mAuth = FirebaseAuth.getInstance();
         //myRef = mFirebaseDatabase.getReference().child("UserData");
 

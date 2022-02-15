@@ -61,8 +61,10 @@ class Highscorekotlin : Fragment() {
                 if(snapshot.exists()){
                     for (userPointsData in snapshot.children)//Can also do WHILE
                     {
-                        val pointsDataSnap = userPointsData.getValue(KotlinPointsData::class.java)
-                        kotlinPointsData.add(pointsDataSnap!!)
+                        for (list in userPointsData.children) {
+                            val pointsDataSnap = list.getValue(KotlinPointsData::class.java)
+                            kotlinPointsData.add(pointsDataSnap!!)
+                        }
                     }
                     kotlinPointsData.sortByDescending { it.totalpoints }
 

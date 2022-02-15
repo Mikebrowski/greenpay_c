@@ -39,10 +39,10 @@ import models.PointsData;
 
 public class DetailsFragment extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "iniNameFromDb";
-    private static final String ARG_PARAM3 = "pointsSelected";
-    private static final String ARG_PARAM4 = "param4";
+     static final String ARG_PARAM1 = "param1";
+     static final String ARG_PARAM2 = "iniNameFromDb";
+     static final String ARG_PARAM3 = "pointsSelected";
+     static final String ARG_PARAM4 = "param4";
 
     private String mParam1;
     private String iniNameFromDb;// Iniative data
@@ -230,7 +230,7 @@ public class DetailsFragment extends Fragment {
         currentDateM();
 
         FirebaseDatabase db = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = db.getReference(PointsData.class.getSimpleName());
+        DatabaseReference databaseReference = db.getReference(PointsData.class.getSimpleName()).child( FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         return databaseReference.push().setValue(new PointsData(totalpoints, username, initiativeName, currentDateS));
     }

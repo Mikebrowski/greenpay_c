@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +25,7 @@ import com.example.greenpayremastered.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
@@ -87,7 +89,7 @@ public class FirstFragment extends Fragment implements FragmentRecycleView.FragR
 
         //fetchDatabase();
         //eventChangeListener();
-
+        Log.d(TAG, FirebaseAuth.getInstance().getCurrentUser().getUid());
         RecyclerView recyclerviewFrag = getView().findViewById(R.id.recycleViewDb);
 
 
@@ -247,12 +249,15 @@ public class FirstFragment extends Fragment implements FragmentRecycleView.FragR
 
         @Override
         public void onItemClick(int posIntFragRes){
-            Fragment fragment = DetailsFragment.newInstance(datalist.get(posIntFragRes).getType(),datalist.get(posIntFragRes).getName()
-                    ,datalist.get(posIntFragRes).getPoints(), datalist.get(posIntFragRes).getDescription());
-            FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.loggedActivityFragmentView, fragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
+
+            Bundle bundle = new Bundle();
+            bundle.putString(DetailsFragment.ARG_PARAM1, datalist.get(posIntFragRes).getType());
+            bundle.putString(DetailsFragment.ARG_PARAM2, datalist.get(posIntFragRes).getName());
+            bundle.putString(DetailsFragment.ARG_PARAM3, datalist.get(posIntFragRes).getPoints());
+            bundle.putString(DetailsFragment.ARG_PARAM4, datalist.get(posIntFragRes).getDescription());
+
+            NavHostFragment.findNavController(this).navigate(R.id.detailsfragment, bundle);
+
 
 
 
