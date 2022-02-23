@@ -42,7 +42,7 @@ class Highscorekotlin : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recyclerviewFrag = getView()!!.findViewById(R.id.recyclerViewfragX)
+        recyclerviewFrag = requireView().findViewById(R.id.recyclerViewfragX)
         recyclerviewFrag.layoutManager = LinearLayoutManager(activity)
         recyclerviewFrag.layoutManager = LinearLayoutManager(getView()?.context)// whats the diffrence?
 

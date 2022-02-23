@@ -1,5 +1,6 @@
 package fragment
 
+import android.app.ActionBar
 import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity.apply
@@ -57,6 +58,7 @@ class SecondFragment : Fragment() {
         userEmail = v.findViewById(R.id.emailOfUser)
         poengFraDB = v.findViewById(R.id.showPointsDB)
         horizontalBarChart = v.findViewById(R.id.h_barchart)
+
 
 
         getDbData()
@@ -255,42 +257,6 @@ class SecondFragment : Fragment() {
                                 it.value.first().username
                             )
                         })
-
-
-/*
-                        piePoints.groupBy { it.username}.map { KotlinPiePointsWithDate().apply {
-                            username = it.key
-                            initiativeName = it.key
-                            totalpoints = it.value.sumOf { it.totalpoints ?: 0 }
-                        }}
-
- */
-                        /* DENNE SKAL være mest riktig
-                        piePoints.addAll(points.groupBy{it.username}.map{KotlinPiePointsWithDate().apply {
-                            username =it.key
-                            initiativeName = it.key
-                            totalpoints = it.value
-                        }})
-                        */
-/*
-                        points.groupBy { it.username}.map { KotlinPiePointsWithDate().apply {
-                            username = it.key
-                            initiativeName = it.key
-                            totalpoints = it.value.sumOf { it.totalpoints ?: 0 }
-
-                        }}
-
-*/
-
-/*
-                        points.sortByDescending {it.totalpoints}
-                        piePoints.groupBy { it.initiativeName }.map { points.apply {
-                            it.key
-                            it.value.sumOf { it.totalpoints ?: 0 }
-                        }}
-*/
-
-
                     }
                     loadPieChartData(piePoints)
 
@@ -314,13 +280,12 @@ class SecondFragment : Fragment() {
         points.add(BarEntry(0f, 55f))
         points.add(BarEntry(0f, 33f))
         // Add bars to a bar set
-        // Add bars to a bar set
         val barSet = BarDataSet(points, "Tenses")
         // Create a BarData object and assign it to the chart
-        // Create a BarData object and assign it to the chart
+
         val barData = BarData(barSet)
         // Display it as a percentage
-        // Display it as a percentage
+
         barData.setValueFormatter(PercentFormatter())
         //barChart!!.data = barData
 

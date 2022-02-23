@@ -25,6 +25,14 @@
         android:label="frag_highscorekotlin"
         tools:layout="@layout/frag_highscorekotlin" />
 
+    <activity
+        android:id="@+id/BaerKraftActivity"
+        android:name="fragment.BaerkraftActivity"
+        android:label="Bærekraft"
+        tools:layout="@layout/activity_baerkraft">
+    </activity>
+
+
     <!-- outside of nav-->
     <fragment
         android:id="@+id/detailsfragment"
@@ -72,5 +80,12 @@
         android:name="fragment.Highscorekotlin"
         android:label="frag_highscorekotlin"
         tools:layout="@layout/frag_highscorekotlin" />
+
+    <include app:graph="@navigation/pagerview_bkraft" />
+    <fragment
+        android:id="@+id/logout"
+        android:name="fragment.Logout"
+        android:label="fragment_logout"
+        tools:layout="@layout/fragment_logout" />
 
 </navigation>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pagerview_bkraft"
+    app:startDestination="@id/lesOmBkraft">
+
+    <fragment
+        android:id="@+id/visBaekraft"
+        android:name="fragment.VisBaekraft"
+        android:label="fragment_vis_baekraft"
+        tools:layout="@layout/fragment_vis_baekraft" />
+    <fragment
+        android:id="@+id/lesOmBkraft"
+        android:name="fragment.LesOmBkraft"
+        android:label="fragment_les_om_bkraft"
+        tools:layout="@layout/fragment_les_om_bkraft" />
+    <activity
+        android:id="@+id/baerkraftActivity"
+        android:name="fragment.BaerkraftActivity"
+        android:label="fragment_baerkraft"
+        tools:layout="@layout/fragment_baerkraft" />
+</navigation>

@@ -165,22 +165,8 @@ public class FirstFragment extends Fragment implements FragmentRecycleView.FragR
                     }
 
                 });
-/*
-        Collections.sort(datalist, new Comparator<InitiativeDbGoals>() {
-            @Override
-            public int compare(InitiativeDbGoals o1, InitiativeDbGoals o2) {
-                return o1.getName().compareTo(o2.getName());
-            }
-        });
-        Collections.reverse(datalist);
-*/
         adapter.notifyDataSetChanged();
-
-
-
         return adapter;
-
-
     }
 
     private void eventChangeListener(){
@@ -251,6 +237,8 @@ public class FirstFragment extends Fragment implements FragmentRecycleView.FragR
         public void onItemClick(int posIntFragRes){
 
             Bundle bundle = new Bundle();
+
+
             bundle.putString(DetailsFragment.ARG_PARAM1, datalist.get(posIntFragRes).getType());
             bundle.putString(DetailsFragment.ARG_PARAM2, datalist.get(posIntFragRes).getName());
             bundle.putString(DetailsFragment.ARG_PARAM3, datalist.get(posIntFragRes).getPoints());

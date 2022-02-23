@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navController"
     >
@@ -20,7 +21,25 @@
                 android:id="@+id/secondFragment2"
                 android:icon="@drawable/ic_baseline_score_24"
                 android:title="Profil" />
+            <item android:id="@+id/Logout"
+                android:title="Log ut"
+                android:icon="@drawable/ic_baseline_input_24"
+                >
+
+            </item>
         </menu>
     </item>
+
+    <item android:title="Bærekraft">
+        <menu>
+            <item
+                android:id="@+id/BaerKraftActivity"
+                android:icon="@drawable/bkraftnobgs"
+
+                android:title="Bærekraft hoved"
+                ></item>
+        </menu>
+    </item>
+
 
 </menu>

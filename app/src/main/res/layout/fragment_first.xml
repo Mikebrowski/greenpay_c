@@ -33,11 +33,8 @@
                 android:textStyle="bold" />
 
             <SearchView
-                android:id="@+id/searchI"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </SearchView>
+                android:layout_height="match_parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycleViewDb"
