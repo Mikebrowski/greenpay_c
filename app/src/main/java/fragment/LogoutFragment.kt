@@ -1,5 +1,6 @@
 package fragment
 
+import android.content.Intent
 import android.media.Image
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +12,8 @@ import android.view.animation.RotateAnimation
 import android.widget.Button
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import com.example.greenpayremastered.LoginActivityScreen
+import com.example.greenpayremastered.MainActivity
 import com.example.greenpayremastered.R
 import com.google.firebase.auth.FirebaseAuth
 
@@ -48,8 +51,8 @@ class Logout : Fragment() {
 
         logoutKnappen?.setOnClickListener()
         {
-            logoutKnappen!!.text = "test"
-            //logoutFun()
+            //logoutKnappen!!.text = "test"
+            logoutFun()
         }
     }
 
@@ -62,9 +65,19 @@ class Logout : Fragment() {
     }
     fun logoutFun()
     {
+        mAuth = FirebaseAuth.getInstance()
         mAuth?.signOut()
+        //In Activity
+        //val intent = Intent(this, MainActivity::class.java)
+        //startActivity(intent)
 
-        /*
+        //for fragment change "this" to "activity"
+        val intent = Intent(activity, MainActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        startActivity(intent)
+
+
+
+    /*
             logoutBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -74,9 +87,6 @@ class Logout : Fragment() {
                 }
             });
         */
-
-        //startActivity(new Intent(LoginActivityScreen.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
-        //finish();
     }
 
 }

@@ -113,7 +113,7 @@ class LoginActivityScreen2 : AppCompatActivity() {
 
 
         mAuth = FirebaseAuth.getInstance()
-        val user = mAuth!!.currentUser
+        //val user = mAuth!!.currentUser
         mDatabase = FirebaseDatabase.getInstance().reference
 
 /*

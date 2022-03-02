@@ -1,5 +1,4 @@
 package adapterviewer
 
 class viewpageradapter {
-
 }

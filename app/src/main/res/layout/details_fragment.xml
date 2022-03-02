@@ -85,7 +85,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="TextView"
-                android:textAppearance="@style/Theme.ActionBar.Text"
                 android:textStyle="bold"
                 app:layout_column="2"
                 app:layout_row="1" />
@@ -114,7 +113,6 @@
                 android:gravity="center"
                 android:text="TextView"
                 android:textAllCaps="false"
-                android:textAppearance="@style/Theme.ActionBar.Text"
                 android:textStyle="bold"
                 app:layout_column="1"
                 app:layout_row="1" />

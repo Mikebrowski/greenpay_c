@@ -7,10 +7,6 @@
         android:icon="@drawable/account_img"
         android:title="Profile"
         app:showAsAction="always"></item>
-    <item
-        android:icon="@drawable/score"
-        android:title="Poengsum"
-        app:showAsAction="ifRoom|withText" />
 
 
 </menu>

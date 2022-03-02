@@ -84,7 +84,7 @@
                 <com.google.android.material.navigation.NavigationView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:Graph="@draw"/>
+                    />
 
                 <TextView
                     android:id="@+id/textView5"

@@ -29,11 +29,9 @@ class PointsKotlinAdapter (private val KotlinPointsData: List<KotlinPointsData>)
         return KotlinPointsData.size
     }
     class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
-
         val usernameFromDb : TextView = itemView.findViewById(R.id.usernametxt)
         val totalpointsFromDb : TextView = itemView.findViewById(R.id.totalpointsTxt)
         val positionTV : TextView = itemView.findViewById(R.id.tvNumber)
-
     }
 
     fun caculateTotalPointsByUser(): Int {

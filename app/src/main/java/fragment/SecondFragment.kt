@@ -113,6 +113,8 @@ class SecondFragment : Fragment() {
     }
 
     private fun setTotalPoints() {
+
+//   dBRefPoints =  FirebaseDatabase.getInstance().getReference("PointsData").child( FirebaseAuth.getInstance().currentUser!!.uid)
         // calculate the totalpoints of user that is logged in
         mAuth = FirebaseAuth.getInstance()
         uid = mAuth!!.currentUser!!.uid

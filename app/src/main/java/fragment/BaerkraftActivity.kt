@@ -35,12 +35,6 @@ class BaerkraftActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_baerkraft)
 
-        /*VIEWPAGER2 */
-        //tabLayoutB = findViewById(R.id.TabLayoutB)
-        //viewPager2x = findViewById(R.id.ViewPager2B)
-        //VS
-        //navController = navHostfragment.navController
-        //appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
 
         val tabLayoutB = findViewById<TabLayout>(R.id.TabLayoutB)
         val viewPager2xx = findViewById<ViewPager2>(R.id.ViewPager2B)
